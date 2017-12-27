@@ -2,8 +2,9 @@ const joi = require('joi');
 
 function createControllerHandler(mode, schema, modelMap, validatedHandler) {
   return async (req, res) => {
-    let input = null;
 
+    // the mode determines where to get the input from
+    let input = null;
     if (mode === 'GET') {
       input = req.query;
     } else if (mode === 'POST') {
@@ -32,6 +33,7 @@ function createControllerHandler(mode, schema, modelMap, validatedHandler) {
         });
       }
     } catch (error) {
+      // unexpected error, so quit with 500
       console.error(error);
       res.status(500).send({
         status: 'FAILED'
