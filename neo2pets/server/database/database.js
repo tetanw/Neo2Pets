@@ -9,7 +9,8 @@ function createDatabase() {
 
         mongoose.connection.once('open', () => {
             const modelMap = {
-                userModel: require('./models/userModel').createModel()
+                userModel: require('./models/userModel').createModel(),
+                petModel: require('./models/petModel').createModel()
             }
 
             resolve(modelMap);
