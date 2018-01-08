@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 // between routes.
 const Header = () => (
   <header>
-    <nav class="navbar-fixed-top">
-      <div class="container-fluid navibar">
+    <nav class="navbar-fixed-top navibar">
+      <div class="navibar">
         <div class="navbar-header">
-            <a href="/"><img src="logo.png"/></a>
+            <a href="/"><img src="./assets/images/Logo.png" alt='logo' /></a>
         </div>
   
         <ul class="nav navbar-nav">
