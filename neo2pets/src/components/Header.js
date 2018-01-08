@@ -5,13 +5,20 @@ import { Link } from 'react-router-dom'
 // between routes.
 const Header = () => (
   <header>
-    <nav>
-      <ul>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/games'>Games</Link></li>
-        <li><Link to='/marketplace'>Marketplace</Link></li>
-      </ul>
+    <nav class="navbar-fixed-top">
+      <div class="container-fluid navibar">
+        <div class="navbar-header">
+            <a href="/"><img src="logo.png"/></a>
+        </div>
+  
+        <ul class="nav navbar-nav">
+          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/games'>Games</Link></li>
+          <li><Link to='/marketplace'>Marketplace</Link></li>
+        </ul>
+      </div>
     </nav>
+    
   </header>
 )
 

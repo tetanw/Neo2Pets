@@ -1,8 +1,11 @@
 import React from 'react'
 
 const Games = () => (
-  <div>
-    <h1>Here we can play games</h1>
+  <div class="container">
+  <div class="jumbotron jumbotron-style">
+    <h1>Games</h1> 
+    <p>Play games to train your avatar!</p> 
+  </div>
   </div>
 )
 
