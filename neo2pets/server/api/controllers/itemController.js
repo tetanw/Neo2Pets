@@ -13,6 +13,14 @@ const getItemSchema = joi.object().keys({
     .required()
 });
 
+const consumeItemSchema = joi.object().keys({
+  itemID: joi
+    .string()
+    .alphanum()
+    .required(),
+  userToken: joi.string()
+});
+
 const createItemSchema = joi.object().keys({
   typeName: joi
     .string()
@@ -52,8 +60,49 @@ async function validatedGetItemHandler(value, modelMap, res) {
   });
 }
 
-async function validatedCreateItemHandler(value, modelMap, res) {
+async function validateConsumeItemHandler(value, modelMap, res) {
+  const { itemID, userToken } = value;
 
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
+
+  const item = await modelMap.itemModel.findById(itemID);
+
+  if (!item) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: `The item with the id "${itemID}" does not exist`,
+          field: "typeName"
+        }
+      ]
+    });
+  }
+
+  if (item.owner.toString() !== id) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: `You are not the owner of the item`,
+          field: "userToken"
+        }
+      ]
+    });
+  }
+
+  const removedItem = await modelMap.itemModel.remove({ _id: itemID });
+
+  return res.send({
+    status: "SUCCESS"
+  });
+}
+
+async function validatedCreateItemHandler(value, modelMap, res) {
   const { typeName, userToken } = value;
 
   if (!checkAuth(res, userToken, "userToken")) {
@@ -67,7 +116,7 @@ async function validatedCreateItemHandler(value, modelMap, res) {
       status: "FAILED",
       messages: [
         {
-          message: `The type with the name ${typeName} does not exist`,
+          message: `The type with the name "${typeName}" does not exist`,
           field: "typeName"
         }
       ]
@@ -100,7 +149,9 @@ async function validatedGetOwnedItemsHandler(value, modelMap, res, user) {
 
   const { id } = jsonwebtoken.decode(userToken);
 
-  const items = (await modelMap.itemModel.find({ owner: id }).populate("type")).map((oldItem) => {
+  const items = (await modelMap.itemModel
+    .find({ owner: id })
+    .populate("type")).map(oldItem => {
     return {
       id: oldItem._id,
       type: {
@@ -109,8 +160,8 @@ async function validatedGetOwnedItemsHandler(value, modelMap, res, user) {
         propertyData: oldItem.type.propertyData,
         properties: oldItem.type.properties
       }
-    }
-  })
+    };
+  });
 
   res.send({
     status: "SUCCESS",
@@ -153,6 +204,17 @@ function getItemController(modelMap) {
       createItemSchema,
       modelMap,
       validatedCreateItemHandler
+    )
+  );
+
+  router.post(
+    "/consume",
+    bodyParser.json(),
+    createControllerHandler(
+      "POST",
+      consumeItemSchema,
+      modelMap,
+      validateConsumeItemHandler
     )
   );
 
