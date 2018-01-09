@@ -34,59 +34,94 @@ class CreateAvatar extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           <h1>Name your avatar:</h1>
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input className= "inputbox jumbotron-style" type="text" maxlength="20" value={this.state.value} onChange={this.handleChange} />
         </label>
+        <div>
+          <p>Choose your avatar and start skill levels! choose wisely!</p>
+        </div>
         <Grid>
-           <Col className="avatar" xs={6} md={3}>
-				       <img className="avatarimage"alt="171x180" src={Neopet1} />
+           <Col xs={8} sm={6} md={3}>
+             <div className="block">
+				       <img className="avatarimage" src={Neopet1} />
+               <div className="avatartext">
                <p>Speed: 5</p>
-               <p>Agility: 3 </p>
+               <p>Agility: 4</p>
                <p>Intelligence: 6 </p>
+               </div>
+             </div>
 			     </Col>
-           <Col className="avatar" xs={6} md={3}>
-               <img className="avatarimage" alt="171x180" src={Neopet2} />
+           <Col xs={8} sm={6} md={3}>
+             <div className="block">
+              <img className="avatarimage" src={Neopet2} />
+               <div className="avatartext">
                <p>Speed: 5</p>
-               <p>Agility: 3 </p>
-               <p>Intelligence: 6 </p>
-           </Col>
-           <Col className="avatar" xs={6} md={3}>
-               <img className="avatarimage" alt="171x180" src={Neopet3} />
-               <p>Speed: 5</p>
-               <p>Agility: 3 </p>
-               <p>Intelligence: 6 </p>
-           </Col>
-           <Col className="avatar" xs={6} md={3}>
-               <img className="avatarimage" alt="171x180" src={Neopet4} />
-               <p>Speed: 5</p>
-               <p>Agility: 3 </p>
-               <p>Intelligence: 6 </p>
-           </Col>
-           <Col className="avatar" xs={6} md={3}>
-               <img className="avatarimage" alt="171x180" src={Neopet5} />
-               <p>Speed: 5</p>
-               <p>Agility: 3 </p>
-               <p>Intelligence: 6 </p>
-           </Col>
-           <Col className="avatar" xs={6} md={3}>
-               <img className="avatarimage" alt="171x180" src={Neopet6} />
-               <p>Speed: 5</p>
-               <p>Agility: 3 </p>
-               <p>Intelligence: 6 </p>
-           </Col>
-           <Col className="avatar" xs={6} md={3}>
-               <img className="avatarimage" alt="171x180" src={Neopet7} />
-               <p>Speed: 5</p>
-               <p>Agility: 3 </p>
-               <p>Intelligence: 6 </p>
-           </Col>
-           <Col className="avatar" xs={6} md={3}>
-               <img className="avatarimage" alt="171x180" src={Neopet8} />
-               <p>Speed: 5</p>
-               <p>Agility: 3 </p>
-               <p>Intelligence: 6 </p>
-           </Col>
+               <p>Agility: 5</p>
+               <p>Intelligence: 5</p>
+               </div>
+             </div>
+          </Col>
+          <Col xs={8} sm={6} md={3}>
+            <div className="block">
+             <img className="avatarimage" src={Neopet3} />
+              <div className="avatartext">
+              <p>Speed: 6</p>
+              <p>Agility: 4 </p>
+              <p>Intelligence: 5 </p>
+              </div>
+            </div>
+         </Col>
+         <Col xs={8} sm={6} md={3}>
+           <div className="block">
+            <img className="avatarimage" src={Neopet4} />
+             <div className="avatartext">
+             <p>Speed: 3</p>
+             <p>Agility: 5 </p>
+             <p>Intelligence: 7 </p>
+             </div>
+           </div>
+        </Col>
+        <Col xs={8} sm={6} md={3}>
+          <div className="block">
+           <img className="avatarimage" src={Neopet5} />
+            <div className="avatartext">
+            <p>Speed: 5</p>
+            <p>Agility: 6 </p>
+            <p>Intelligence: 4 </p>
+            </div>
+          </div>
+       </Col>
+       <Col xs={8} sm={6} md={3}>
+         <div className="block">
+          <img className="avatarimage" src={Neopet6} />
+           <div className="avatartext">
+           <p>Speed: 6</p>
+           <p>Agility: 3 </p>
+           <p>Intelligence: 6 </p>
+           </div>
+         </div>
+      </Col>
+      <Col xs={8} sm={6} md={3}>
+        <div className="block">
+         <img className="avatarimage" src={Neopet7} />
+          <div className="avatartext">
+          <p>Speed: 2</p>
+          <p>Agility: 4 </p>
+          <p>Intelligence: 9 </p>
+          </div>
+        </div>
+     </Col>
+     <Col xs={8} sm={6} md={3}>
+       <div className="block">
+        <img className="avatarimage" src={Neopet8} />
+         <div className="avatartext">
+         <p>Speed: 5</p>
+         <p>Agility: 7</p>
+         <p>Intelligence: 3</p>
+         </div>
+       </div>
+    </Col>
 	      </Grid>
-        <input type="submit" value="Submit" />
+        <input className= "inputbox jumbotron-style" type="submit" value="Submit" />
       </form>
       </div>
     );
