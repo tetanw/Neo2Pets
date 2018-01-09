@@ -5,8 +5,8 @@ import Home from './Home';
 import Marketplace from './Shop';
 import Games from './Games';
 import CreateAvatar from './CreateAvatar';
-import Avatar from './Avatar';
 import Inventory from './Inventory';
+import Avatar from './Avatar';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
