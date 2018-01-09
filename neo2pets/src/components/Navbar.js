@@ -1,0 +1,34 @@
+import React, {Component} from 'react';
+import {
+  Navbar,
+  Nav,
+  NavItem
+} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import {LinkContainer} from 'react-router-bootstrap';
+import Logo from '../assets/images/Logo.png'
+
+class CustomNavbar extends Component {
+  render() {
+    return (
+      <Navbar fixedTop fluid>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <Link to='/'>Neo²Pets</Link>
+          </Navbar.Brand>
+          <Navbar.Toggle/>
+        </Navbar.Header>
+
+        <Navbar.Collapse>
+          <Nav>
+            <LinkContainer to="/"><NavItem>Home</NavItem></LinkContainer>
+            <LinkContainer to="/shop"><NavItem>Shop</NavItem></LinkContainer>
+            <LinkContainer to="/games"><NavItem>Games</NavItem></LinkContainer>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    );
+  }
+}
+
+export default CustomNavbar;

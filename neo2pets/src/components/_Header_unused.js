@@ -8,7 +8,7 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <nav className="navbar-fixed-top navibar">
+        <nav className="navbar-fixed-top">
           <div className="navbar">
             <div className="navbar-header">
               <a href="/"><img src={Logo} alt='logo' className="img-responsive"/></a>

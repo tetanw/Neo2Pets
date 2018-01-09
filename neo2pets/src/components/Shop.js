@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 
-class Games extends Component {
+class Shop extends Component {
   render() {
     return (
       <div className="jumbotron jumbotron-style">
-        <h1>Games</h1>
-        <p>Play games to train your avatar!</p>
+        <h1>Shop</h1>
+        <p>Buy Stuff!</p>
       </div>
-    )
+    );
   }
 }
 
-export default Games
+export default Shop

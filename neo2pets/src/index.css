@@ -1,12 +1,13 @@
-body {
+html, body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  width: 100%;
+  height: 100%;
 }
 
-
 .maincontent {
-  padding-top: 60px;
+  margin-top: 60px;
 }
 
 .navbar {
@@ -17,11 +18,11 @@ body {
   text-transform: uppercase;
 }
 
-
 .main {
   background-color: rgb(255, 230, 0);
   background-image: url("./assets/backgrounds/MainBackground.png");
   background-attachment: fixed;
+  background-size: cover;
   height: 1000px;
   padding: 20px;
 }
@@ -30,7 +31,6 @@ body {
   background-color: rgba(0, 0, 0, 0.514);
   font-family: Arial, Charcoal, sans-serif;
 }
-
 
 .navbar-brand {
   color: black;
@@ -45,7 +45,11 @@ body {
 }
 
 .navbar-nav > li > a, .navbar-default .navbar-nav > li > a {
-  color:white;
+  color: white;
+}
+
+.img-responsive {
+  height: 50px;
 }
 
 
