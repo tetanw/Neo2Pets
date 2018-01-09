@@ -68,7 +68,7 @@ async function validatedLoginHandler(value, modelMap, res) {
 
   res.send({
     status: "SUCCESS",
-    token: jsonwebtoken.sign({ username }, process.env.WEBTOKEN_SECRET)
+    token: jsonwebtoken.sign({ username, id: user._id }, process.env.WEBTOKEN_SECRET)
   });
 }
 

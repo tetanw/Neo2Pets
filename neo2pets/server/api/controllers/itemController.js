@@ -17,7 +17,12 @@ const createItemSchema = joi.object().keys({
   typeName: joi
     .string()
     .alphanum()
-    .required()
+    .required(),
+  userToken: joi.string().required()
+});
+
+const getOwnedItemsSchema = joi.object().keys({
+  userToken: joi.string().required()
 });
 
 async function validatedGetItemHandler(value, modelMap, res) {
@@ -48,7 +53,20 @@ async function validatedGetItemHandler(value, modelMap, res) {
 }
 
 async function validatedCreateItemHandler(value, modelMap, res) {
-  const { typeName } = value;
+
+  const { typeName, userToken } = value;
+
+  if (!jsonwebtoken.verify(userToken, process.env.WEBTOKEN_SECRET)) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "You should be authenticated to do this request",
+          field: "userToken"
+        }
+      ]
+    });
+  }
 
   const itemType = await modelMap.itemTypeModel.findOne({ name: typeName });
 
@@ -64,16 +82,46 @@ async function validatedCreateItemHandler(value, modelMap, res) {
     });
   }
 
+  const { id } = jsonwebtoken.decode(userToken);
+
   const item = await modelMap.itemModel.create({
-    type: itemType._id
+    type: itemType._id,
+    owner: id
   });
 
   res.send({
     status: "SUCCESS",
     item: {
       id: item._id,
-      type: itemType.name
+      type: itemType.name,
+      ownerID: id
     }
+  });
+}
+
+async function validatedGetOwnedItemsHandler(value, modelMap, res, user) {
+  const { userToken } = value;
+
+  if (!jsonwebtoken.verify(userToken, process.env.WEBTOKEN_SECRET)) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "You should be authenticated to do this request",
+          field: "userToken"
+        }
+      ]
+    });
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
+
+  const items = await modelMap.itemModel.find({ owner: id }).populate("type");
+
+  res.send({
+    status: "SUCCES",
+    id: id,
+    items
   });
 }
 
@@ -90,6 +138,16 @@ function getItemController(modelMap) {
       getItemSchema,
       modelMap,
       validatedGetItemHandler
+    )
+  );
+
+  router.get(
+    "/getowneditems",
+    createControllerHandler(
+      "GET",
+      getOwnedItemsSchema,
+      modelMap,
+      validatedGetOwnedItemsHandler
     )
   );
 
