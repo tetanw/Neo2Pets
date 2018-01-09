@@ -1,4 +1,5 @@
 const joi = require("joi");
+const jsonwebtoken = require("jsonwebtoken");
 
 function createControllerHandler(mode, schema, modelMap, validatedHandler) {
   return async (req, res) => {
@@ -43,6 +44,31 @@ function createControllerHandler(mode, schema, modelMap, validatedHandler) {
   };
 }
 
+/**
+ * Checks whether the user token is valid
+ * 
+ * @param {*} res 
+ * @param {string} The token to be validated
+ * @param {string} fieldName The name of the userTokenField
+ */
+function checkAuth(res, userToken, fieldName) {
+  if (!jsonwebtoken.verify(userToken, process.env.WEBTOKEN_SECRET)) {
+    res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "You should be authenticated to do this request",
+          field: fieldName
+        }
+      ]
+    });
+    
+    return false;
+  }
+  return true;
+}
+
 module.exports = {
-  createControllerHandler
+  createControllerHandler,
+  checkAuth
 };

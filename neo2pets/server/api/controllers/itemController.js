@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const jsonwebtoken = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 
-const { createControllerHandler } = require("./controllerUtil");
+const { createControllerHandler, checkAuth } = require("./controllerUtil");
 
 const getItemSchema = joi.object().keys({
   itemID: joi
@@ -56,16 +56,8 @@ async function validatedCreateItemHandler(value, modelMap, res) {
 
   const { typeName, userToken } = value;
 
-  if (!jsonwebtoken.verify(userToken, process.env.WEBTOKEN_SECRET)) {
-    return res.send({
-      status: "FAILED",
-      messages: [
-        {
-          message: "You should be authenticated to do this request",
-          field: "userToken"
-        }
-      ]
-    });
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
   }
 
   const itemType = await modelMap.itemTypeModel.findOne({ name: typeName });
@@ -102,16 +94,8 @@ async function validatedCreateItemHandler(value, modelMap, res) {
 async function validatedGetOwnedItemsHandler(value, modelMap, res, user) {
   const { userToken } = value;
 
-  if (!jsonwebtoken.verify(userToken, process.env.WEBTOKEN_SECRET)) {
-    return res.send({
-      status: "FAILED",
-      messages: [
-        {
-          message: "You should be authenticated to do this request",
-          field: "userToken"
-        }
-      ]
-    });
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
   }
 
   const { id } = jsonwebtoken.decode(userToken);

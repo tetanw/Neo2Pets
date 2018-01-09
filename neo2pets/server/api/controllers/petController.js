@@ -4,30 +4,40 @@ const bodyParser = require("body-parser");
 const jsonwebtoken = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 
-const { createControllerHandler } = require("./controllerUtil");
+const { createControllerHandler, checkAuth } = require("./controllerUtil");
 
 const getPetSchema = joi.object().keys({
   petID: joi
     .string()
     .alphanum()
-    .required()
+    .required(),
+  userToken: joi.string().required()
+});
+
+const getOwnedPetsSchema = joi.object().keys({
+  userToken: joi.string().required()
 });
 
 const createPetSchema = joi.object().keys({
-  type: joi
+  raceName: joi
     .string()
     .alphanum()
     .required(),
   nickName: joi
     .string()
     .alphanum()
-    .required()
+    .required(),
+  userToken: joi.string().required()
 });
 
-async function validatedGetItemHandler(value, modelMap, res) {
-  const { petID } = value;
+async function validatedGetPetHandler(value, modelMap, res) {
+  const { petID, userToken } = value;
 
-  const pet = await modelMap.petModel.findById(petID);
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const pet = await modelMap.petModel.findById(petID).populate("race");
 
   if (!pet) {
     return res.send({
@@ -44,26 +54,77 @@ async function validatedGetItemHandler(value, modelMap, res) {
   res.send({
     status: "SUCCESS",
     pet: {
-      id: pet._id,
-      type: pet.type,
+      race: {
+        id: pet.race.id,
+        name: pet.race.name
+      },
+      owner: pet.owner,
       nickName: pet.nickName
     }
   });
 }
 
-async function validatedCreateItemHandler(value, modelMap, res) {
-  const { type, nickName } = value;
+async function validatedGetOwnedPetsHandler(value, modelMap, res) {
+  const { userToken } = value;
+
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
+
+  const pets = (await modelMap.petModel
+    .find({ owner: id })
+    .populate("race")).map(oldPet => {
+    return {
+      nickName: oldPet.nickName,
+      owner: oldPet.owner,
+      race: {
+        name: oldPet.race.name
+      }
+    };
+  });
+
+  res.send({
+    status: "SUCCESS",
+    pets
+  });
+}
+
+async function validatedCreatePetHandler(value, modelMap, res) {
+  const { raceName, nickName, userToken } = value;
+
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const petRace = await modelMap.petRaceModel.findOne({ name: raceName });
+
+  if (!petRace) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: `Race with name "${raceName}" does not exisst`,
+          field: "raceName"
+        }
+      ]
+    });
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
 
   const pet = await modelMap.petModel.create({
-    type,
-    nickName
+    race: petRace._id,
+    nickName,
+    owner: id
   });
 
   res.send({
     status: "SUCCESS",
     pet: {
       id: pet._id,
-      type: pet.type,
+      race: pet.race.name,
       nickName: pet.nickName
     }
   });
@@ -82,7 +143,18 @@ function getPetController(modelMap) {
       "GET",
       getPetSchema,
       modelMap,
-      validatedGetItemHandler
+      validatedGetPetHandler
+    )
+  );
+
+  router.get(
+    "/getownedpets",
+    bodyParser.json(),
+    createControllerHandler(
+      "GET",
+      getOwnedPetsSchema,
+      modelMap,
+      validatedGetOwnedPetsHandler
     )
   );
 
@@ -93,7 +165,7 @@ function getPetController(modelMap) {
       "POST",
       createPetSchema,
       modelMap,
-      validatedCreateItemHandler
+      validatedCreatePetHandler
     )
   );
 
