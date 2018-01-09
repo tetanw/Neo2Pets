@@ -1,2 +1,2 @@
-# Neo2Pets
-Group assignment for web technology
+# Neo²Pets
+Group assignment for the course Web Technology
