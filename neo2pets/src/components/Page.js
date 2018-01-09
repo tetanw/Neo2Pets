@@ -4,6 +4,8 @@ import PageContainer from './PageContainer';
 import Home from './Home';
 import Marketplace from './Shop';
 import Games from './Games';
+import CreateAvatar from './CreateAvatar';
+import ImagePick from './ImagePick';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -18,6 +20,7 @@ class Page extends Component {
           <Route exact path='/' component={Home}/>
           <Route path='/shop' component={Marketplace}/>
           <Route path='/games' component={Games}/>
+          <Route path='/create' component={ImagePick}/>
         </Switch>
       </PageContainer>
     )

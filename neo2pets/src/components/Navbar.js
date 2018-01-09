@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
-import Logo from '../assets/images/Logo.png'
+import logo from '../assets/images/logo.png'
 
 class CustomNavbar extends Component {
   render() {

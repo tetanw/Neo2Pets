@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import Logo from '../assets/images/Logo.png'
+import logo from '../assets/images/logo.png';
 
 // The Header creates links that can be used to navigate
 // between routes.
@@ -11,7 +11,7 @@ class Header extends Component {
         <nav className="navbar-fixed-top">
           <div className="navbar">
             <div className="navbar-header">
-              <a href="/"><img src={Logo} alt='logo' className="img-responsive"/></a>
+              <img src={logo} className="img-responsive"/>
             </div>
 
             <ul className="nav navbar-nav">
