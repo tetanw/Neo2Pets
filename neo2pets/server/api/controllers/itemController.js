@@ -116,10 +116,20 @@ async function validatedGetOwnedItemsHandler(value, modelMap, res, user) {
 
   const { id } = jsonwebtoken.decode(userToken);
 
-  const items = await modelMap.itemModel.find({ owner: id }).populate("type");
+  const items = (await modelMap.itemModel.find({ owner: id }).populate("type")).map((oldItem) => {
+    return {
+      id: oldItem._id,
+      type: {
+        id: oldItem.type.id,
+        name: oldItem.type.name,
+        propertyData: oldItem.type.propertyData,
+        properties: oldItem.type.properties
+      }
+    }
+  })
 
   res.send({
-    status: "SUCCES",
+    status: "SUCCESS",
     id: id,
     items
   });
