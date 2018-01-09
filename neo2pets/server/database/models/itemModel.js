@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 function createModel() {
-    const schema = mongoose.Schema({
-        type: String
-    });
+  const schema = mongoose.Schema({
+    type: String
+  });
 
-    return mongoose.model('Item', schema);
+  return mongoose.model("Item", schema);
 }
 
 module.exports = {
-    createModel
+  createModel
 };

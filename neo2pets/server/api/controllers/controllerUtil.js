@@ -1,26 +1,27 @@
-const joi = require('joi');
+const joi = require("joi");
 
 function createControllerHandler(mode, schema, modelMap, validatedHandler) {
   return async (req, res) => {
-
     // the mode determines where to get the input from
     let input = null;
-    if (mode === 'GET') {
+    if (mode === "GET") {
       input = req.query;
-    } else if (mode === 'POST') {
+    } else if (mode === "POST") {
       input = req.body;
     } else {
       throw new Error(`Unknown mode: ${mode}`);
     }
 
     try {
-      const { value, error } = joi.validate(input, schema, { abortEarly: false });
+      const { value, error } = joi.validate(input, schema, {
+        abortEarly: false
+      });
 
       if (error === null) {
         await validatedHandler(value, modelMap, res);
       } else {
         // transform the validation messages
-        const messages = error.details.map((message) => {
+        const messages = error.details.map(message => {
           return {
             message: message.message,
             field: message.context.key
@@ -28,7 +29,7 @@ function createControllerHandler(mode, schema, modelMap, validatedHandler) {
         });
 
         res.send({
-          status: 'FAILED',
+          status: "FAILED",
           messages
         });
       }
@@ -36,10 +37,10 @@ function createControllerHandler(mode, schema, modelMap, validatedHandler) {
       // unexpected error, so quit with 500
       console.error(error);
       res.status(500).send({
-        status: 'FAILED'
+        status: "FAILED"
       });
     }
-  }
+  };
 }
 
 module.exports = {

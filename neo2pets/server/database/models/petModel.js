@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 function createModel() {
-    const schema = mongoose.Schema({
-        type: String,
-        nickName: String
-    });
+  const schema = mongoose.Schema({
+    type: String,
+    nickName: String
+  });
 
-    return mongoose.model('Pet', schema);
+  return mongoose.model("Pet", schema);
 }
 
 module.exports = {
-    createModel
+  createModel
 };

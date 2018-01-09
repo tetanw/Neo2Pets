@@ -31,7 +31,7 @@ async function validatedGetItemHandler(value, modelMap, res) {
   }
 
   res.send({
-    status: 'SUCCES',
+    status: 'SUCCESS',
     item: {
       type: item.type
     }

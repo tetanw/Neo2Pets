@@ -1,18 +1,27 @@
-const express = require('express');
-const joi = require('joi');
-const bodyParser = require('body-parser');
-const jsonwebtoken = require('jsonwebtoken');
-const bcryptjs = require('bcryptjs');
+const express = require("express");
+const joi = require("joi");
+const bodyParser = require("body-parser");
+const jsonwebtoken = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
 
-const { createControllerHandler } = require('./controllerUtil');
+const { createControllerHandler } = require("./controllerUtil");
 
 const getPetSchema = joi.object().keys({
-  petID: joi.string().alphanum().required()
+  petID: joi
+    .string()
+    .alphanum()
+    .required()
 });
 
 const createPetSchema = joi.object().keys({
-  type: joi.string().alphanum().required(),
-  nickName: joi.string().alphanum().required()
+  type: joi
+    .string()
+    .alphanum()
+    .required(),
+  nickName: joi
+    .string()
+    .alphanum()
+    .required()
 });
 
 async function validatedGetItemHandler(value, modelMap, res) {
@@ -22,16 +31,18 @@ async function validatedGetItemHandler(value, modelMap, res) {
 
   if (!pet) {
     return res.send({
-      status: 'FAILED',
-      messages: [{
-        message: 'Pet could not be found',
-        field: 'petID'
-      }]
+      status: "FAILED",
+      messages: [
+        {
+          message: "Pet could not be found",
+          field: "petID"
+        }
+      ]
     });
   }
 
   res.send({
-    status: 'SUCCESS',
+    status: "SUCCESS",
     pet: {
       id: pet._id,
       type: pet.type,
@@ -48,9 +59,8 @@ async function validatedCreateItemHandler(value, modelMap, res) {
     nickName
   });
 
-
   res.send({
-    status: 'SUCCESS',
+    status: "SUCCESS",
     pet: {
       id: pet._id,
       type: pet.type,
@@ -65,9 +75,27 @@ async function validatedCreateItemHandler(value, modelMap, res) {
 function getPetController(modelMap) {
   const router = express.Router();
 
-  router.get('/get', bodyParser.json(), createControllerHandler('GET', getPetSchema, modelMap, validatedGetItemHandler));
+  router.get(
+    "/get",
+    bodyParser.json(),
+    createControllerHandler(
+      "GET",
+      getPetSchema,
+      modelMap,
+      validatedGetItemHandler
+    )
+  );
 
-  router.post('/create', bodyParser.json(), createControllerHandler('POST', createPetSchema, modelMap, validatedCreateItemHandler));
+  router.post(
+    "/create",
+    bodyParser.json(),
+    createControllerHandler(
+      "POST",
+      createPetSchema,
+      modelMap,
+      validatedCreateItemHandler
+    )
+  );
 
   return router;
 }

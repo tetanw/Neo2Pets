@@ -1,21 +1,40 @@
-const express = require('express');
-const joi = require('joi');
-const bodyParser = require('body-parser');
-const jsonwebtoken = require('jsonwebtoken');
-const bcryptjs = require('bcryptjs');
+const express = require("express");
+const joi = require("joi");
+const bodyParser = require("body-parser");
+const jsonwebtoken = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
 
-const { createControllerHandler } = require('./controllerUtil');
+const { createControllerHandler } = require("./controllerUtil");
 
 const loginSchema = joi.object().keys({
-  username: joi.string().alphanum().required(),
-  password: joi.string().alphanum().required()
+  username: joi
+    .string()
+    .alphanum()
+    .required(),
+  password: joi
+    .string()
+    .alphanum()
+    .required()
 });
 
 const registerSchema = joi.object().keys({
-  username: joi.string().alphanum().min(5).max(20).required(),
-  password: joi.string().alphanum().min(5).max(40).required(),
-  email: joi.string().email().required()
-})
+  username: joi
+    .string()
+    .alphanum()
+    .min(5)
+    .max(20)
+    .required(),
+  password: joi
+    .string()
+    .alphanum()
+    .min(5)
+    .max(40)
+    .required(),
+  email: joi
+    .string()
+    .email()
+    .required()
+});
 
 async function validatedLoginHandler(value, modelMap, res) {
   const { password, username } = value;
@@ -24,27 +43,31 @@ async function validatedLoginHandler(value, modelMap, res) {
   const user = await modelMap.userModel.findOne({ username });
   if (!user) {
     return res.send({
-      status: 'FAILED',
-      messages: [{
-        message: 'Username is incorrect',
-        field: 'username'
-      }]
+      status: "FAILED",
+      messages: [
+        {
+          message: "Username is incorrect",
+          field: "username"
+        }
+      ]
     });
   }
 
   // check whether the password is correct
   if (!await bcryptjs.compare(password, user.password)) {
     return res.send({
-      status: 'FAILED',
-      messages: [{
-        message: 'Password is incorrect',
-        field: 'password'
-      }]
+      status: "FAILED",
+      messages: [
+        {
+          message: "Password is incorrect",
+          field: "password"
+        }
+      ]
     });
   }
 
   res.send({
-    status: 'SUCCESS',
+    status: "SUCCESS",
     token: jsonwebtoken.sign({ username }, process.env.WEBTOKEN_SECRET)
   });
 }
@@ -53,30 +76,37 @@ async function validatedRegisterHandler(value, modelMap, res) {
   const { username, password, email } = value;
 
   // check whether the username and the email is already taken
-  if (await modelMap.userModel.findOne({
-    username
-  }) !== null) {
+  if (
+    (await modelMap.userModel.findOne({
+      username
+    })) !== null
+  ) {
     return res.send({
-      status: 'FAILED',
-      messages: [{
-        message: 'Username was already taken',
-        field: 'username'
-      }]
-    });
-  };
-
-  if (await modelMap.userModel.findOne({
-    email
-  }) !== null) {
-    return res.send({
-      status: 'FAILED',
-      messages: [{
-        message: 'Email was already taken',
-        field: 'email'
-      }]
+      status: "FAILED",
+      messages: [
+        {
+          message: "Username was already taken",
+          field: "username"
+        }
+      ]
     });
   }
 
+  if (
+    (await modelMap.userModel.findOne({
+      email
+    })) !== null
+  ) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "Email was already taken",
+          field: "email"
+        }
+      ]
+    });
+  }
 
   // generate the password and store in the database
   const hashesPassword = await bcryptjs.hash(password, 12);
@@ -87,7 +117,7 @@ async function validatedRegisterHandler(value, modelMap, res) {
   });
 
   res.send({
-    status: 'SUCCESS'
+    status: "SUCCESS"
   });
 }
 
@@ -97,9 +127,27 @@ async function validatedRegisterHandler(value, modelMap, res) {
 function getAuthController(modelMap) {
   const router = express.Router();
 
-  router.post('/login', bodyParser.json(), createControllerHandler('POST', loginSchema, modelMap, validatedLoginHandler));
+  router.post(
+    "/login",
+    bodyParser.json(),
+    createControllerHandler(
+      "POST",
+      loginSchema,
+      modelMap,
+      validatedLoginHandler
+    )
+  );
 
-  router.post('/register', bodyParser.json(), createControllerHandler('POST', registerSchema, modelMap, validatedRegisterHandler));
+  router.post(
+    "/register",
+    bodyParser.json(),
+    createControllerHandler(
+      "POST",
+      registerSchema,
+      modelMap,
+      validatedRegisterHandler
+    )
+  );
 
   return router;
 }
