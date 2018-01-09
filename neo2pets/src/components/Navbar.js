@@ -6,16 +6,20 @@ import {
 } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
-import logo from '../assets/images/logo.png'
+import Logo from '../assets/images/Logo.png'
 
 class CustomNavbar extends Component {
   render() {
     return (
       <Navbar fixedTop fluid>
         <Navbar.Header>
+<<<<<<< HEAD
           {/* <Navbar.Brand> */}
             <Link to='/'><img src={logo} className="img-responsive"/></Link>
           {/* </Navbar.Brand> */}
+=======
+            <Link to='/'><img src={Logo} className="img-responsive" alt="Neo²Pets"/></Link>
+>>>>>>> 84059d2dbc09bd7d2669e19dc20a86cc9174cfca
           <Navbar.Toggle/>
         </Navbar.Header>
 

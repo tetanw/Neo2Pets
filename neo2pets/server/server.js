@@ -16,7 +16,7 @@ database.createDatabase().then(modelMap => {
   registerRoutes(app, modelMap);
 
   // port defaults to 3000 if wno PORT set in env
-  const port = 3000 | process.env.PORT;
+  const port = 3001 | process.env.PORT;
   app.listen(port, () => {
     console.log(`Server listening at: ${port}`);
   });
