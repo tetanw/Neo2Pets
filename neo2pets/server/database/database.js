@@ -14,7 +14,8 @@ function createDatabase() {
       const modelMap = {
         userModel: require("./models/userModel").createModel(),
         petModel: require("./models/petModel").createModel(),
-        itemModel: require("./models/itemModel").createModel()
+        itemModel: require("./models/itemModel").createModel(),
+        itemTypeModel: require("./models/itemTypeModel").createModel()
       };
 
       resolve(modelMap);

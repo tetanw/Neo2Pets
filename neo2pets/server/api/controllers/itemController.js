@@ -1,56 +1,78 @@
-const express = require('express');
-const joi = require('joi');
-const bodyParser = require('body-parser');
-const jsonwebtoken = require('jsonwebtoken');
-const bcryptjs = require('bcryptjs');
+const express = require("express");
+const joi = require("joi");
+const bodyParser = require("body-parser");
+const jsonwebtoken = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
 
-const { createControllerHandler } = require('./controllerUtil');
+const { createControllerHandler } = require("./controllerUtil");
 
 const getItemSchema = joi.object().keys({
-  itemID: joi.string().alphanum().required()
+  itemID: joi
+    .string()
+    .alphanum()
+    .required()
 });
 
 const createItemSchema = joi.object().keys({
-  type: joi.string().alphanum().required(),
+  typeName: joi
+    .string()
+    .alphanum()
+    .required()
 });
 
 async function validatedGetItemHandler(value, modelMap, res) {
-
   const { itemID } = value;
 
-  const item = await modelMap.itemModel.findById(itemID);
+  const item = await modelMap.itemModel.findById(itemID).populate("type");
 
   if (!item) {
-    res.send({
-      status: 'FAILED',
-      messages: [{
-        message: 'Item could not be found',
-        field: 'itemID'
-      }]
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "Item could not be found",
+          field: "itemID"
+        }
+      ]
     });
   }
 
   res.send({
-    status: 'SUCCESS',
+    status: "SUCCESS",
     item: {
-      type: item.type
+      type: item.type.name,
+      properties: item.type.properties,
+      propertyData: item.type.propertyData
     }
   });
 }
 
 async function validatedCreateItemHandler(value, modelMap, res) {
-  const { type } = value;
+  const { typeName } = value;
+
+  const itemType = await modelMap.itemTypeModel.findOne({ name: typeName });
+
+  if (!itemType) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: `The type with the name ${typeName} does not exist`,
+          field: "typeName"
+        }
+      ]
+    });
+  }
 
   const item = await modelMap.itemModel.create({
-    type
+    type: itemType._id
   });
 
-
   res.send({
-    status: 'SUCCESS',
+    status: "SUCCESS",
     item: {
       id: item._id,
-      type: item.type,
+      type: itemType.name
     }
   });
 }
@@ -61,9 +83,26 @@ async function validatedCreateItemHandler(value, modelMap, res) {
 function getItemController(modelMap) {
   const router = express.Router();
 
-  router.get('/get', bodyParser.json(), createControllerHandler('GET', getItemSchema, modelMap, validatedGetItemHandler));
+  router.get(
+    "/get",
+    createControllerHandler(
+      "GET",
+      getItemSchema,
+      modelMap,
+      validatedGetItemHandler
+    )
+  );
 
-  router.post('/create', bodyParser.json(), createControllerHandler('POST', createItemSchema, modelMap, validatedCreateItemHandler));
+  router.post(
+    "/create",
+    bodyParser.json(),
+    createControllerHandler(
+      "POST",
+      createItemSchema,
+      modelMap,
+      validatedCreateItemHandler
+    )
+  );
 
   return router;
 }
