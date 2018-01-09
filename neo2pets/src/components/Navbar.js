@@ -13,9 +13,7 @@ class CustomNavbar extends Component {
     return (
       <Navbar fixedTop fluid>
         <Navbar.Header>
-          <Navbar.Brand>
-            <Link to='/'>Neo²Pets</Link>
-          </Navbar.Brand>
+            <Link to='/'><img src={logo} className="img-responsive"/></Link>
           <Navbar.Toggle/>
         </Navbar.Header>
 

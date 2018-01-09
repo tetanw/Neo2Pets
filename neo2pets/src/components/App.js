@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="main" name="">
-        <Header/>
+        {/* <Header/> */}
         <CustomNavbar/>
         <Page/>
       </div>
