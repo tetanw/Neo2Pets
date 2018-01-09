@@ -34,7 +34,7 @@ class App extends Component {
   render() {
     return (
       <div className="main" name="">
-        <Jumbotron>
+        <Jumbotron class="loginjumbo">
           <img src={logo} height="150px" align="center" />
           <Form horizontal>
             <FormGroup controlId="formHorizontalEmail">
