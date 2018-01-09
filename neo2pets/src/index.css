@@ -29,7 +29,9 @@ html, body {
 
 .jumbotron-style {
   background-color: rgba(0, 0, 0, 0.514);
-  font-family: Arial, Charcoal, sans-serif;
+  font-family: Impact, Charcoal, sans-serif;
+  letter-spacing: 2px;
+  color: white;
 }
 
 .navbar-brand {
