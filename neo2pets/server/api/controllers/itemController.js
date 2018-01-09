@@ -129,7 +129,7 @@ async function validatedGetOwnedItemsHandler(value, modelMap, res, user) {
   })
 
   res.send({
-    status: "SUCCES",
+    status: "SUCCESS",
     id: id,
     items
   });
