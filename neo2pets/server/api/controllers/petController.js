@@ -138,7 +138,6 @@ function getPetController(modelMap) {
 
   router.get(
     "/get",
-    bodyParser.json(),
     createControllerHandler(
       "GET",
       getPetSchema,
@@ -149,7 +148,6 @@ function getPetController(modelMap) {
 
   router.get(
     "/getownedpets",
-    bodyParser.json(),
     createControllerHandler(
       "GET",
       getOwnedPetsSchema,
