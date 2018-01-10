@@ -3,7 +3,7 @@ import {
   Panel,
   Col
 } from 'react-bootstrap';
-import icon from '../assets/images/neopets/Neopet1.png'
+import icon from '../../assets/images/neopets/Neopet1.png'
 
 class Item extends Component {
   render() {

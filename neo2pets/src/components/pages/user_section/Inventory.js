@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
   Panel,
 } from 'react-bootstrap';
-import Item from './Item'
+import Item from '../../layout/Item'
 
 class Inventory extends Component {
   constructor(props) {

@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
-import {Switch, Route} from 'react-router-dom';
-import PageContainer from './PageContainer';
-import Home from './Home';
-import Marketplace from './Shop';
-import Games from './Games';
-import CreateAvatar from './CreateAvatar';
-import Inventory from './Inventory';
-import Avatar from './Avatar';
+import {
+  Switch,
+  Route
+} from 'react-router-dom';
+import PageContainer from './layout/PageContainer';
+import Home from './pages/user_section/Home';
+import Marketplace from './pages/user_section/Shop';
+import Games from './pages/user_section/Games';
+import CreateAvatar from './pages/CreateAvatar';
+import Inventory from './pages/user_section/Inventory';
+import Avatar from './pages/user_section/Avatar';
+import '../index.css';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -21,7 +25,7 @@ class Page extends Component {
           <Route exact path='/' component={Home}/>
           <Route path='/shop' component={Marketplace}/>
           <Route path='/games' component={Games}/>
-          <Route path='/create' component={CreateAvatar}/>
+          <Route path='/create-avatar' component={CreateAvatar}/>
           <Route path='/avatar' component={Avatar}/>
           <Route path='/inventory' component={Inventory}/>
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Button, Grid, Row, Col, Thumbnail, ProgressBar } from 'react-bootstrap';
-import Default from '../assets/images/default.png';
+import Default from '../../../assets/images/default.png';
 
 var happiness = 80;
 var col = '';
