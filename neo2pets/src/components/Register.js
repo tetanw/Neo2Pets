@@ -12,6 +12,7 @@ import {
   Row,
   Grid
 } from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 
 
 class App extends Component {
@@ -85,7 +86,9 @@ class App extends Component {
 
                 <FormGroup>
                   <Col smOffset={3} sm={1}>
-                    <Button type="submit">Register</Button>
+                  <LinkContainer to="/login">
+                    <Button  type="submit">Register</Button>
+                  </LinkContainer>
                   </Col>
 
                 </FormGroup>
