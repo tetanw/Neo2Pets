@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Page from './Page';
 import logo from '../assets/images/Logo.png'
 import {
   Jumbotron,

@@ -14,9 +14,9 @@ import registerServiceWorker from './registerServiceWorker';
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path='/' component={App} />
-      <Route exact path='/login' component={Login} />
-      <Route exact path='/register' component={Register} />
+    <Route path='/login' component={Login} />
+    <Route path='/register' component={Register} />
+     <Route path='/' component={App} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
