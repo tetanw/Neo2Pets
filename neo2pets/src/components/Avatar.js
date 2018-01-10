@@ -2,6 +2,22 @@ import React, {Component} from 'react';
 import { Button, Grid, Row, Col, Thumbnail, ProgressBar } from 'react-bootstrap';
 import Default from '../assets/images/default.png';
 
+var happiness = 80;
+var col = '';
+var status = '';
+
+if (happiness <= 30) {
+  col = 'danger';
+  status = 'very unhappy, feed it and play games with ';
+} else if (happiness <= 60) {
+  col = 'unhappy';
+  status = 'unhappy, improve the happiness by playing games and feeding';
+} else {
+  col = 'success';
+  status = 'happy, play games and feed it to make it even happier!';
+}
+
+
 class Avatar extends Component {
   render() {
     return (
@@ -12,8 +28,8 @@ class Avatar extends Component {
              <img className="avatarimage" src={Default}/>
              <div className="avatartext">
              <p>Pet state:</p>
-             Happiness <ProgressBar bsStyle="success" className="progressbar" active now={70} />
-             <p>feed your pet and play games to make it even happier!</p>
+             Happiness <ProgressBar bsStyle={col} className="progressbar" active now={happiness} />
+             <p>Your pet is: {status}</p>
              </div>
            </div>
          </Col>
