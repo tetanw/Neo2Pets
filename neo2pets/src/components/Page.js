@@ -24,6 +24,7 @@ class Page extends Component {
           <Route path='/create' component={CreateAvatar}/>
           <Route path='/avatar' component={Avatar}/>
           <Route path='/inventory' component={Inventory}/>
+
         </Switch>
       </PageContainer>
     )
