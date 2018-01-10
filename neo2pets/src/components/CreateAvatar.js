@@ -14,8 +14,8 @@ class CreateAvatar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
-      avatarno: '',
+      name: '',
+      avatarno: '0',
   };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,18 +24,21 @@ class CreateAvatar extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({name: event.target.value});
   }
 
   handleSubmit(event) {
-    alert('Your avatar is submitted!');
+    alert('Your avatar' + ' ' + this.state.name + ' ' + 'is submitted!');
     event.preventDefault();
   }
 
   handleClick(event) {
-    this.setState({avatarno: event.currentTarget.value});
-    alert('test' + ' ' + this.state.value);
+    this.setState({avatarno: event.currentTarget.id});
+    event.preventDefault();
+    alert('test' + ' ' + this.state.avatarno);
   }
+
+
 
   render() {
     return (
@@ -46,21 +49,21 @@ class CreateAvatar extends React.Component {
           <input className= "inputbox jumbotron-style" type="text" maxlength="20" value={this.state.value} onChange={this.handleChange} />
         </label>
         <div>
-          <p>Choose your avatar and start skill levels! choose wisely!</p>
+          <p>Choose your avatar and starting skill levels! choose wisely!</p>
         </div>
         <Grid>
            <Col xs={8} sm={6} md={3}>
-             <div className="block" value='test1' onClick={this.handleClick}>
+             <div className="block" id="1" onClick={this.handleClick} >
 				       <img className="avatarimage" src={Neopet1} />
                <div className="avatartext">
                <p>Speed: 5</p>
                <p>Agility: 4</p>
-               <p>Intelligence: 6 </p>
+               <p>Intelligence: 6</p>
                </div>
              </div>
 			     </Col>
            <Col xs={8} sm={6} md={3}>
-             <div className="block" avatarno='1' avatarno={this.state.avatarno} onClick={this.handleClick}>
+             <div className="block" id="2" onClick={this.handleClick}>
               <img className="avatarimage" src={Neopet2} />
                <div className="avatartext">
                <p>Speed: 5</p>
@@ -70,7 +73,7 @@ class CreateAvatar extends React.Component {
              </div>
           </Col>
           <Col xs={8} sm={6} md={3}>
-            <div className="block" onClick={this.handleClick}>
+            <div className="block" id="3" onClick={this.handleClick}>
              <img className="avatarimage" src={Neopet3} />
               <div className="avatartext">
               <p>Speed: 6</p>
@@ -80,7 +83,7 @@ class CreateAvatar extends React.Component {
             </div>
          </Col>
          <Col xs={8} sm={6} md={3}>
-           <div className="block" onClick={this.handleClick}>
+           <div className="block" id="4" onClick={this.handleClick}>
             <img className="avatarimage" src={Neopet4} />
              <div className="avatartext">
              <p>Speed: 3</p>
@@ -90,7 +93,7 @@ class CreateAvatar extends React.Component {
            </div>
         </Col>
         <Col xs={8} sm={6} md={3}>
-          <div className="block" onClick={this.handleClick}>
+          <div className="block" id="5" onClick={this.handleClick}>
            <img className="avatarimage" src={Neopet5} />
             <div className="avatartext">
             <p>Speed: 5</p>
@@ -100,7 +103,7 @@ class CreateAvatar extends React.Component {
           </div>
        </Col>
        <Col xs={8} sm={6} md={3}>
-         <div className="block" onClick={this.handleClick}>
+         <div className="block" id="6" onClick={this.handleClick}>
           <img className="avatarimage" src={Neopet6} />
            <div className="avatartext">
            <p>Speed: 6</p>
@@ -110,7 +113,7 @@ class CreateAvatar extends React.Component {
          </div>
       </Col>
       <Col xs={8} sm={6} md={3}>
-        <div className="block" onClick={this.handleClick}>
+        <div className="block" id="7" onClick={this.handleClick}>
          <img className="avatarimage" src={Neopet7} />
           <div className="avatartext">
           <p>Speed: 2</p>
@@ -120,7 +123,7 @@ class CreateAvatar extends React.Component {
         </div>
      </Col>
      <Col xs={8} sm={6} md={3}>
-       <div className="block" onClick={this.handleClick}>
+       <div className="block" id="8" onClick={this.handleClick}>
         <img className="avatarimage" src={Neopet8} />
          <div className="avatartext">
          <p>Speed: 5</p>
