@@ -28,11 +28,13 @@ html, body {
 }
 
 .jumbotron-style {
-  background-color: rgba(0, 0, 0, 0.514);
+  background-color: rgba(0, 0, 0, 0.404);
   font-family: Impact, Charcoal, sans-serif;
   letter-spacing: 2px;
   color: white;
 }
+
+
 
 .navbar-brand {
   color: black;

@@ -9,7 +9,9 @@ import {
   FormControl,
   Col,
   Checkbox,
-  ControlLabel
+  ControlLabel,
+  Row,
+  Grid
 } from 'react-bootstrap';
 
 
@@ -34,39 +36,48 @@ class App extends Component {
   render() {
     return (
       <div className="main" name="">
-        <Jumbotron class="loginjumbo">
-          <img src={logo} height="150px" align="center" />
+        <Jumbotron className=" jumbotron-style">
+      <Grid>
+        <Row>
+          <Col sm={1}>
+        <img src={logo} max-height="150px"  max-width="30%"/>
+        </Col>
+      </Row>
+      <Row>
           <Form horizontal>
+
             <FormGroup controlId="formHorizontalEmail">
-              <Col componentClass={ControlLabel} sm={2}>
+              <Col componentClass={ControlLabel} sm={3}>
                 Email
 			</Col>
-              <Col sm={10}>
-                <FormControl type="text" placeholder="Username" />
+              <Col sm={5}>
+                <FormControl className="inputbox jumbotron-style" type="text" placeholder="Username" />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalPassword">
-              <Col componentClass={ControlLabel} sm={2}>
+              <Col componentClass={ControlLabel} sm={3}>
                 Password
 			</Col>
-              <Col sm={10}>
-                <FormControl type="password" placeholder="Password" />
+              <Col sm={5}>
+                <FormControl className="inputbox jumbotron-style" type="password" placeholder="Password" />
               </Col>
             </FormGroup>
 
             <FormGroup>
-              <Col smOffset={2} sm={10}>
+              <Col smOffset={3} sm={10}>
                 <Checkbox>Remember me</Checkbox>
               </Col>
             </FormGroup>
 
             <FormGroup>
-              <Col smOffset={2} sm={10}>
+              <Col smOffset={3} sm={10}>
                 <Button type="submit">Sign in</Button>
               </Col>
             </FormGroup>
           </Form>
+          </Row>
+          </Grid>
         </Jumbotron>
       </div>
     )
