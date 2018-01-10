@@ -15,8 +15,8 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path='/' component={App} />
-      <Route path='/login' component={Login} />
-      <Route path='/register' component={Register} />
+      <Route exact path='/login' component={Login} />
+      <Route exact path='/register' component={Register} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
