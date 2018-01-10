@@ -14,16 +14,16 @@ class App extends Component {
 
     this.onLogin = this.onLogin.bind(this);
 
-    let authStorage = localStorage.getItem("Neo2Pets_Auth");
+    let authStorage = JSON.parse(localStorage.getItem("Neo2Pets_Auth"));
     if (authStorage !== undefined && authStorage !== null) {
       if (authStorage.auth_key !== undefined) {
         this.state = {
           auth_key: authStorage.auth_key
-        }
+        };
+        return
       }
-    } else {
-      this.state  = {};
     }
+    this.state  = {};
   }
 
   onLogin(auth_key, remember) {
