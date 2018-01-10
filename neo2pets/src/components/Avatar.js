@@ -5,6 +5,9 @@ import Default from '../assets/images/default.png';
 var happiness = 80;
 var col = '';
 var status = '';
+var speed = 50;
+var agility = 40;
+var intelligence = 70;
 
 if (happiness <= 30) {
   col = 'danger';
@@ -38,9 +41,9 @@ class Avatar extends Component {
             <div className="padding">
             <h2>Skills</h2>
             <p> improve your skills by playing games! </p>
-            speed<ProgressBar className="progressbar" active now={50} />
-            agility<ProgressBar className="progressbar" active now={40} />
-            Intelligence<ProgressBar className="progressbar" active now={70} />
+            speed<ProgressBar className="progressbar" active now={speed} />
+            agility<ProgressBar className="progressbar" active now={agility} />
+            Intelligence<ProgressBar className="progressbar" active now={intelligence} />
             <br></br>
             </div>
           </div>
