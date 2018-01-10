@@ -48,7 +48,7 @@ class App extends Component {
 
             <FormGroup controlId="formHorizontalEmail">
               <Col componentClass={ControlLabel} sm={3}>
-                Email
+                Username
 			</Col>
               <Col sm={5}>
                 <FormControl className="inputbox jumbotron-style" type="text" placeholder="Username" />
@@ -71,9 +71,13 @@ class App extends Component {
             </FormGroup>
 
             <FormGroup>
-              <Col smOffset={3} sm={10}>
+              <Col smOffset={3} sm={1}>
                 <Button type="submit">Sign in</Button>
               </Col>
+              <Col >
+              <Button  type="submit">Register</Button>
+              </Col>
+
             </FormGroup>
           </Form>
           </Row>
