@@ -7,7 +7,6 @@ import {
   FormGroup,
   FormControl,
   Col,
-  Checkbox,
   ControlLabel,
   Row,
   Grid
@@ -19,18 +18,71 @@ class App extends Component {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       username: '',
       password: '',
+      password2: '',
+      email: '',
+
+      messages: []
     };
   }
 
   handleChange(e) {
-    this.setState({ value: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   }
 
+  onSubmit(e) {
+    fetch('/api/auth/register', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email,
+        })
+      }
+    )
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        console.log(res);
+        if (res.status !== "SUCCESS") {
+          fetch('/api/auth/login', {
+              method: "POST",
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password,
+              })
+            }
+          )
+            .then(res => {
+              return res.json();
+            })
+            .then(res => {
+              console.log(res);
+              if (res.token !== undefined) {
+                this.props.onLogin(res.token, this.state.remember);
+                this.props.history.push("/");
+              } else {
+                this.setState({messages: res.messages});
+              }
+            });
+        } else {
+          this.setState({messages: res.messages});
+        }
+      })
 
+    e.preventDefault();
+  }
 
   render() {
     return (
@@ -39,55 +91,88 @@ class App extends Component {
           <Grid>
             <Row>
               <Col sm={1}>
-                <img src={logo} max-height="150px" max-width="30%" />
+                <img src={logo} max-height="150px" max-width="30%"/>
               </Col>
             </Row>
             <Row>
-              <Form horizontal>
+              <Form horizontal onSubmit={this.onSubmit}>
 
                 <FormGroup controlId="formHorizontalUsername">
                   <Col componentClass={ControlLabel} sm={3}>
                     Username
-		            	</Col>
+                  </Col>
                   <Col sm={5}>
-                    <FormControl className="inputbox jumbotron-style" type="text" placeholder="Username" />
+                    <FormControl
+                      className="inputbox jumbotron-style"
+                      name="username"
+                      type="text"
+                      value={this.state.username}
+                      placeholder="Username"
+                      onChange={this.handleChange}
+                    />
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalEmail">
                   <Col componentClass={ControlLabel} sm={3}>
                     E-mail
-		            	</Col>
+                  </Col>
                   <Col sm={5}>
-                    <FormControl className="inputbox jumbotron-style" type="email" placeholder="E-mail" />
+                    <FormControl
+                      className="inputbox jumbotron-style"
+                      name="email"
+                      type="email"
+                      value={this.state.email}
+                      placeholder="E-mail"
+                      onChange={this.handleChange}
+                    />
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalPassword">
                   <Col componentClass={ControlLabel} sm={3}>
                     Password
-			            </Col>
+                  </Col>
 
                   <Col sm={5}>
-                    <FormControl label='Password' className="inputbox jumbotron-style" type="password" placeholder="Password"  validate='required,isLength:6:60'/>
+                    <FormControl
+                      label='Password'
+                      className="inputbox jumbotron-style"
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      placeholder="Password"
+                      onChange={this.handleChange}
+                      validate='required,isLength:6:60'
+                    />
                   </Col>
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalPasswordValidation">
                   <Col componentClass={ControlLabel} sm={3}>
-                   Type password again
-			            </Col>
+                    Type password again
+                  </Col>
 
                   <Col sm={5}>
-                    <FormControl label='Confirm Password' className="inputbox jumbotron-style" type="password" placeholder="Password" validate={(val, context) => val === context.password} />
+                    <FormControl
+                      label='Confirm Password'
+                      className="inputbox jumbotron-style"
+                      type="password"
+                      name="password2"
+                      value={this.state.password2}
+                      placeholder="Password"
+                      onChange={this.handleChange}
+                      validate={(val, context) => val === context.password}
+                        />
                   </Col>
                 </FormGroup>
 
+                {this.state.message !== undefined ? this.state.messages.map((m, i) => <p
+                  key={i}>{m.message}</p>) : null}
+
                 <FormGroup>
                   <Col smOffset={3} sm={5}>
-                  <LinkContainer to="/login">
                     <Button  type="submit">Register</Button>
-                  </LinkContainer>
                   </Col>
 
                 </FormGroup>
@@ -98,9 +183,6 @@ class App extends Component {
       </div>
     )
   }
-
-
-
 }
 
 export default App;

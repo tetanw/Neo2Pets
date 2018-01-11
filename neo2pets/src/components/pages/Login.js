@@ -109,7 +109,8 @@ class Login extends Component {
                   </Col>
                 </FormGroup>
 
-                {this.state.messages.map((m, i) => <p key={i}>{m.message}</p>)}
+                {this.state.message !== undefined ? this.state.messages.map((m, i) => <p
+                  key={i}>{m.message}</p>) : null}
 
                 <FormGroup>
                   <Col smOffset={3} sm={10}>
