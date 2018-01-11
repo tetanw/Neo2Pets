@@ -52,7 +52,10 @@ function createControllerHandler(mode, schema, modelMap, validatedHandler) {
  * @param {string} fieldName The name of the userTokenField
  */
 function checkAuth(res, userToken, fieldName) {
-  if (!jsonwebtoken.verify(userToken, process.env.WEBTOKEN_SECRET)) {
+  try {
+    jsonwebtoken.verify(userToken, process.env.WEBTOKEN_SECRET);
+    return true;
+  } catch (err) {
     res.send({
       status: "FAILED",
       messages: [
@@ -62,10 +65,8 @@ function checkAuth(res, userToken, fieldName) {
         }
       ]
     });
-
-    return false;
+    return true;
   }
-  return true;
 }
 
 module.exports = {
