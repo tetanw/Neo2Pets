@@ -46,8 +46,8 @@ function createControllerHandler(mode, schema, modelMap, validatedHandler) {
 
 /**
  * Checks whether the user token is valid
- * 
- * @param {*} res 
+ *
+ * @param {*} res
  * @param {string} The token to be validated
  * @param {string} fieldName The name of the userTokenField
  */
@@ -62,7 +62,7 @@ function checkAuth(res, userToken, fieldName) {
         }
       ]
     });
-    
+
     return false;
   }
   return true;

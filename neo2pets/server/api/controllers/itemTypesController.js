@@ -18,10 +18,13 @@ const createItemTypeSchema = joi.object().keys({
     .string()
     .alphanum()
     .required(),
-  properties: joi.array().items(joi.string()).required(),
+  properties: joi
+    .array()
+    .items(joi.string())
+    .required(),
   propertyData: {
     TOY: joi.object({
-        funValue: joi.number().required()
+      funValue: joi.number().required()
     })
   }
 });
@@ -74,7 +77,7 @@ async function validatedCreateItemTypeHandler(value, modelMap, res) {
     name,
     properties,
     propertyData: {
-        TOY
+      TOY
     }
   });
 
@@ -85,7 +88,7 @@ async function validatedCreateItemTypeHandler(value, modelMap, res) {
       type: item.name,
       properties: properties,
       propertyData: {
-          TOY
+        TOY
       }
     }
   });

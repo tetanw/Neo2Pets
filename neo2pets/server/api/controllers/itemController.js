@@ -10,6 +10,10 @@ const getItemSchema = joi.object().keys({
   itemID: joi
     .string()
     .alphanum()
+    .required(),
+  userToken: joi
+    .string()
+    .alphanum()
     .required()
 });
 
@@ -34,10 +38,18 @@ const getOwnedItemsSchema = joi.object().keys({
 });
 
 async function validatedGetItemHandler(value, modelMap, res) {
-  const { itemID } = value;
+  const { itemID, userToken } = value;
+
+  // check whether authenticated
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
 
   const item = await modelMap.itemModel.findById(itemID).populate("type");
 
+  // check whether the item actually exists
   if (!item) {
     return res.send({
       status: "FAILED",
@@ -109,8 +121,8 @@ async function validatedCreateItemHandler(value, modelMap, res) {
     return;
   }
 
+  // check whether the item type exists
   const itemType = await modelMap.itemTypeModel.findOne({ name: typeName });
-
   if (!itemType) {
     return res.send({
       status: "FAILED",
@@ -123,8 +135,9 @@ async function validatedCreateItemHandler(value, modelMap, res) {
     });
   }
 
+  // create an item in the database with the user from the user token
+  // as owner
   const { id } = jsonwebtoken.decode(userToken);
-
   const item = await modelMap.itemModel.create({
     type: itemType._id,
     owner: id

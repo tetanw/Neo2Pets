@@ -36,6 +36,10 @@ const registerSchema = joi.object().keys({
     .required()
 });
 
+const validateTokenSchema = joi.object().keys({
+  userToken: joi.string().required()
+});
+
 async function validatedLoginHandler(value, modelMap, res) {
   const { password, username } = value;
 
@@ -68,7 +72,20 @@ async function validatedLoginHandler(value, modelMap, res) {
 
   res.send({
     status: "SUCCESS",
-    token: jsonwebtoken.sign({ username, id: user._id }, process.env.WEBTOKEN_SECRET)
+    token: jsonwebtoken.sign(
+      { username, id: user._id },
+      process.env.WEBTOKEN_SECRET
+    )
+  });
+}
+
+async function validatedValidateTokenHandler(value, modelMap, res) {
+  const { userToken } = value;
+
+  const isValid = !jsonwebtoken.verify(userToken, process.env.WEBTOKEN_SECRET);
+
+  res.send({
+    status: isValid ? "SUCCESS" : "FAILED"
   });
 }
 
@@ -135,6 +152,17 @@ function getAuthController(modelMap) {
       loginSchema,
       modelMap,
       validatedLoginHandler
+    )
+  );
+
+  router.get(
+    "/validate",
+    bodyParser.json(),
+    createControllerHandler(
+      "GET",
+      validateTokenSchema,
+      modelMap,
+      validatedValidateTokenHandler
     )
   );
 
