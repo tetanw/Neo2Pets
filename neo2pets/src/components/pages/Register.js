@@ -14,7 +14,6 @@ import {
 } from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +54,7 @@ class App extends Component {
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="formHorizontalUsername">
+                <FormGroup controlId="formHorizontalEmail">
                   <Col componentClass={ControlLabel} sm={3}>
                     E-mail
 		            	</Col>
@@ -70,22 +69,22 @@ class App extends Component {
 			            </Col>
 
                   <Col sm={5}>
-                    <FormControl className="inputbox jumbotron-style" type="password" placeholder="Password" />
+                    <FormControl label='Password' className="inputbox jumbotron-style" type="password" placeholder="Password"  validate='required,isLength:6:60'/>
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="formHorizontalPassword">
+                <FormGroup controlId="formHorizontalPasswordValidation">
                   <Col componentClass={ControlLabel} sm={3}>
                    Type password again
 			            </Col>
 
                   <Col sm={5}>
-                    <FormControl className="inputbox jumbotron-style" type="password" placeholder="Password" />
+                    <FormControl label='Confirm Password' className="inputbox jumbotron-style" type="password" placeholder="Password" validate={(val, context) => val === context.password} />
                   </Col>
                 </FormGroup>
 
                 <FormGroup>
-                  <Col smOffset={3} sm={1}>
+                  <Col smOffset={3} sm={5}>
                   <LinkContainer to="/login">
                     <Button  type="submit">Register</Button>
                   </LinkContainer>
