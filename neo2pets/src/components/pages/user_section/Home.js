@@ -5,7 +5,8 @@ class Home extends Component {
     return (
       <div className="jumbotron jumbotron-style">
         <h1>Home</h1>
-        <p>Start creating your own avatar!</p>
+        <p>{this.props.token}</p>
+
       </div>
     );
   }

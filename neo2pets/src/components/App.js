@@ -94,7 +94,7 @@ class App extends Component {
           this.state.auth_key === undefined && this.state.checked ? (
             <Redirect to="/login"/>
           ) : (
-            <UserSection/>
+            <UserSection token={this.state.auth_key}/>
           )
         )}/>
       </Switch>
