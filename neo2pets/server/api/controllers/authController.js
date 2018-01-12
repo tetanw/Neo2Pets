@@ -82,11 +82,17 @@ async function validatedLoginHandler(value, modelMap, res) {
 async function validatedValidateTokenHandler(value, modelMap, res) {
   const { userToken } = value;
 
-  const isValid = jsonwebtoken.verify(userToken, process.env.WEBTOKEN_SECRET);
+  try {
+    const isValid = jsonwebtoken.verify(userToken, process.env.WEBTOKEN_SECRET);
 
-  res.send({
-    status: isValid ? "SUCCESS" : "FAILED"
-  });
+    res.send({
+      status: "SUCCESS"
+    });
+  } catch (err) {
+    res.send({
+      status: "FAILED"
+    });
+  }
 }
 
 async function validatedRegisterHandler(value, modelMap, res) {
