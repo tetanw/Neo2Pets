@@ -27,7 +27,7 @@ html, body {
   padding: 20px;
 }
 
-.jumbotron-style {
+.jumbotron-style .panel {
   background-color: rgba(0, 0, 0, 0.404);
   font-family: Impact, Charcoal, sans-serif;
   letter-spacing: 2px;

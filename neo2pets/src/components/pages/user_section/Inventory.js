@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {
   Panel,
+  Jumbotron
 } from 'react-bootstrap';
 import Item from '../../layout/Item'
+
 
 class Inventory extends Component {
   constructor(props) {
@@ -257,6 +259,7 @@ class Inventory extends Component {
 
   render() {
     return (
+// <Jumbotron className= "jumbotron-style">
       <Panel>
         <Panel.Heading>
           <Panel.Title componentClass="h3">
@@ -264,13 +267,14 @@ class Inventory extends Component {
           </Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-          <div style={{display: "grid", gridAutoFlow: "row", gridTemplateColumns: "repeat(10, 100px)", gridGap: "10px"}}>
+          <div style={{ display: "grid", gridAutoFlow: "row", gridTemplateColumns: "repeat(auto-fill, 100px)", gridGap: "10px"}}>
             {this.state.items.map(item =>
               <Item key={item._id} type={item.type}/>
             )}
           </div>
         </Panel.Body>
       </Panel>
+//      </Jumbotron>
     );
   }
 }
