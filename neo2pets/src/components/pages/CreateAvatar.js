@@ -35,9 +35,8 @@ class CreateAvatar extends React.Component {
   handleClick(event) {
     this.setState({avatarno: event.currentTarget.id});
     event.preventDefault();
-    alert('test' + ' ' + this.state.avatarno);
+    {/*alert('test' + ' ' + this.state.avatarno);*/}
   }
-
 
 
   render() {
