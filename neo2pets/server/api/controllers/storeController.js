@@ -15,6 +15,52 @@ const addItemToStoreSchema = joi.object().keys({
   price: joi.number().required()
 });
 
+const listBuyablesSchema = joi.object().keys({
+  userToken: joi.string().required()
+});
+
+async function validateListBuyablesHandler(value, modelMap, res) {
+  const { userToken } = value;
+
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
+
+  const store = await modelMap.storeModel
+    .findOne({ owner: id })
+    .populate("owner")
+    .populate({
+      path: "buyables",
+      populate: {
+        path: "item",
+        model: "Item"
+      }
+    });
+  if (!store) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "Store does not exist",
+          field: "userToken"
+        }
+      ]
+    });
+  }
+
+  const buyables = store.buyables.map(({ item, price }) => ({
+    item,
+    price
+  }));
+
+  res.send({
+    status: "SUCCES",
+    buyables
+  });
+}
+
 async function validatedAddItemToStoreHandler(value, modelMap, res) {
   const { itemID, userToken, price } = value;
 
@@ -75,6 +121,17 @@ function getStoreController(modelMap) {
       addItemToStoreSchema,
       modelMap,
       validatedAddItemToStoreHandler
+    )
+  );
+
+  router.get(
+    "/listbuyables",
+    bodyParser.json(),
+    createControllerHandler(
+      "GET",
+      listBuyablesSchema,
+      modelMap,
+      validateListBuyablesHandler
     )
   );
 
