@@ -1,9 +1,6 @@
-import React, {Component} from 'react';
-import {
-  Panel,
-  Jumbotron
-} from 'react-bootstrap';
-import Item from '../../layout/Item'
+import React, { Component, Fragment } from "react";
+import { Panel, Grid, Col, Modal, Button } from "react-bootstrap";
+import Item from "../../layout/Item";
 
 
 class Inventory extends Component {
@@ -11,6 +8,7 @@ class Inventory extends Component {
     super(props);
 
     this.state = {
+      currentModal: "NONE",
       items: [
         {
           _id: "5a54ca186a2bf405681677b2",
@@ -22,9 +20,7 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
           owner: "5a54c6a9d406a8270823c851"
         },
@@ -38,11 +34,9 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
-          owner: "5a54c6a9d406a8270823c851",
+          owner: "5a54c6a9d406a8270823c851"
         },
         {
           _id: "5a54ca3521e9a40914ce4bd4",
@@ -54,11 +48,9 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
-          owner: "5a54c6a9d406a8270823c851",
+          owner: "5a54c6a9d406a8270823c851"
         },
         {
           _id: "5a54ca186a2b405681677b2",
@@ -70,9 +62,7 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
           owner: "5a54c6a9d406a8270823c851"
         },
@@ -86,11 +76,9 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
-          owner: "5a54c6a9d406a8270823c851",
+          owner: "5a54c6a9d406a8270823c851"
         },
         {
           _id: "554ca3521e9a40914ce4bd4",
@@ -102,11 +90,9 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
-          owner: "5a54c6a9d406a8270823c851",
+          owner: "5a54c6a9d406a8270823c851"
         },
         {
           _id: "5a54c186a2bf405681677b2",
@@ -118,9 +104,7 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
           owner: "5a54c6a9d406a8270823c851"
         },
@@ -134,11 +118,9 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
-          owner: "5a54c6a9d406a8270823c851",
+          owner: "5a54c6a9d406a8270823c851"
         },
         {
           _id: "5a54ca3521e9a40914ce4bd",
@@ -150,11 +132,9 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
-          owner: "5a54c6a9d406a8270823c851",
+          owner: "5a54c6a9d406a8270823c851"
         },
         {
           _id: "5a54ca186a2bf05681677b2",
@@ -166,9 +146,7 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
           owner: "5a54c6a9d406a8270823c851"
         },
@@ -182,11 +160,9 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
-          owner: "5a54c6a9d406a8270823c851",
+          owner: "5a54c6a9d406a8270823c851"
         },
         {
           _id: "5a54ca3521e9a40914ce4b4",
@@ -198,11 +174,9 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
-          owner: "5a54c6a9d406a8270823c851",
+          owner: "5a54c6a9d406a8270823c851"
         },
         {
           _id: "5a54ca186a2bf4056816772",
@@ -214,9 +188,7 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
           owner: "5a54c6a9d406a8270823c851"
         },
@@ -230,11 +202,9 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
-          owner: "5a54c6a9d406a8270823c851",
+          owner: "5a54c6a9d406a8270823c851"
         },
         {
           _id: "5a54ca3521e9a40914e4bd4",
@@ -246,35 +216,133 @@ class Inventory extends Component {
                 funValue: 3
               }
             },
-            properties: [
-              "TOY"
-            ]
+            properties: ["TOY"]
           },
-          owner: "5a54c6a9d406a8270823c851",
-        },
+          owner: "5a54c6a9d406a8270823c851"
+        }
       ]
     };
   }
 
-
   render() {
     return (
-// <Jumbotron className= "jumbotron-style">
-      <Panel>
-        <Panel.Heading>
-          <Panel.Title componentClass="h3">
-            Inventory
-          </Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-          <div style={{ display: "grid", gridAutoFlow: "row", gridTemplateColumns: "repeat(auto-fill, 100px)", gridGap: "10px"}}>
-            {this.state.items.map(item =>
-              <Item key={item._id} type={item.type}/>
-            )}
-          </div>
-        </Panel.Body>
-      </Panel>
-//      </Jumbotron>
+      <Fragment>
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">Inventory</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            {this.state.items.map((item, index) => (
+              <Col key={index} sm={2}>
+                <Item onItemClick={this.onItemClick} type={{ name: "Kaka" }} />
+              </Col>
+            ))}
+          </Panel.Body>
+        </Panel>
+        <ItemModal
+          show={this.state.currentModal === "ITEM"}
+          onClose={this.onItemClose}
+          onUseClick={this.onUseClick}
+          onAddStoreClick={this.onAddStoreClick}
+          onDeleteClick={this.onDeleteClick}
+          onFavouriteClick={this.onFavouriteClick}
+        />
+        <AddStoreModal
+          show={this.state.currentModal === "ADD_STORE"}
+          onAddStoreClose={this.onAddStoreClose}
+        />
+      </Fragment>
+    );
+  }
+
+  onItemClick = () => {
+    this.setState({
+      currentModal: "ITEM"
+    });
+  };
+
+  onItemClose = () => {
+    this.setState({
+      currentModal: "NONE"
+    });
+  };
+
+  onUseClick = () => {
+    this.setState({
+      currentModal: "NONE"
+    });
+  };
+
+  onAddStoreClick = () => {
+    // a new modal for adding to store
+    this.setState({
+      currentModal: "ADD_STORE"
+    });
+  };
+
+  onDeleteClick = () => {
+    this.setState({
+      currentModal: "NONE"
+    });
+  };
+
+  onFavouriteClick = () => {
+    this.setState({
+      currentModal: "NONE"
+    });
+  };
+
+  onAddStoreClose = () => {
+    this.setState({
+      currentModal: "ITEM"
+    });
+  };
+}
+
+class ItemModal extends Component {
+  render() {
+    const {
+      show = false,
+      onClose,
+      onUseClick,
+      onAddStoreClick,
+      onDeleteClick,
+      onFavouriteClick
+    } = this.props;
+
+    return (
+      <Modal show={show} onHide={onClose}>
+        <Modal.Header closeButton>I just want to say Trello!</Modal.Header>
+
+        <Modal.Body>Trello!</Modal.Body>
+
+        <Modal.Footer>
+          <Button onClick={onUseClick}> Use </Button>
+          <Button onClick={onAddStoreClick}> Add to store </Button>
+          <Button onClick={onDeleteClick}> Delete </Button>
+          <Button onClick={onFavouriteClick}> Make favourite </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+}
+
+class AddStoreModal extends Component {
+  render() {
+    const { onAddStoreClose, show } = this.props;
+
+    return (
+      <Modal show={show} onHide={onAddStoreClose}>
+        <Modal.Header closeButton>
+          I just want to say "Add to store"!
+        </Modal.Header>
+
+        <Modal.Body>Add to store!</Modal.Body>
+
+        <Modal.Footer>
+          <Button> Add to store! </Button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }
