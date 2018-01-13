@@ -45,8 +45,6 @@ class UserSection extends Component {
           });
         }
       });
-
-
   }
 
   render() {

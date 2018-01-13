@@ -21,6 +21,7 @@ class Inventory extends PureComponent {
 
     this.state = {
       currentModal: "NONE",
+      modalItem: null,
       items: [],
       request: null,
       loading: false,
@@ -29,42 +30,14 @@ class Inventory extends PureComponent {
   }
 
   componentDidMount() {
-    if (!this.state.loading) {
-      var request = new XMLHttpRequest();
-      this.setState({
-        request,
-        loading: true
-      });
-      request.onreadystatechange = () => {
-        if (
-          request.readyState === XMLHttpRequest.DONE &&
-          request.status !== 0
-        ) {
-          const response = JSON.parse(request.response);
-
-          if (response.status === "SUCCESS") {
-            this.setState({
-              items: response.items,
-              loading: false,
-              request: null
-            });
-          }
-        }
-      };
-      request.open(
-        "GET",
-        `api/item/getowneditems?userToken=${this.props.token}`,
-        true
-      );
-      request.send();
-    }
+    this.updateItems();
   }
 
   componentWillUnmount() {
     const { loading, request } = this.state;
 
     if (loading) {
-      request.abort();
+      //request.abort();
       this.setState({
         loading: false,
         request: null
@@ -97,24 +70,26 @@ class Inventory extends PureComponent {
               value={this.state.searchbarText}
               onTextChange={this.onSearchBarTextChange}
             />
-            {items.map(({ type, id }, index) => (
+            {items.map((item, index) => (
               <Col key={index} xs={6} sm={4} md={3} lg={2}>
-                <Item onItemClick={this.onItemClick} id={id} type={type} />
+                <Item onItemClick={this.onItemClick} item={item}/>
               </Col>
             ))}
           </Panel.Body>
         </Panel>
         <ItemModal
           show={this.state.currentModal === "ITEM"}
+          item={this.state.modalItem}
           onClose={this.onItemClose}
           onUseClick={this.onUseClick}
-          onAddStoreClick={this.onAddStoreClick}
+          onAddStoreOpenClick={this.onAddStoreOpenClick}
           onDeleteClick={this.onDeleteClick}
-          onFavouriteClick={this.onFavouriteClick}
         />
         <AddStoreModal
           show={this.state.currentModal === "ADD_STORE"}
+          item={this.state.modalItem}
           onAddStoreClose={this.onAddStoreClose}
+          onAddStoreClick={this.onAddStoreClick}
         />
       </Fragment>
     );
@@ -126,25 +101,49 @@ class Inventory extends PureComponent {
     });
   };
 
-  onItemClick = () => {
+  onItemClick = (item) => {
     this.setState({
-      currentModal: "ITEM"
+      currentModal: "ITEM",
+      modalItem: item
     });
   };
 
   onItemClose = () => {
     this.setState({
-      currentModal: "NONE"
+      currentModal: "NONE",
+      modalItem: null
     });
   };
 
   onUseClick = () => {
+    fetch('/api/item/consume', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userToken: this.props.token,
+        itemID: this.state.modalItem.id,
+      })
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        if (res.status === "SUCCESS") {
+          this.updateItems();
+        } else {
+          console.log(res);
+        }
+      });
+
     this.setState({
-      currentModal: "NONE"
+      currentModal: "NONE",
+      modalItem: null
     });
   };
 
-  onAddStoreClick = () => {
+  onAddStoreOpenClick = () => {
     // a new modal for adding to store
     this.setState({
       currentModal: "ADD_STORE"
@@ -152,14 +151,30 @@ class Inventory extends PureComponent {
   };
 
   onDeleteClick = () => {
-    this.setState({
-      currentModal: "NONE"
-    });
-  };
+    fetch('/api/item/consume', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userToken: this.props.token,
+        itemID: this.state.modalItem.id,
+      })
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        if (res.status === "SUCCESS") {
+          this.updateItems();
+        } else {
+          console.log(res);
+        }
+      });
 
-  onFavouriteClick = () => {
     this.setState({
-      currentModal: "NONE"
+      currentModal: "NONE",
+      modalItem: null
     });
   };
 
@@ -168,6 +183,66 @@ class Inventory extends PureComponent {
       currentModal: "ITEM"
     });
   };
+
+  onAddStoreClick = (_price) => {
+    fetch('/api/item/consume', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userToken: this.props.token,
+        itemID: this.state.modalItem.id,
+        price: _price
+      })
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        if (res.status === "SUCCESS") {
+          this.updateItems();
+        } else {
+          console.log(res);
+        }
+      });
+
+    this.setState({
+      currentModal: "NONE",
+      modalItem: null
+    });
+  };
+
+  updateItems = () => {
+    let request = new XMLHttpRequest();
+    this.setState({
+      request,
+      loading: true
+    });
+    request.onreadystatechange = () => {
+      if (
+        request.readyState === XMLHttpRequest.DONE &&
+        request.status !== 0
+      ) {
+        const response = JSON.parse(request.response);
+
+        if (response.status === "SUCCESS") {
+          this.setState({
+            items: response.items,
+            loading: false,
+            request: null
+          });
+        }
+      }
+    };
+    request.open(
+      "GET",
+      `api/item/getowneditems?userToken=${this.props.token}`,
+      true
+    );
+    request.send();
+  }
+
 }
 
 export default Inventory;

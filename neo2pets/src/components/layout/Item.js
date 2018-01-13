@@ -12,7 +12,7 @@ class Item extends Component {
           </Panel.Body>
           <Panel.Footer>
             <div style={{ textAlign: "center" }}>
-              <b> {this.props.type.name} </b>
+              <b> {this.props.item.type.name} </b>
             </div>
           </Panel.Footer>
         </Panel>
@@ -21,9 +21,9 @@ class Item extends Component {
   }
 
   onItemClick = () => {
-    const { onItemClick } = this.props;
+    const { onItemClick, item } = this.props;
 
-    onItemClick();
+    onItemClick(item);
   };
 }
 
