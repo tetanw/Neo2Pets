@@ -1,5 +1,15 @@
 import React, { Component, Fragment, PureComponent } from "react";
-import { Panel, Grid, Col, Modal, Button } from "react-bootstrap";
+import {
+  Panel,
+  Grid,
+  Col,
+  Modal,
+  Button,
+  Glyphicon,
+  FormGroup,
+  InputGroup,
+  FormControl
+} from "react-bootstrap";
 import Item from "../../layout/Item";
 
 class Inventory extends PureComponent {
@@ -10,7 +20,8 @@ class Inventory extends PureComponent {
       currentModal: "NONE",
       items: [],
       request: null,
-      loading: false
+      loading: false,
+      searchbarText: ""
     };
   }
 
@@ -81,6 +92,10 @@ class Inventory extends PureComponent {
             <Panel.Title componentClass="h3">Inventory</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
+            <SearchBar
+              value={this.state.searchbarText}
+              onTextChange={this.onSearchBarTextChange}
+            />
             {items.map(({ type, id }, index) => (
               <Col key={index} xs={6} sm={4} md={3} lg={2}>
                 <Item onItemClick={this.onItemClick} id={id} type={type} />
@@ -103,6 +118,12 @@ class Inventory extends PureComponent {
       </Fragment>
     );
   }
+
+  onSearchBarTextChange = event => {
+    this.setState({
+      searchbarText: event.target.value
+    });
+  };
 
   onItemClick = () => {
     this.setState({
@@ -146,6 +167,28 @@ class Inventory extends PureComponent {
       currentModal: "ITEM"
     });
   };
+}
+
+class SearchBar extends Component {
+  render() {
+    const { onTextChange, value } = this.props;
+
+    return (
+      <Fragment>
+        <h3> Search </h3>
+        <form>
+          <FormGroup>
+            <InputGroup>
+              <FormControl value={value} onChange={onTextChange} type="text" />
+              <InputGroup.Button>
+                <Button>Search</Button>
+              </InputGroup.Button>
+            </InputGroup>
+          </FormGroup>
+        </form>
+      </Fragment>
+    );
+  }
 }
 
 class ItemModal extends Component {
