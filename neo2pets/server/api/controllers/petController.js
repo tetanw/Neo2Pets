@@ -7,10 +7,6 @@ const bcryptjs = require("bcryptjs");
 const { createControllerHandler, checkAuth } = require("./controllerUtil");
 
 const getPetSchema = joi.object().keys({
-  petID: joi
-    .string()
-    .alphanum()
-    .required(),
   userToken: joi.string().required()
 });
 
@@ -37,7 +33,9 @@ async function validatedGetPetHandler(value, modelMap, res) {
     return;
   }
 
-  const pet = await modelMap.petModel.findById(petID).populate("race");
+  const { id } = jsonwebtoken.decode(userToken);
+
+  const pet = await modelMap.petModel.findOne({ owner: id }).populate("race");
 
   if (!pet) {
     return res.send({
@@ -113,6 +111,20 @@ async function validatedCreatePetHandler(value, modelMap, res) {
   }
 
   const { id } = jsonwebtoken.decode(userToken);
+
+  const ownedPets = await modelMap.petModel.find({ owner: id });
+
+  if (ownedPets.length >= 1) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "Owner already has an pet",
+          field: "userToken"
+        }
+      ]
+    });
+  }
 
   const pet = await modelMap.petModel.create({
     race: petRace._id,
