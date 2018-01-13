@@ -24,7 +24,7 @@ if (happiness <= 30) {
 class Avatar extends Component {
   render() {
     return (
-      <div className=" jumbotron jumbotron-style">
+      <div className="jumbotron jumbotron-style">
       <Grid>
          <Col xs={8} sm={6} md={4}>
            <div className="block">
