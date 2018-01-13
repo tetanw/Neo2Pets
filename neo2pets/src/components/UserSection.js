@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Page from './UserSectionPage';
 import Pet from './layout/Pet';
 import CustomNavbar from "./layout/Navbar";
+import {Grid, Col, Row} from "react-bootstrap";
 
 
 class UserSection extends Component {
@@ -23,20 +24,16 @@ class UserSection extends Component {
   render() {
     return (
       <div className="main">
-        <CustomNavbar/>
-        <div class="container">
-          <div class="row">
-            <div class="col-md">
-            <Pet token={this.props.token} pet={this.state.pet}/>
-            </div>
-            <div class="col-md">
-            <Page token={this.props.token}/>
-            </div>
-          </div>
-        </div>
+      <CustomNavbar/>
+      <div id="sidebar-wrapper">
+      <Pet token={this.props.token} pet={this.state.pet}/>
       </div>
-
-      // </div>
+      <div id="page-content-wrapper">
+      <div class="container-fluid">
+      <Page token={this.props.token}/>
+      </div>
+      </div>
+      </div>
     )
   }
 }
