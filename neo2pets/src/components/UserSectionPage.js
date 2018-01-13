@@ -5,10 +5,10 @@ import Home from "./pages/user_section/Home";
 import Marketplace from "./pages/user_section/Shop";
 import Games from "./pages/user_section/Games";
 import CreateAvatar from "./pages/CreateAvatar";
-import Inventory from "./pages/user_section/Inventory";
+import Inventory from "./pages/user_section/Inventory/Inventory";
 import Avatar from "./pages/user_section/Avatar";
 import "../index.css";
-import { Col, } from 'react-bootstrap';
+import { Col } from "react-bootstrap";
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster

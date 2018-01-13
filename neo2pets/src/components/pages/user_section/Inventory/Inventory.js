@@ -10,7 +10,10 @@ import {
   InputGroup,
   FormControl
 } from "react-bootstrap";
-import Item from "../../layout/Item";
+import Item from "../../../layout/Item";
+import AddStoreModal from "./AddStoreModal";
+import ItemModal from "./ItemModal";
+import SearchBar from "./SearchBar";
 
 class Inventory extends PureComponent {
   constructor(props) {
@@ -32,8 +35,6 @@ class Inventory extends PureComponent {
         request,
         loading: true
       });
-      const userToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QxMjMiLCJpZCI6IjVhNTRjNmE5ZDQwNmE4MjcwODIzYzg1MSIsImlhdCI6MTUxNTUwNTY1Mn0.qZDMcnoM7vPm9vFUQzsMjUONu1_M1TiWi9oofOYDrvc";
       request.onreadystatechange = () => {
         if (
           request.readyState === XMLHttpRequest.DONE &&
@@ -52,7 +53,7 @@ class Inventory extends PureComponent {
       };
       request.open(
         "GET",
-        `api/item/getowneditems?userToken=${userToken}`,
+        `api/item/getowneditems?userToken=${this.props.token}`,
         true
       );
       request.send();
@@ -167,76 +168,6 @@ class Inventory extends PureComponent {
       currentModal: "ITEM"
     });
   };
-}
-
-class SearchBar extends Component {
-  render() {
-    const { onTextChange, value } = this.props;
-
-    return (
-      <Fragment>
-        <h3> Search </h3>
-        <form>
-          <FormGroup>
-            <InputGroup>
-              <FormControl value={value} onChange={onTextChange} type="text" />
-              <InputGroup.Button>
-                <Button>Search</Button>
-              </InputGroup.Button>
-            </InputGroup>
-          </FormGroup>
-        </form>
-      </Fragment>
-    );
-  }
-}
-
-class ItemModal extends Component {
-  render() {
-    const {
-      show = false,
-      onClose,
-      onUseClick,
-      onAddStoreClick,
-      onDeleteClick,
-      onFavouriteClick
-    } = this.props;
-
-    return (
-      <Modal show={show} onHide={onClose}>
-        <Modal.Header closeButton>I just want to say Trello!</Modal.Header>
-
-        <Modal.Body>Trello!</Modal.Body>
-
-        <Modal.Footer>
-          <Button onClick={onUseClick}> Use </Button>
-          <Button onClick={onAddStoreClick}> Add to store </Button>
-          <Button onClick={onDeleteClick}> Delete </Button>
-          <Button onClick={onFavouriteClick}> Make favourite </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-}
-
-class AddStoreModal extends Component {
-  render() {
-    const { onAddStoreClose, show } = this.props;
-
-    return (
-      <Modal show={show} onHide={onAddStoreClose}>
-        <Modal.Header closeButton>
-          I just want to say "Add to store"!
-        </Modal.Header>
-
-        <Modal.Body>Add to store!</Modal.Body>
-
-        <Modal.Footer>
-          <Button> Add to store! </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
 }
 
 export default Inventory;
