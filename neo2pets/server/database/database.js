@@ -16,7 +16,8 @@ function createDatabase() {
         petModel: require("./models/petModel").createModel(),
         itemModel: require("./models/itemModel").createModel(),
         itemTypeModel: require("./models/itemTypeModel").createModel(),
-        petRaceModel: require("./models/petRaceModel").createModel()
+        petRaceModel: require("./models/petRaceModel").createModel(),
+        storeModel: require("./models/storeModel").createModel()
       };
 
       resolve(modelMap);
