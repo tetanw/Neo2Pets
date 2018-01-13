@@ -24,10 +24,19 @@ class UserSection extends Component {
     return (
       <div className="main">
         <CustomNavbar/>
-        <Pet token={this.props.token} pet={this.state.pet}/>
-        <Page token={this.props.token}/>
-
+        <div class="container">
+          <div class="row">
+            <div class="col-md">
+            <Pet token={this.props.token} pet={this.state.pet}/>
+            </div>
+            <div class="col-md">
+            <Page token={this.props.token}/>
+            </div>
+          </div>
+        </div>
       </div>
+
+      // </div>
     )
   }
 }
