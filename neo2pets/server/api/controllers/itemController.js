@@ -7,14 +7,8 @@ const bcryptjs = require("bcryptjs");
 const { createControllerHandler, checkAuth } = require("./controllerUtil");
 
 const getItemSchema = joi.object().keys({
-  itemID: joi
-    .string()
-    .alphanum()
-    .required(),
-  userToken: joi
-    .string()
-    .alphanum()
-    .required()
+  itemID: joi.string().required(),
+  userToken: joi.string().required()
 });
 
 const consumeItemSchema = joi.object().keys({
