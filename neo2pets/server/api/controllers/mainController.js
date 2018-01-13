@@ -4,6 +4,7 @@ const { getItemController } = require("./itemController");
 const { getItemTypeController } = require("./itemTypesController");
 const { getPetRaceController } = require("./petRaceController");
 const { getStoreController } = require("./storeController");
+const { getMoneyController } = require("./moneyController");
 
 function registerRoutes(app, modelMap) {
   app.use("/api/auth", getAuthController(modelMap));
@@ -12,6 +13,7 @@ function registerRoutes(app, modelMap) {
   app.use("/api/itemtype", getItemTypeController(modelMap));
   app.use("/api/petrace", getPetRaceController(modelMap));
   app.use("/api/store", getStoreController(modelMap));
+  app.use("/api/money", getMoneyController(modelMap));
 }
 
 module.exports = {

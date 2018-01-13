@@ -4,7 +4,8 @@ function createModel() {
   const schema = mongoose.Schema({
     username: String,
     password: String,
-    email: String
+    email: String,
+    money: Number
   });
 
   return mongoose.model("User", schema);

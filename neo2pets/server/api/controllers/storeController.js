@@ -56,7 +56,7 @@ async function validateListBuyablesHandler(value, modelMap, res) {
   }));
 
   res.send({
-    status: "SUCCES",
+    status: "SUCCESS",
     buyables
   });
 }
