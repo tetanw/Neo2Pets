@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
-import Page from './UserSectionPage';
-import Pet from './layout/Pet';
+import React, { Component } from "react";
+import Page from "./UserSectionPage";
+import Pet from "./layout/Pet";
 import CustomNavbar from "./layout/Navbar";
-import {Grid, Col, Row} from "react-bootstrap";
-
+import { Grid, Col, Row } from "react-bootstrap";
 
 class UserSection extends Component {
   constructor(props) {
@@ -13,28 +12,28 @@ class UserSection extends Component {
       pet: {
         race: {
           id: "5a54e0a85621d32a00afcca7",
-          "name": "SUPERPICKACHU"
+          name: "SUPERPICKACHU"
         },
         owner: "5a54c6a9d406a8270823c851",
         nickName: "PikaPika"
       }
-    }
+    };
   }
 
   render() {
     return (
       <div className="main">
-      <CustomNavbar/>
-      <div id="sidebar-wrapper">
-      <Pet token={this.props.token} pet={this.state.pet}/>
+        <CustomNavbar />
+        <div id="sidebar-wrapper">
+          <Pet token={this.props.token} pet={this.state.pet} />
+        </div>
+        <div id="page-content-wrapper">
+          <div className="container-fluid">
+            <Page token={this.props.token} />
+          </div>
+        </div>
       </div>
-      <div id="page-content-wrapper">
-      <div class="container-fluid">
-      <Page token={this.props.token}/>
-      </div>
-      </div>
-      </div>
-    )
+    );
   }
 }
 
