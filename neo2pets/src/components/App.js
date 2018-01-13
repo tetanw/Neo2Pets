@@ -1,12 +1,8 @@
-import React, {Component} from 'react';
-import {
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import UserSection from './UserSection';
+import React, { Component } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import UserSection from "./UserSection";
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +11,7 @@ class App extends Component {
     this.onLogin = this.onLogin.bind(this);
     this.checkAuth = this.checkAuth.bind(this);
 
-    console.log("init");
+    console.log("Initiating the application");
     this.state = {
       checking: false,
       checked: false
@@ -24,7 +20,7 @@ class App extends Component {
 
   componentDidMount() {
     if (!this.state.checking && !this.state.checked) {
-      this.setState({checking: true})
+      this.setState({ checking: true });
       this.checkAuth();
     }
   }
@@ -39,32 +35,31 @@ class App extends Component {
         }
       }
       if (auth_key !== undefined) {
-        await fetch('/api/auth/validate?userToken=' + auth_key, {
+        await fetch("/api/auth/validate?userToken=" + auth_key, {
           method: "GET",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json"
           }
         })
           .then(res => {
             return res.json();
           })
           .then(res => {
-            console.log("checked")
+            console.log("Checking the authentication");
             if (res.status === "SUCCESS") {
               this.setState({
-                auth_key: auth_key,
+                auth_key: auth_key
               });
             }
           });
       }
     }
 
-
     this.setState({
       checking: false,
       checked: true
     });
-    console.log("finished");
+    console.log("Finished checking the authentication.");
   }
 
   onLogin(auth_key, remember) {
@@ -74,9 +69,12 @@ class App extends Component {
 
     if (remember) {
       if (localStorage) {
-        localStorage.setItem("Neo2Pets_Auth", JSON.stringify({
-          auth_key: auth_key
-        }));
+        localStorage.setItem(
+          "Neo2Pets_Auth",
+          JSON.stringify({
+            auth_key: auth_key
+          })
+        );
       }
     } else {
       if (localStorage) {
@@ -88,17 +86,26 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route path='/login' render={(props) => <Login onLogin={this.onLogin} {...props}/>}/>
-        <Route path='/register' render={(props) => <Register onLogin={this.onLogin} {...props}/>}/>
-        <Route path="/" render={() => (
-          this.state.auth_key === undefined && this.state.checked ? (
-            <Redirect to="/login"/>
-          ) : (
-            <UserSection token={this.state.auth_key}/>
-          )
-        )}/>
+        <Route
+          path="/login"
+          render={props => <Login onLogin={this.onLogin} {...props} />}
+        />
+        <Route
+          path="/register"
+          render={props => <Register onLogin={this.onLogin} {...props} />}
+        />
+        <Route
+          path="/"
+          render={() =>
+            this.state.auth_key === undefined && this.state.checked ? (
+              <Redirect to="/login" />
+            ) : (
+              <UserSection token={this.state.auth_key} />
+            )
+          }
+        />
       </Switch>
-    )
+    );
   }
 }
 

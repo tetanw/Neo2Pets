@@ -1,230 +1,79 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, PureComponent } from "react";
 import { Panel, Grid, Col, Modal, Button } from "react-bootstrap";
 import Item from "../../layout/Item";
 
-
-class Inventory extends Component {
+class Inventory extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       currentModal: "NONE",
-      items: [
-        {
-          _id: "5a54ca186a2bf405681677b2",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca2ad3258235a0f39cd4",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca3521e9a40914ce4bd4",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca186a2b405681677b2",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca2ad358235a0f39cd4",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "554ca3521e9a40914ce4bd4",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54c186a2bf405681677b2",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54caad3258235a0f39cd4",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca3521e9a40914ce4bd",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca186a2bf05681677b2",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca2ad325235a0f39cd4",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca3521e9a40914ce4b4",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca186a2bf4056816772",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca2ad3258235a0f39c4",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        },
-        {
-          _id: "5a54ca3521e9a40914e4bd4",
-          type: {
-            _id: "5a54b7bd68b68035003ac46f",
-            name: "BLOCK6",
-            propertyData: {
-              TOY: {
-                funValue: 3
-              }
-            },
-            properties: ["TOY"]
-          },
-          owner: "5a54c6a9d406a8270823c851"
-        }
-      ]
+      items: [],
+      request: null,
+      loading: false
     };
   }
 
+  componentDidMount() {
+    if (!this.state.loading) {
+      var request = new XMLHttpRequest();
+      this.setState({
+        request,
+        loading: true
+      });
+      const userToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QxMjMiLCJpZCI6IjVhNTRjNmE5ZDQwNmE4MjcwODIzYzg1MSIsImlhdCI6MTUxNTUwNTY1Mn0.qZDMcnoM7vPm9vFUQzsMjUONu1_M1TiWi9oofOYDrvc";
+      request.onreadystatechange = () => {
+        if (
+          request.readyState === XMLHttpRequest.DONE &&
+          request.status !== 0
+        ) {
+          const response = JSON.parse(request.response);
+
+          if (response.status === "SUCCESS") {
+            this.setState({
+              items: response.items,
+              loading: false,
+              request: null
+            });
+          }
+        }
+      };
+      request.open(
+        "GET",
+        `api/item/getowneditems?userToken=${userToken}`,
+        true
+      );
+      request.send();
+    }
+  }
+
+  componentWillUnmount() {
+    const { loading, request } = this.state;
+
+    if (loading) {
+      request.abort();
+      this.setState({
+        loading: false,
+        request: null
+      });
+    }
+  }
+
   render() {
+    const { loading, items } = this.state;
+
+    if (loading) {
+      return (
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">Inventory</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body />
+        </Panel>
+      );
+    }
+
     return (
       <Fragment>
         <Panel>
@@ -232,9 +81,9 @@ class Inventory extends Component {
             <Panel.Title componentClass="h3">Inventory</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            {this.state.items.map((item, index) => (
-              <Col key={index} sm={2}>
-                <Item onItemClick={this.onItemClick} type={{ name: "Kaka" }} />
+            {items.map(({ type, id }, index) => (
+              <Col key={index} xs={6} sm={4} md={3} lg={2}>
+                <Item onItemClick={this.onItemClick} id={id} type={type} />
               </Col>
             ))}
           </Panel.Body>
