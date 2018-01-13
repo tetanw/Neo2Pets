@@ -10,10 +10,6 @@ const getPetSchema = joi.object().keys({
   userToken: joi.string().required()
 });
 
-const getOwnedPetsSchema = joi.object().keys({
-  userToken: joi.string().required()
-});
-
 const createPetSchema = joi.object().keys({
   raceName: joi
     .string()
@@ -62,33 +58,6 @@ async function validatedGetPetHandler(value, modelMap, res) {
   });
 }
 
-async function validatedGetOwnedPetsHandler(value, modelMap, res) {
-  const { userToken } = value;
-
-  if (!checkAuth(res, userToken, "userToken")) {
-    return;
-  }
-
-  const { id } = jsonwebtoken.decode(userToken);
-
-  const pets = (await modelMap.petModel
-    .find({ owner: id })
-    .populate("race")).map(oldPet => {
-    return {
-      nickName: oldPet.nickName,
-      owner: oldPet.owner,
-      race: {
-        name: oldPet.race.name
-      }
-    };
-  });
-
-  res.send({
-    status: "SUCCESS",
-    pets
-  });
-}
-
 async function validatedCreatePetHandler(value, modelMap, res) {
   const { raceName, nickName, userToken } = value;
 
@@ -103,7 +72,7 @@ async function validatedCreatePetHandler(value, modelMap, res) {
       status: "FAILED",
       messages: [
         {
-          message: `Race with name "${raceName}" does not exisst`,
+          message: `Race with name "${raceName}" does not exist`,
           field: "raceName"
         }
       ]
@@ -155,16 +124,6 @@ function getPetController(modelMap) {
       getPetSchema,
       modelMap,
       validatedGetPetHandler
-    )
-  );
-
-  router.get(
-    "/getownedpets",
-    createControllerHandler(
-      "GET",
-      getOwnedPetsSchema,
-      modelMap,
-      validatedGetOwnedPetsHandler
     )
   );
 
