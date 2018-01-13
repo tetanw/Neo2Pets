@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import PageContainer from "./layout/PageContainer";
-import ShopList from "./pages/user_section/ShopList";
+import ShopList from "./pages/user_section/Shops/ShopList";
 import Games from "./pages/user_section/Games";
 import CreateAvatar from "./pages/CreateAvatar";
 import Inventory from "./pages/user_section/Inventory/Inventory";
