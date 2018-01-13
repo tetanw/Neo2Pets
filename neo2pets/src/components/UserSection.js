@@ -22,29 +22,17 @@ class UserSection extends Component {
 
   render() {
     return (
-<<<<<<< HEAD
-      <div className="main">
-        <CustomNavbar />
-        <div id="sidebar-wrapper">
-          <Pet token={this.props.token} pet={this.state.pet} />
-        </div>
-        <div id="page-content-wrapper">
-          <div className="container-fluid">
-            <Page token={this.props.token} />
-          </div>
-=======
       <div>
         <div>
-        <CustomNavbar/>
+          <CustomNavbar />
         </div>
         <div>
-        <div className = "sidebar">
-          <Pet token={this.props.token} pet={this.state.pet}/>
-        </div>
-        <div className = "inline">
-          <Page token={this.props.token}/>
-        </div>
->>>>>>> b353e3c7d0198db4f3f4d75d80bd97fa4d161e11
+          <div className="sidebar">
+            <Pet token={this.props.token} pet={this.state.pet} />
+          </div>
+          <div className="inline">
+            <Page token={this.props.token} />
+          </div>
         </div>
       </div>
     );
