@@ -16,10 +16,6 @@ import "../index.css";
 // when the pathname is exactly the string "/"
 
 class Page extends Component {
-  withToken(Component, token) {
-    return props => <Component {...props} token={token} />;
-  }
-
   render() {
     return (
       <PageContainer>
@@ -27,32 +23,32 @@ class Page extends Component {
           <Route
             exact
             path="/"
-            component={this.withToken(Home, this.props.token)}
+            component={withLoginToken(Home, this.props.token)}
           />
 
           <Route
             path="/shop"
-            component={this.withToken(Marketplace, this.props.token)}
+            component={withLoginToken(Marketplace, this.props.token)}
           />
 
           <Route
             path="/games"
-            component={this.withToken(Games, this.props.token)}
+            component={withLoginToken(Games, this.props.token)}
           />
 
           <Route
             path="/create-avatar"
-            component={this.withToken(CreateAvatar, this.props.token)}
+            component={withLoginToken(CreateAvatar, this.props.token)}
           />
 
           <Route
             path="/avatar"
-            component={this.withToken(Avatar, this.props.token)}
+            component={withLoginToken(Avatar, this.props.token)}
           />
 
           <Route
             path="/inventory"
-            component={this.withToken(Inventory, this.props.token)}
+            component={withLoginToken(Inventory, this.props.token)}
           />
         </Switch>
       </PageContainer>
@@ -60,9 +56,9 @@ class Page extends Component {
   }
 }
 
-function withLoginToken(Component, userToken) {
+function withLoginToken(Component, token) {
   return props => {
-    return <Component {...props} userToken={userToken} />;
+    return <Component {...props} token={token} />;
   };
 }
 
