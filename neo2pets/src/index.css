@@ -30,6 +30,7 @@ body {
   letter-spacing: 2px;
   color: white;
   overflow-wrap: break-word;
+  border-radius: 10px;
 }
 
 .navbar-brand {
@@ -88,7 +89,7 @@ body {
 }
 
 .pet {
-  margin: 15px; 
+  margin: 15px;
 }
 
 #sidebar-wrapper {
@@ -115,6 +116,14 @@ body {
   overflow-y: auto;
 }
 
-.testtt{
-  border: 5px solid red;
+.sidebar{
+  display: inline-block;
+  float: left;
+  margin-top: 60px;
+  margin-left: 20px;
+}
+
+.inline{
+  display: inline-block;
+  float: left;
 }

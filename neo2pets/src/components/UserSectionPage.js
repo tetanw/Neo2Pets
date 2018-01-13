@@ -8,6 +8,7 @@ import CreateAvatar from "./pages/CreateAvatar";
 import Inventory from "./pages/user_section/Inventory";
 import Avatar from "./pages/user_section/Avatar";
 import "../index.css";
+import { Col, } from 'react-bootstrap';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
