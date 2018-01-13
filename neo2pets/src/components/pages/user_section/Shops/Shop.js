@@ -1,11 +1,13 @@
-import React, {Component, Fragment, PureComponent} from "react";
-import {Panel, Col} from "react-bootstrap";
+import React, { Fragment, PureComponent } from "react";
+import {
+  Panel,
+  Col,
+} from "react-bootstrap";
+import ShopItemModal from "./ShopItemModal";
 import Item from "../../../layout/Item";
-import AddStoreModal from "./AddStoreModal";
-import ItemModal from "./ItemModal";
 import SearchBar from "../../../layout/SearchBar";
 
-class Inventory extends PureComponent {
+class Shop extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -24,7 +26,7 @@ class Inventory extends PureComponent {
   }
 
   componentWillUnmount() {
-    const {loading, request} = this.state;
+    const { loading, request } = this.state;
 
     if (loading) {
       //request.abort();
@@ -36,15 +38,15 @@ class Inventory extends PureComponent {
   }
 
   render() {
-    const {loading, items} = this.state;
+    const { loading, items } = this.state;
 
     if (loading) {
       return (
         <Panel>
           <Panel.Heading>
-            <Panel.Title componentClass="h3">Inventory</Panel.Title>
+            <Panel.Title componentClass="h3">Someone's Store</Panel.Title>
           </Panel.Heading>
-          <Panel.Body/>
+          <Panel.Body />
         </Panel>
       );
     }
@@ -53,7 +55,7 @@ class Inventory extends PureComponent {
       <Fragment>
         <Panel>
           <Panel.Heading>
-            <Panel.Title componentClass="h3">Inventory</Panel.Title>
+            <Panel.Title componentClass="h3">Someone's Store</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
             <SearchBar
@@ -67,19 +69,11 @@ class Inventory extends PureComponent {
             ))}
           </Panel.Body>
         </Panel>
-        <ItemModal
+        <ShopItemModal
           show={this.state.currentModal === "ITEM"}
           item={this.state.modalItem}
           onClose={this.onItemClose}
-          onUseClick={this.onUseClick}
-          onAddStoreOpenClick={this.onAddStoreOpenClick}
-          onDeleteClick={this.onDeleteClick}
-        />
-        <AddStoreModal
-          show={this.state.currentModal === "ADD_STORE"}
-          item={this.state.modalItem}
-          onAddStoreClose={this.onAddStoreClose}
-          onAddStoreClick={this.onAddStoreClick}
+          onBuyClick={this.onBuyClick}
         />
       </Fragment>
     );
@@ -105,7 +99,7 @@ class Inventory extends PureComponent {
     });
   };
 
-  onUseClick = () => {
+  onBuyClick = () => {
     fetch('/api/item/consume', {
       method: "POST",
       headers: {
@@ -130,13 +124,6 @@ class Inventory extends PureComponent {
     this.setState({
       currentModal: "NONE",
       modalItem: null
-    });
-  };
-
-  onAddStoreOpenClick = () => {
-    // a new modal for adding to store
-    this.setState({
-      currentModal: "ADD_STORE"
     });
   };
 
@@ -149,41 +136,6 @@ class Inventory extends PureComponent {
       body: JSON.stringify({
         userToken: this.props.token,
         itemID: this.state.modalItem.id,
-      })
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(res => {
-        if (res.status === "SUCCESS") {
-          this.updateItems();
-        } else {
-          console.log(res);
-        }
-      });
-
-    this.setState({
-      currentModal: "NONE",
-      modalItem: null
-    });
-  };
-
-  onAddStoreClose = () => {
-    this.setState({
-      currentModal: "ITEM"
-    });
-  };
-
-  onAddStoreClick = (_price) => {
-    fetch('/api/item/consume', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userToken: this.props.token,
-        itemID: this.state.modalItem.id,
-        price: _price
       })
     })
       .then(res => {
@@ -235,4 +187,4 @@ class Inventory extends PureComponent {
 
 }
 
-export default Inventory;
+export default Shop;
