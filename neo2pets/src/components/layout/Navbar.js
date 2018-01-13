@@ -21,11 +21,11 @@ class CustomNavbar extends Component {
 
         <Navbar.Collapse>
           <Nav>
-            <LinkContainer to="/">
-              <NavItem>Home</NavItem>
+            <LinkContainer to="/inventory">
+              <NavItem>Inventory</NavItem>
             </LinkContainer>
-            <LinkContainer to="/shop">
-              <NavItem>Shop</NavItem>
+            <LinkContainer to="/marketplace">
+              <NavItem>Marketplace</NavItem>
             </LinkContainer>
             <LinkContainer to="/games">
               <NavItem>Games</NavItem>

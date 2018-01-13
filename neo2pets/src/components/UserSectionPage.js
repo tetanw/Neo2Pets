@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import PageContainer from "./layout/PageContainer";
-import Home from "./pages/user_section/Home";
-import Marketplace from "./pages/user_section/Shop";
+import ShopList from "./pages/user_section/ShopList";
 import Games from "./pages/user_section/Games";
 import CreateAvatar from "./pages/CreateAvatar";
 import Inventory from "./pages/user_section/Inventory/Inventory";
-import Avatar from "./pages/user_section/Avatar";
 import "../index.css";
-import { Col } from "react-bootstrap";
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -22,14 +19,13 @@ class Page extends Component {
       <PageContainer>
         <Switch>
           <Route
-            exact
-            path="/"
-            component={withLoginToken(Home, this.props.token)}
+            path="/inventory"
+            component={withLoginToken(Inventory, this.props.token)}
           />
 
           <Route
-            path="/shop"
-            component={withLoginToken(Marketplace, this.props.token)}
+            path="/marketplace"
+            component={withLoginToken(ShopList, this.props.token)}
           />
 
           <Route
@@ -42,15 +38,6 @@ class Page extends Component {
             component={withLoginToken(CreateAvatar, this.props.token)}
           />
 
-          <Route
-            path="/avatar"
-            component={withLoginToken(Avatar, this.props.token)}
-          />
-
-          <Route
-            path="/inventory"
-            component={withLoginToken(Inventory, this.props.token)}
-          />
         </Switch>
       </PageContainer>
     );
