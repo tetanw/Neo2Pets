@@ -51,14 +51,13 @@ class App extends Component {
                 auth_key: auth_key
               });
             }
+            this.setState({
+              checking: false,
+              checked: true
+            });
           });
       }
     }
-
-    this.setState({
-      checking: false,
-      checked: true
-    });
     console.log("Finished checking the authentication.");
   }
 
@@ -97,11 +96,12 @@ class App extends Component {
         <Route
           path="/"
           render={() =>
-            this.state.auth_key === undefined && this.state.checked ? (
-              <Redirect to="/login" />
-            ) : (
-              <UserSection token={this.state.auth_key} />
-            )
+            this.state.checked ?
+              this.state.auth_key === undefined ? (
+                <Redirect to="/login"/>
+              ) : (
+                <UserSection token={this.state.auth_key}/>
+            ) : null
           }
         />
       </Switch>

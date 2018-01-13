@@ -28,7 +28,7 @@ class UserSection extends Component {
   }
 
   updatePet() {
-    fetch("/api/pet/get?userToken=" + this.props.token + "&petID=5a54e282fc430e1e6c1b3f84", {
+    fetch("/api/pet/get?userToken=" + this.props.token, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
