@@ -9,7 +9,6 @@ body {
   background-image: url("./assets/backgrounds/MainBackground.png");
   background-attachment: fixed;
   background-size: cover;
-
 }
 
 .maincontent {
@@ -24,31 +23,13 @@ body {
   text-transform: uppercase;
 }
 
-.jumbotron-style{
+.jumbotron-style {
   background-color: rgba(0, 0, 0, 0.404);
   font-family: Impact, Charcoal, sans-serif;
   letter-spacing: 2px;
   color: white;
   overflow-wrap: break-word;
   border-radius: 10px;
-}
-
-.navbar-brand {
-  color: black;
-}
-
-.navbar-header a:hover {
-  color: black;
-}
-
-.navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: black;
-}
-
-.navbar-nav > li > a,
-.navbar-default .navbar-nav > li > a {
-  color: white;
 }
 
 .block {
@@ -111,19 +92,19 @@ body {
   position: absolute;
 }
 
-.inventory{
+.inventory {
   height: 500px;
   overflow-y: auto;
 }
 
-.sidebar{
+.sidebar {
   display: inline-block;
   float: left;
   margin-top: 60px;
   margin-left: 20px;
 }
 
-.inline{
+.inline {
   display: inline-block;
   float: left;
 }
