@@ -36,7 +36,7 @@ class Avatar extends Component {
              </div>
            </div>
          </Col>
-         <Col xs={12} sm={12} md={8}>
+         {/*}<Col xs={12} sm={12} md={8}>
           <div className="block jumbotron-style">
             <div className="padding">
             <h2>Skills</h2>
@@ -47,12 +47,12 @@ class Avatar extends Component {
             <br></br>
             </div>
           </div>
-         </Col>
+         </Col>*/}
          <Col xs={12} sm={12} md={8}>
-          <div className="padding block jumbotron-style">
+          <div className="padding inventory block jumbotron-style">
             <h2> Inventory </h2>
             Check your items, or go to the shop and buy more!
-            <Button className="padding margin" href="./inventory">Go to inventory</Button>
+            {/*}<Button className="padding margin" href="./inventory">Go to inventory</Button>*/}
           </div>
          </Col>
        </Grid>
