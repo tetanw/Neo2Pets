@@ -33,7 +33,6 @@ class CreateAvatar extends React.Component {
   };
 
   onPetRaceClick = petRaceName => {
-    console.log(`You selected the race with the name: ${petRaceName}`);
     this.setState({
       selectedPetRace: petRaceName
     });
