@@ -52,6 +52,7 @@ async function validatedListStoresHandler(value, modelMap, res) {
 
   const stores = (await modelMap.storeModel.find({}).populate("owner")).map(
     oldStore => ({
+      id: oldStore.id,
       ownerName: oldStore.owner.username
     })
   );
@@ -126,7 +127,11 @@ async function validateListBuyablesHandler(value, modelMap, res) {
 
   res.send({
     status: "SUCCESS",
-    buyables
+    store: {
+      id: store.id,
+      ownerName: store.owner.username,
+      buyables
+    }
   });
 }
 
