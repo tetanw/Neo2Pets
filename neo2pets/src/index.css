@@ -33,6 +33,15 @@ body {
   border: none;
 }
 
+
+.jumbotron-style a:hover {
+  color: black;
+}
+
+.jumbotron-style a {
+  color: white;
+}
+
 .block {
   background-color: rgba(0, 0, 0, 0.658);
   border-radius: 10px;
