@@ -12,11 +12,7 @@ const addItemToStoreSchema = joi.object().keys({
     .string()
     .alphanum()
     .required(),
-  price: joi.number().required(),
-  storeID: joi
-    .string()
-    .alphanum()
-    .required()
+  price: joi.number().required()
 });
 
 const listBuyablesSchema = joi.object().keys({
@@ -78,7 +74,7 @@ async function validateListBuyablesHandler(value, modelMap, res) {
   const { id } = jsonwebtoken.decode(userToken);
 
   const store = await modelMap.storeModel
-    .findOne({ _id: storeID })
+    .findOne({ owner: id })
     .populate("owner")
     .populate({
       path: "buyables",
@@ -122,8 +118,40 @@ async function validatedBuyItemHandler(value, modelMap, res) {
   const { id } = jsonwebtoken.decode(userToken);
 
   const store = await modelMap.storeModel.findOne({ _id: storeID });
-  store.buyables = store.buyables.filter(buybale => buyable.id !== buyableID);
+  if (!store) {
+    return res.send({
+      status: "FAILED",
+      messages: [{ message: "Store does not exist", field: "storeID" }]
+    });
+  }
+
+  const user = await modelMap.userModel.findOne({ _id: id });
+  const buyables = store.buyables.filter(buyable => buyable.id === buyableID);
+  if (buyables.length !== 1) {
+    return res.send({
+      status: "FAILED",
+      messages: [{ message: "Buyable does not exist", field: "buyableID" }]
+    });
+  }
+
+  const buyable = buyables[0];
+  if (user.money < buyable.price) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        { message: "Buyable is too expensive too purchase", field: "buyableID" }
+      ]
+    });
+  }
+  user.money -= buyable.price;
+  user.save();
+
+  store.buyables = store.buyables.filter(buyable => buyable.id !== buyableID);
   store.save();
+
+  res.send({
+    status: "SUCCESS"
+  });
 }
 
 async function validatedAddItemToStoreHandler(value, modelMap, res) {

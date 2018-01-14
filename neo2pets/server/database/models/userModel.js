@@ -5,7 +5,7 @@ function createModel() {
     username: String,
     password: String,
     email: String,
-    money: Number
+    money: { type: Number, default: 0 }
   });
 
   return mongoose.model("User", schema);
