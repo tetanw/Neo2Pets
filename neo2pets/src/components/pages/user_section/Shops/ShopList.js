@@ -2,20 +2,17 @@ import React, {Fragment, Component} from "react";
 import {
   Panel,
   Col,
+  Row
 } from "react-bootstrap";
-import ShopItemModal from "./ShopItemModal";
-import Market from "../../../layout/Market";
+import Store from "../../../layout/Store";
 import SearchBar from "../../../layout/SearchBar";
 
 class ShopList extends Component {
   constructor(props) {
-
       super(props);
   
-  
       this.state = {
-        currentModal: "NONE",
-        modalItem: null,
+        stores: [],
         request: null,
         loading: true,
         searchbarText: ""
@@ -39,8 +36,8 @@ class ShopList extends Component {
     }
   
     render() {
-      const {loading, store, searchbarText} = this.state;
-      if (loading && store === undefined) {
+      const {loading, stores, searchbarText} = this.state;
+      if (loading && stores.length !== 0) {
         return (
           <Panel className ="jumbotron-style">
             <Panel.Heading>
@@ -54,19 +51,21 @@ class ShopList extends Component {
       return (
         <Fragment>
           <Panel className ="jumbotron-style">
-            <Panel.Heading className = "padding bgc">
-              <Panel.Title className = "titleinv">Marketplace</Panel.Title>
+            <Panel.Heading>
+              <Panel.Title className="titleinv">Marketplace</Panel.Title>
             </Panel.Heading>
             <Panel.Body>
               <SearchBar
                 value={this.state.searchbarText}
                 onTextChange={this.onSearchBarTextChange}
               />
-              {marketplace.markets.filter(market => market.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((buyable, index) => (
-                <Col key={index} xs={6} sm={4} md={3} lg={2}>
-                  <Market onMarketClick={this.onMarketClick} name={store.ownerName + "'s Store"} MarketIndex={index}/>
+              <Row>
+              {stores.filter(store => store.ownerName.toLowerCase().includes(searchbarText.toLowerCase())).map((store, index) => (
+                <Col key={index} xs={6} sm={6} md={4} lg={4}>
+                  <Store onStoreClick={this.onStoreClick} ownerName={store.ownerName} storeIndex={index}/>
                 </Col>
               ))}
+              </Row>
             </Panel.Body>
           </Panel>
         </Fragment>
@@ -80,12 +79,38 @@ class ShopList extends Component {
       event.preventDefault();
     };
   
-    onMarketClick = (MarketIndex) => {
-    
+    onStoreClick = (storeIndex) => {
+      this.props.history.push("/marketplace/" + this.state.stores[storeIndex].id)
     };
   
     updateMarketplace = () => {
-
+      let request = new XMLHttpRequest();
+      this.setState({
+        request,
+        loading: true
+      });
+      request.onreadystatechange = () => {
+        if (
+          request.readyState === XMLHttpRequest.DONE &&
+          request.status !== 0
+        ) {
+          const response = JSON.parse(request.response);
+          if (response.status === "SUCCESS") {
+            this.setState({
+              stores: response.stores,
+              loading: false,
+              request: null
+            });
+          }
+          console.log(response);
+        }
+      };
+      request.open(
+        "GET",
+        `api/store/listStores?userToken=${this.props.token}`,
+        true
+      );
+      request.send();
     }
   
   }
