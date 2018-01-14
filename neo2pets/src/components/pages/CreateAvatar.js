@@ -19,6 +19,7 @@ import {
   FormControl,
   Button
 } from "react-bootstrap";
+import PageContainer from "../layout/PageContainer";
 
 class CreateAvatar extends React.Component {
   constructor(props) {
@@ -80,11 +81,11 @@ class CreateAvatar extends React.Component {
 
   render() {
     return (
-      <Fragment>
+      <PageContainer>
         {this.state.isSubmitted && <Redirect to="/" />}
         <div className="jumbotron jumbotron-style">
-          <form onSubmit={this.handleSubmit}>
-            <label>
+          <form onSubmit={this.handleSubmit} style={{textAlign: "center"}}>
+            <label >
               <h1>Name your avatar:</h1>
               <FormGroup>
                 <InputGroup>
@@ -106,47 +107,52 @@ class CreateAvatar extends React.Component {
                   raceName={"1"}
                   image={Neopet1}
                   onPetRaceClick={this.onPetRaceClick}
+                  selected={this.state.selectedPetRace === "1"}
                 />
                 <RacePanel
                   raceName={"2"}
                   image={Neopet2}
                   onPetRaceClick={this.onPetRaceClick}
+                  selected={this.state.selectedPetRace === "2"}
                 />
                 <RacePanel
                   raceName={"3"}
                   image={Neopet3}
                   onPetRaceClick={this.onPetRaceClick}
+                  selected={this.state.selectedPetRace === "3"}
                 />
                 <RacePanel
                   raceName={"4"}
                   image={Neopet4}
                   onPetRaceClick={this.onPetRaceClick}
+                  selected={this.state.selectedPetRace === "4"}
                 />
                 <RacePanel
                   raceName={"5"}
                   image={Neopet5}
                   onPetRaceClick={this.onPetRaceClick}
+                  selected={this.state.selectedPetRace === "5"}
                 />
                 <RacePanel
                   raceName={"6"}
                   image={Neopet6}
                   onPetRaceClick={this.onPetRaceClick}
+                  selected={this.state.selectedPetRace === "6"}
                 />
                 <RacePanel
                   raceName={"7"}
                   image={Neopet7}
                   onPetRaceClick={this.onPetRaceClick}
+                  selected={this.state.selectedPetRace === "7"}
                 />
                 <RacePanel
                   raceName={"8"}
                   image={Neopet8}
                   onPetRaceClick={this.onPetRaceClick}
+                  selected={this.state.selectedPetRace === "8"}
                 />
               </Row>
             </div>
-            {this.state.selectedPetRace && (
-              <p> You selected pet number {this.state.selectedPetRace} </p>
-            )}
             <Grid />
             <Button
               disabled={!this.state.name || !this.state.selectedPetRace}
@@ -157,21 +163,21 @@ class CreateAvatar extends React.Component {
             </Button>
           </form>
         </div>
-      </Fragment>
+      </PageContainer>
     );
   }
 }
 
 class RacePanel extends Component {
   render() {
-    const { raceName, image, onPetRaceClick } = this.props;
+    const { raceName, image, selected} = this.props;
 
     return (
-      <Col xs={8} sm={6} md={3}>
-        <div className="block" onClick={this.onPetRaceClick}>
+      <Col xs={6} sm={4} md={3}>
+        <div className="block" onClick={this.onPetRaceClick} style={selected ? {border: "5px solid white"} : {}}>
           <img className="avatarimage" src={image} />
           <div className="avatartext" style={{ textAlign: "center" }}>
-            {raceName}
+            {raceName + selected}
           </div>
         </div>
       </Col>
