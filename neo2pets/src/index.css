@@ -119,7 +119,7 @@ body {
 
 .snake-board {
   margin: auto;
-  background: #222;
+  background: rgba(34, 34, 34, 0.678);
   overflow: hidden;
   outline: none;
 }
@@ -141,10 +141,12 @@ body {
   opacity: 0.75;
   padding: 15px;
   width: 200px;
+  color: black;
 }
 
 .snake-controls button:hover {
   opacity: 1;
+  color: black;
 }
 
 .body-cell, .null-cell {
