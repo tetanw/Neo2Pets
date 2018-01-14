@@ -183,7 +183,7 @@ async function validatedBuyItemHandler(value, modelMap, res) {
 }
 
 async function validatedAddItemToStoreHandler(value, modelMap, res) {
-  const { itemID, userToken, price, storeID } = value;
+  const { itemID, userToken, price } = value;
 
   // check whether authenticated
   if (!checkAuth(res, userToken, "userToken")) {
@@ -192,7 +192,7 @@ async function validatedAddItemToStoreHandler(value, modelMap, res) {
 
   const { id } = jsonwebtoken.decode(userToken);
 
-  let store = await modelMap.storeModel.findOne({ id: storeID });
+  let store = await modelMap.storeModel.findOne({ owner: id });
   if (!store) {
     return res.send({
       status: "FAILED",
