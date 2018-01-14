@@ -39,6 +39,29 @@ const getStoreIDFromUserSchema = joi.object().keys({
   userToken: joi.string().required()
 });
 
+const listStoresSchema = joi.object().keys({
+  userToken: joi.string().required()
+});
+
+async function validatedListStoresHandler(value, modelMap, res) {
+  const { userToken } = value;
+
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const stores = (await modelMap.storeModel.find({}).populate("owner")).map(
+    oldStore => ({
+      ownerName: oldStore.owner.username
+    })
+  );
+
+  res.send({
+    status: "SUCCESS",
+    stores
+  });
+}
+
 async function validatedGetStoreIDFromUserHandler(value, modelMap, res) {
   const { userToken } = value;
 
@@ -251,6 +274,16 @@ function getStoreController(modelMap) {
       getStoreIDFromUserSchema,
       modelMap,
       validatedGetStoreIDFromUserHandler
+    )
+  );
+
+  router.get(
+    "/liststores",
+    createControllerHandler(
+      "GET",
+      listStoresSchema,
+      modelMap,
+      validatedListStoresHandler
     )
   );
 
