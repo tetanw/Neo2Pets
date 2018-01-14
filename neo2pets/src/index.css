@@ -122,6 +122,7 @@ body {
   background: rgba(34, 34, 34, 0.678);
   overflow: hidden;
   outline: none;
+  border-radius: 10px;
 }
 
 .snake-controls {
@@ -134,6 +135,7 @@ body {
 
 .snake-controls button {
   background: #eee;
+  border-radius: 10px;
   border: none;
   box-shadow: 0px 0px 10px #000;
   cursor: default;
