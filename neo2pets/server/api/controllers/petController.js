@@ -22,6 +22,27 @@ const createPetSchema = joi.object().keys({
   userToken: joi.string().required()
 });
 
+const doesUserHavePetSchema = joi.object().keys({
+  userToken: joi.string().required()
+});
+
+async function validatedDoesUserHavePetHandler(value, modelMap, res) {
+  const { userToken } = value;
+
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
+
+  const pet = await modelMap.petModel.findOne({ owner: id });
+
+  res.send({
+    status: "SUCCESS",
+    hasPet: !pet
+  });
+}
+
 async function validatedGetPetHandler(value, modelMap, res) {
   const { petID, userToken } = value;
 
@@ -135,6 +156,16 @@ function getPetController(modelMap) {
       createPetSchema,
       modelMap,
       validatedCreatePetHandler
+    )
+  );
+
+  router.get(
+    "/haspet",
+    createControllerHandler(
+      "GET",
+      doesUserHavePetSchema,
+      modelMap,
+      validatedDoesUserHavePetHandler
     )
   );
 
