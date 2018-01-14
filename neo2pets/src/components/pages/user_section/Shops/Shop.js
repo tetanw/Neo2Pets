@@ -15,7 +15,6 @@ class Shop extends Component {
     this.state = {
       currentModal: "NONE",
       modalItem: null,
-      buyables: [],
       request: null,
       loading: true,
       searchbarText: ""
@@ -62,9 +61,9 @@ class Shop extends Component {
               value={this.state.searchbarText}
               onTextChange={this.onSearchBarTextChange}
             />
-            {store.buyables.map((item, index) => (
+            {store.buyables.map((buyable, index) => (
               <Col key={index} xs={6} sm={4} md={3} lg={2}>
-                <Item onItemClick={this.onItemClick} name={item.type.name + " - 1000$"} itemIndex={index}/>
+                <Item onItemClick={this.onItemClick} name={buyable.item.type.name + " - " + buyable.price + "$"} itemIndex={index}/>
               </Col>
             ))}
           </Panel.Body>
@@ -120,9 +119,8 @@ class Shop extends Component {
       .then(res => {
         if (res.status === "SUCCESS") {
           this.updateStore();
-        } else {
-          console.log(res);
         }
+        console.log(res);
       });
 
     this.setState({
@@ -151,9 +149,8 @@ class Shop extends Component {
             loading: false,
             request: null
           });
-        } else {
         }
-          console.log(response);
+        console.log(response);
       }
     };
     request.open(
