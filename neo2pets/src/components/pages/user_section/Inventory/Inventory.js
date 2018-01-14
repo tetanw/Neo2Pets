@@ -29,7 +29,7 @@ class Inventory extends Component {
     if (loading) {
       //request.abort();
       this.setState({
-        loading: false,
+        loading: true,
         request: null
       });
     }
@@ -38,7 +38,7 @@ class Inventory extends Component {
   render() {
     const {loading, items} = this.state;
 
-    if (loading) {
+    if (loading && items.length === 0) {
       return (
         <Panel>
           <Panel.Heading>

@@ -17,7 +17,7 @@ class Shop extends Component {
       modalItem: null,
       buyables: [],
       request: null,
-      loading: false,
+      loading: true,
       searchbarText: ""
     };
   }
@@ -39,13 +39,12 @@ class Shop extends Component {
   }
 
   render() {
-    const {loading, buyables} = this.state;
-    let param = this.props.match.params.shopID;
-    if (loading) {
+    const {loading, store} = this.state;
+    if (loading && store === undefined) {
       return (
         <Panel>
           <Panel.Heading>
-            <Panel.Title componentClass="h3">{param}'s Store</Panel.Title>
+            <Panel.Title componentClass="h3">Someone's Store</Panel.Title>
           </Panel.Heading>
           <Panel.Body/>
         </Panel>
@@ -56,14 +55,14 @@ class Shop extends Component {
       <Fragment>
         <Panel>
           <Panel.Heading>
-            <Panel.Title componentClass="h3">{param}'s Store - DONT CLICK BUTTONS</Panel.Title>
+            <Panel.Title componentClass="h3">{store.ownerName}'s Store - DONT CLICK BUTTONS</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
             <SearchBar
               value={this.state.searchbarText}
               onTextChange={this.onSearchBarTextChange}
             />
-            {buyables.map((item, index) => (
+            {store.buyables.map((item, index) => (
               <Col key={index} xs={6} sm={4} md={3} lg={2}>
                 <Item onItemClick={this.onItemClick} name={item.type.name + " - 1000$"} itemIndex={index}/>
               </Col>
@@ -148,13 +147,13 @@ class Shop extends Component {
 
         if (response.status === "SUCCESS") {
           this.setState({
-            buyables: response.buyables,
+            store: response.store,
             loading: false,
             request: null
           });
         } else {
-          console.log(response);
         }
+          console.log(response);
       }
     };
     request.open(
