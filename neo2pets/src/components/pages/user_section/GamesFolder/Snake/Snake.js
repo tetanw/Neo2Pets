@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Panel} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 
 
@@ -14,9 +15,10 @@ class Snake extends Component {
     this._resume = this._resume.bind(this);
     this._tick = this._tick.bind(this);
     this._handleKey = this._handleKey.bind(this);
+    this._gameover = this._gameover.bind(this);
+    this._score = this._score.bind(this);
 
     this.state = this.getInitState();
-
   }
 
   getInitState() {
@@ -32,10 +34,6 @@ class Snake extends Component {
       direction: KEYS.right
     };
   }
-
-  componentDidMount() {
-    this._resume();
-  };
 
   _reset() {
     this.setState(this.getInitState());
@@ -57,15 +55,12 @@ class Snake extends Component {
     console.log("resume");
     this.setState({paused: false}, this._tick);
     this.refs.board.focus();
-    //this._tick();
   };
 
   _tick() {
-    console.log(this.state);
     if (this.state.paused) {
       return;
     }
-    console.log("tick");
     var snake = this.state.snake;
     var board = this.state.board;
     var growth = this.state.growth;
@@ -76,7 +71,7 @@ class Snake extends Component {
     var head = this.getNextIndex(snake[0], direction, numRows, numCols);
 
     if (snake.indexOf(head) != -1) {
-      this.setState({gameOver: true});
+      this._gameover();
       return;
     }
 
@@ -122,6 +117,33 @@ class Snake extends Component {
     }
   };
 
+  _gameover() {
+    this.setState({gameOver: true});
+    console.log("Game Over, score: " + this._score());
+
+    fetch('/api/money/increase', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userToken: this.props.token,
+        amount: this._score(),
+      })
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        console.log(res);
+      });
+
+  }
+
+  _score() {
+    return Math.round(Math.max(0, (this.state.snake.length - 4) / 3 * 10));
+  }
+
 
   render() {
     var cells = [];
@@ -138,9 +160,14 @@ class Snake extends Component {
     }
 
     return (
-      <div className="jumbotron jumbotron-style">
-        <div className="snake-game">
-          <h1 className="snake-score">Length: {this.state.snake.length}</h1>
+      <Panel className="jumbotron-style">
+        <Panel.Heading>
+          <Panel.Title className="titleinv">Snake</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body className="snake-game">
+          <h4 className="snake-score">
+            Score: {this._score()}
+          </h4>
           <div
             ref="board"
             className={'snake-board' + (this.state.gameOver ? ' game-over' : '')}
@@ -148,17 +175,17 @@ class Snake extends Component {
             onBlur={this._pause}
             //onFocus={this._resume}
             onKeyDown={this._handleKey}
-            style={{width: numCols * cellSize, height: numRows * cellSize}}>
+            style={{width: numCols * cellSize, height: numRows * cellSize, borderRadius: "5px"}}>
             {cells}
           </div>
           <div className="snake-controls">
             {this.state.paused ? <button onClick={this._resume}>Resume</button> : null}
             {this.state.gameOver ? <button onClick={this._reset}>New Game</button> : null}
           </div>
-        </div>
+        </Panel.Body>
 
-        <h3><Link to='/games'>Back to games</Link></h3>
-      </div>
+        <h3 style={{paddingLeft: "20px", paddingBottom: "20px", textAlign: "center"}}><Link to='/games'>Back to games</Link></h3>
+      </Panel>
     )
 
 

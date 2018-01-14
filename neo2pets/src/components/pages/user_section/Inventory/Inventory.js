@@ -52,7 +52,7 @@ class Inventory extends Component {
     return (
       <Fragment>
         <Panel className ="jumbotron-style">
-          <Panel.Heading className = "padding bgc">
+          <Panel.Heading>
             <Panel.Title className = "titleinv">Inventory</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
