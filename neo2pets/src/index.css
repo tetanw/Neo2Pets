@@ -15,7 +15,7 @@ body {
   font-family: Impact, Charcoal, sans-serif;
   letter-spacing: 2px;
   text-transform: uppercase;
-  border-bottom: 0px;
+  border-bottom: 0;
 }
 
 .navbar-nav a {
@@ -25,8 +25,14 @@ body {
 .navbar-nav a:hover {
   color: lightgray !important;
 }
-.navbar-nav.active,.navbar-nav.active a{
-  background-color: #1b6d85;
+
+.navbar-nav .active a{
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  text-decoration: underline;
+  border-radius: 10px 10px 0px 0px;
+}
+.navbar-nav .active a:hover{
+  text-decoration: underline;
 }
 
 .jumbotron-style {
