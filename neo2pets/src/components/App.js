@@ -23,6 +23,7 @@ class App extends Component {
       this.setState({ checking: true });
       this.checkAuth();
     }
+
   }
 
   async checkAuth() {
@@ -56,6 +57,11 @@ class App extends Component {
               checked: true
             });
           });
+      } else {
+        this.setState({
+          checking: false,
+          checked: true
+        });
       }
     }
     console.log("Finished checking the authentication.");
