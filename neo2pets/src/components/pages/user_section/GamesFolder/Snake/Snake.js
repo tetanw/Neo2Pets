@@ -98,8 +98,8 @@ class Snake extends Component {
     setTimeout(this._tick, 100);
   };
 
-  _handleKey() {
-    var direction = KEYS.up;
+  _handleKey(event) {
+    var direction = event.nativeEvent.keyCode;
     // var direction = event.nativeEvent.keyCode;
     var difference = Math.abs(this.state.direction - direction);
     // if key is invalid, or the same, or in the opposite direction, ignore it
