@@ -26,12 +26,13 @@ body {
   color: lightgray !important;
 }
 
-.navbar-nav .active a{
+.navbar-nav .active a {
   background-color: rgba(0, 0, 0, 0.5) !important;
   text-decoration: underline;
   border-radius: 10px 10px 0px 0px;
 }
-.navbar-nav .active a:hover{
+
+.navbar-nav .active a:hover {
   text-decoration: underline;
 }
 
@@ -83,6 +84,7 @@ body {
   margin-left: 20px;
   display: flex;
 }
+
 .inline {
   flex-grow: 100;
 }
@@ -91,28 +93,57 @@ body {
   width: 100%;
 }
 
-.panel-heading{
+.panel-heading {
   background-color: rgba(0, 0, 0, 0.404) !important;
   color: white !important;
   border-radius: 10px 10px 0px 0px;
   border-width: 0px;
 }
 
-.panel-footer{
+.panel-footer {
   background-color: rgba(0, 0, 0, 0.404) !important;
   color: white !important;
   border-width: 0px;
 }
 
-.bgc{
-    background-color: rgba(0, 0, 0, 0.404);
-    border-width: 0px;
+.modal-content {
+  background-color: rgba(60, 60, 60, 0.9);
+  font-family: Impact, Charcoal, sans-serif;
+  letter-spacing: 2px;
+  color: white;
+  overflow-wrap: break-word;
+  border-radius: 10px;
+  border: none;
 }
 
-.titleinv{
+.modal-header {
+  background-color: rgba(0, 0, 0, 0.404) !important;
+  border-radius: 10px 10px 0px 0px;
+  border-width: 0px;
+}
+
+.modal-header .close {
+  color: white !important;
+}
+
+.modal-body {
+  min-height: 60px;
+}
+
+.modal-footer {
+  background-color: rgba(0, 0, 0, 0.404) !important;
+  color: white !important;
+  border-width: 0px;
+}
+
+.bgc {
+  background-color: rgba(0, 0, 0, 0.404);
+  border-width: 0px;
+}
+
+.titleinv {
   font-size: 30px;
 }
-
 
 /* Below the styling of the snakegame */
 
