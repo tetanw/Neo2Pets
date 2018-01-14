@@ -4,9 +4,11 @@ import {
   Grid,
   Row,
   Col,
+  Image,
   Thumbnail,
   ProgressBar
 } from "react-bootstrap";
+import Neopet2 from "../../assets/images/neopets/Neopet2.png";
 
 class Pet extends Component {
   render() {
@@ -15,6 +17,7 @@ class Pet extends Component {
         {this.props.pet !== undefined ? (
           <div>
             <h3>{this.props.pet.nickName}</h3>
+            <Image src={Neopet2} />
             <h3>{this.props.pet.race.name}</h3>
             <h3>{this.props.pet.name}</h3>
             <ProgressBar
