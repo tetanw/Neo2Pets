@@ -96,19 +96,22 @@ body {
 .inventory {
   height: 600px;
   overflow-y: auto;
+  width: 100%;
 }
 
 .sidebar {
   display: inline-block;
   float: left;
   margin-top: 60px;
-  margin-left: 30px;
+  margin-left: 45px;
+  margin-bottom: -50px;
 }
 
 .inline {
   display: inline-block;
   float: left;
   margin-right: 30px;
+  padding-left: 30px;
 }
 
 .panel-heading{
