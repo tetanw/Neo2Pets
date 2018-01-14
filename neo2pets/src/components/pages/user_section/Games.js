@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
-import { Switch, Route, BrowserRouter} from 'react-router-dom';
-
-import Gamechoice from './GamesFolder/Gamechoice';
-import Snake from './GamesFolder/Snake';
-import Minesweeper from './GamesFolder/Minesweeper';
+import { Link } from "react-router-dom";
 
 class Games extends Component {
   render() {
@@ -11,18 +7,9 @@ class Games extends Component {
       <div className="jumbotron jumbotron-style">
         <h1>Games</h1>
 
-        <Switch>
-           <Route
-            exact path="/games/" component={Gamechoice}
-          />
+        <h2>Choose games</h2>
 
-          <Route
-            path="/games/snake" component={Snake}
-          />
-          <Route
-            path="/games/minesweeper" component={Minesweeper}
-          />
-        </Switch>
+        <h2><Link to='/games/snake'>Snake</Link></h2>      
 
       </div>
     )

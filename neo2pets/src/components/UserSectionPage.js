@@ -4,6 +4,7 @@ import PageContainer from "./layout/PageContainer";
 import ShopList from "./pages/user_section/Shops/ShopList";
 import Shop from "./pages/user_section/Shops/Shop";
 import Games from "./pages/user_section/Games";
+import Snake from "./pages/user_section/GamesFolder/Snake"
 import CreateAvatar from "./pages/CreateAvatar";
 import Inventory from "./pages/user_section/Inventory/Inventory";
 import "../index.css";
@@ -40,8 +41,13 @@ class Page extends Component {
           />
 
           <Route
-            path="/games"
+            exact path="/games"
             render={withLoginToken(Games, this.props.token)}
+          />
+
+          <Route
+            path="/games/snake"
+            render={withLoginToken(Snake, this.props.token)}
           />
 
           <Route
