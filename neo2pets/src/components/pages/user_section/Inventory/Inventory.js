@@ -124,6 +124,7 @@ class Inventory extends Component {
       .then(res => {
         if (res.status === "SUCCESS") {
           this.updateItems();
+          this.props.onPetChange();
         } else {
           console.log(res);
         }

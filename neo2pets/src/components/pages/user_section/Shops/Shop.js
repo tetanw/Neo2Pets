@@ -119,6 +119,7 @@ class Shop extends Component {
       .then(res => {
         if (res.status === "SUCCESS") {
           this.updateStore();
+          this.props.onMoneyChange();
         }
         console.log(res);
       });
