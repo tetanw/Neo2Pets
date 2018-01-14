@@ -162,14 +162,17 @@ body {
 }
 
 .body-cell {
-  background: #39c;
-  box-shadow: 0px 0px 5px #39c;
+  /* background: rgb(255, 255, 255); */
+  background-image: url("./assets/images/neopets/Neopet1.png");
+  background-size: cover;
+  /* box-shadow: 0px 0px 5px rgb(0, 0, 0); */
 }
 
 .food-cell {
-  background: #0b3;
+
   border-radius: 15px;
-  box-shadow: 0px 0px 5px #0b3;
+  background-image: url("./assets/images/Items/Item-Apple.png");
+  background-size: cover;
   height: 24px;
   margin: 3px;
   width: 24px;
