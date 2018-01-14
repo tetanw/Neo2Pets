@@ -192,7 +192,7 @@ async function validatedAddItemToStoreHandler(value, modelMap, res) {
 
   const { id } = jsonwebtoken.decode(userToken);
 
-  let store = await modelMap.storeModel.findOne({ _id: storeID });
+  let store = await modelMap.storeModel.findOne({ id: storeID });
   if (!store) {
     return res.send({
       status: "FAILED",
