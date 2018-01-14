@@ -23,7 +23,7 @@ class ShopList extends Component {
     }
   
     componentDidMount() {
-      this.updateStore();
+      this.updateMarketplace();
     }
   
     componentWillUnmount() {
@@ -62,19 +62,13 @@ class ShopList extends Component {
                 value={this.state.searchbarText}
                 onTextChange={this.onSearchBarTextChange}
               />
-              {store.buyables.filter(buyable => buyable.item.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((buyable, index) => (
+              {store.buyables.filter(market => market.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((buyable, index) => (
                 <Col key={index} xs={6} sm={4} md={3} lg={2}>
-                  <Market onMarketClick={this.onItemClick} name={store.ownerName + "'s Store"} MarketIndex={index}/>
+                  <Market onMarketClick={this.onMarketClick} name={store.ownerName + "'s Store"} MarketIndex={index}/>
                 </Col>
               ))}
             </Panel.Body>
           </Panel>
-          <ShopItemModal
-            show={this.state.currentModal === "ITEM"}
-            item={this.state.modalItem}
-            onClose={this.onItemClose}
-            onBuyClick={this.onBuyClick}
-          />
         </Fragment>
       );
     }
@@ -87,19 +81,9 @@ class ShopList extends Component {
     };
   
     onMarketClick = (itemIndex) => {
-      let item = this.state.buyables[itemIndex]
-      this.setState({
-        currentModal: "ITEM",
-        modalItem: item
-      });
+    
     };
-  
-    onMarketClose = () => {
-      this.setState({
-        currentModal: "NONE",
-        modalItem: null
-      });
-    };
+
   
     onBuyClick = () => {
       let storeID = this.props.match.params.shopID;
@@ -131,7 +115,7 @@ class ShopList extends Component {
       });
     };
   
-    updateStore = () => {
+    updateMarketplace = () => {
       let storeID = this.props.match.params.shopID;
       let request = new XMLHttpRequest();
       this.setState({
