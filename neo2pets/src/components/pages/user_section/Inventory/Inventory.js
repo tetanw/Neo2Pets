@@ -1,11 +1,11 @@
-import React, {Component, Fragment, PureComponent} from "react";
+import React, {Component, Fragment} from "react";
 import {Panel, Col} from "react-bootstrap";
 import Item from "../../../layout/Item";
 import AddStoreModal from "./AddStoreModal";
 import ItemModal from "./ItemModal";
 import SearchBar from "../../../layout/SearchBar";
 
-class Inventory extends PureComponent {
+class Inventory extends Component {
   constructor(props) {
     super(props);
 
@@ -62,7 +62,7 @@ class Inventory extends PureComponent {
             />
             {items.map((item, index) => (
               <Col key={index} xs={6} sm={4} md={3} lg={2}>
-                <Item onItemClick={this.onItemClick} item={item}/>
+                <Item onItemClick={this.onItemClick} name={item.type.name} itemIndex={index}/>
               </Col>
             ))}
           </Panel.Body>
@@ -89,9 +89,11 @@ class Inventory extends PureComponent {
     this.setState({
       searchbarText: event.target.value
     });
+    event.preventDefault();
   };
 
-  onItemClick = (item) => {
+  onItemClick = (itemIndex) => {
+    let item = this.state.items[itemIndex];
     this.setState({
       currentModal: "ITEM",
       modalItem: item
@@ -141,7 +143,7 @@ class Inventory extends PureComponent {
   };
 
   onDeleteClick = () => {
-    fetch('/api/item/consume', {
+    fetch('/api/item/delete', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -175,7 +177,7 @@ class Inventory extends PureComponent {
   };
 
   onAddStoreClick = (_price) => {
-    fetch('/api/item/consume', {
+    fetch('/api/store/additemtostore', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

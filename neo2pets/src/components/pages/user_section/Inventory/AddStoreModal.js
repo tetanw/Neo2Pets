@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Modal, Button, Form, FormGroup, FormControl, Col, ControlLabel} from "react-bootstrap";
+import {Modal, Button, Form, InputGroup, FormGroup, FormControl, Col, ControlLabel} from "react-bootstrap";
 
 class AddStoreModal extends Component {
   constructor(props) {
@@ -34,18 +34,21 @@ class AddStoreModal extends Component {
               </Col>
 
               <Col sm={5}>
-                <FormControl
-                  label='Set item price'
-                  className="inputbox jumbotron-style"
-                  type="number"
-                  name="price"
-                  value={this.state.price}
-                  placeholder="100"
-                  onKeyPress={this.onKeyPress}
-                  onChange={(e) => this.setState({price: e.target.value})}
-                  min={0}
-                  required
-                />
+                <InputGroup>
+                  <InputGroup.Addon>$</InputGroup.Addon>
+                  <FormControl
+                    label='Set item price'
+                    className="inputbox jumbotron-style"
+                    type="number"
+                    name="price"
+                    value={this.state.price}
+                    placeholder="100"
+                    onKeyPress={this.onKeyPress}
+                    onChange={(e) => this.setState({price: e.target.value})}
+                    min={0}
+                    required
+                  />
+                </InputGroup>
               </Col>
             </FormGroup>
           </Modal.Body>

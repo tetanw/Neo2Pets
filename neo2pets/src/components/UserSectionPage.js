@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import PageContainer from "./layout/PageContainer";
 import ShopList from "./pages/user_section/Shops/ShopList";
+import Shop from "./pages/user_section/Shops/Shop";
 import Games from "./pages/user_section/Games";
 import CreateAvatar from "./pages/CreateAvatar";
 import Inventory from "./pages/user_section/Inventory/Inventory";
@@ -19,23 +20,33 @@ class Page extends Component {
       <PageContainer>
         <Switch>
           <Route
-            path="/inventory"
-            component={withLoginToken(Inventory, this.props.token)}
+            exact path="/"
+            render={withLoginToken(Inventory, this.props.token)}
           />
 
           <Route
-            path="/marketplace"
-            component={withLoginToken(ShopList, this.props.token)}
+            path="/inventory"
+            render={withLoginToken(Inventory, this.props.token)}
+          />
+
+          <Route
+            exact path="/marketplace"
+            render={withLoginToken(ShopList, this.props.token)}
+          />
+
+          <Route
+            path="/marketplace/:shopID"
+            render={withLoginToken(Shop, this.props.token)}
           />
 
           <Route
             path="/games"
-            component={withLoginToken(Games, this.props.token)}
+            render={withLoginToken(Games, this.props.token)}
           />
 
           <Route
             path="/create-avatar"
-            component={withLoginToken(CreateAvatar, this.props.token)}
+            render={withLoginToken(CreateAvatar, this.props.token)}
           />
 
         </Switch>

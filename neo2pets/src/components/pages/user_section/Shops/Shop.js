@@ -1,4 +1,4 @@
-import React, { Fragment, PureComponent } from "react";
+import React, {Fragment, Component} from "react";
 import {
   Panel,
   Col,
@@ -7,14 +7,15 @@ import ShopItemModal from "./ShopItemModal";
 import Item from "../../../layout/Item";
 import SearchBar from "../../../layout/SearchBar";
 
-class Shop extends PureComponent {
+class Shop extends Component {
   constructor(props) {
     super(props);
+
 
     this.state = {
       currentModal: "NONE",
       modalItem: null,
-      items: [],
+      buyables: [],
       request: null,
       loading: false,
       searchbarText: ""
@@ -22,11 +23,11 @@ class Shop extends PureComponent {
   }
 
   componentDidMount() {
-    this.updateItems();
+    this.updateStore();
   }
 
   componentWillUnmount() {
-    const { loading, request } = this.state;
+    const {loading, request} = this.state;
 
     if (loading) {
       //request.abort();
@@ -38,15 +39,15 @@ class Shop extends PureComponent {
   }
 
   render() {
-    const { loading, items } = this.state;
-
+    const {loading, buyables} = this.state;
+    let param = this.props.match.params.shopID;
     if (loading) {
       return (
         <Panel>
           <Panel.Heading>
-            <Panel.Title componentClass="h3">Someone's Store</Panel.Title>
+            <Panel.Title componentClass="h3">{param}'s Store</Panel.Title>
           </Panel.Heading>
-          <Panel.Body />
+          <Panel.Body/>
         </Panel>
       );
     }
@@ -55,16 +56,16 @@ class Shop extends PureComponent {
       <Fragment>
         <Panel>
           <Panel.Heading>
-            <Panel.Title componentClass="h3">Someone's Store</Panel.Title>
+            <Panel.Title componentClass="h3">{param}'s Store - DONT CLICK BUTTONS</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
             <SearchBar
               value={this.state.searchbarText}
               onTextChange={this.onSearchBarTextChange}
             />
-            {items.map((item, index) => (
+            {buyables.map((item, index) => (
               <Col key={index} xs={6} sm={4} md={3} lg={2}>
-                <Item onItemClick={this.onItemClick} item={item}/>
+                <Item onItemClick={this.onItemClick} name={item.type.name + " - 1000$"} itemIndex={index}/>
               </Col>
             ))}
           </Panel.Body>
@@ -83,9 +84,11 @@ class Shop extends PureComponent {
     this.setState({
       searchbarText: event.target.value
     });
+    event.preventDefault();
   };
 
-  onItemClick = (item) => {
+  onItemClick = (itemIndex) => {
+    let item = this.state.buyables[itemIndex]
     this.setState({
       currentModal: "ITEM",
       modalItem: item
@@ -100,14 +103,16 @@ class Shop extends PureComponent {
   };
 
   onBuyClick = () => {
-    fetch('/api/item/consume', {
+    let storeID = this.props.match.params.shopID;
+    fetch('/api/store/buyitem', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         userToken: this.props.token,
-        itemID: this.state.modalItem.id,
+        storeID: storeID,
+        buyableID: this.state.modalBuyable._id
       })
     })
       .then(res => {
@@ -115,7 +120,7 @@ class Shop extends PureComponent {
       })
       .then(res => {
         if (res.status === "SUCCESS") {
-          this.updateItems();
+          this.updateStore();
         } else {
           console.log(res);
         }
@@ -127,35 +132,8 @@ class Shop extends PureComponent {
     });
   };
 
-  onDeleteClick = () => {
-    fetch('/api/item/consume', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userToken: this.props.token,
-        itemID: this.state.modalItem.id,
-      })
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(res => {
-        if (res.status === "SUCCESS") {
-          this.updateItems();
-        } else {
-          console.log(res);
-        }
-      });
-
-    this.setState({
-      currentModal: "NONE",
-      modalItem: null
-    });
-  };
-
-  updateItems = () => {
+  updateStore = () => {
+    let storeID = this.props.match.params.shopID;
     let request = new XMLHttpRequest();
     this.setState({
       request,
@@ -170,16 +148,18 @@ class Shop extends PureComponent {
 
         if (response.status === "SUCCESS") {
           this.setState({
-            items: response.items,
+            buyables: response.buyables,
             loading: false,
             request: null
           });
+        } else {
+          console.log(response);
         }
       }
     };
     request.open(
       "GET",
-      `api/item/getowneditems?userToken=${this.props.token}`,
+      `/api/store/listbuyables?userToken=${this.props.token}&storeID=${storeID}`,
       true
     );
     request.send();

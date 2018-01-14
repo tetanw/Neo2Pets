@@ -1,20 +1,19 @@
-import React, { Component, Fragment } from "react";
-import { FormGroup, InputGroup, FormControl, Button } from "react-bootstrap";
+import React, {Component, Fragment} from "react";
+import {FormGroup, InputGroup, FormControl, Button} from "react-bootstrap";
 
 class SearchBar extends Component {
   render() {
-    const { onTextChange, value } = this.props;
+    const {onTextChange, value} = this.props;
 
     return (
       <Fragment>
-        <h3> Search </h3>
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <FormGroup>
             <InputGroup>
-              <FormControl value={value} onChange={onTextChange} type="text" />
-              <InputGroup.Button>
-                <Button>Search</Button>
-              </InputGroup.Button>
+              <InputGroup.Addon>
+                Search
+              </InputGroup.Addon>
+              <FormControl value={value} onChange={onTextChange} type="text"/>
             </InputGroup>
           </FormGroup>
         </form>
