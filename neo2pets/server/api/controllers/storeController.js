@@ -99,14 +99,7 @@ async function validateListBuyablesHandler(value, modelMap, res) {
 
   const store = await modelMap.storeModel
     .findOne({ _id: storeID })
-    .populate("owner")
-    .populate({
-      path: "buyables",
-      populate: {
-        path: "item",
-        model: "Item"
-      }
-    });
+    .populate("owner");
   if (!store) {
     return res.send({
       status: "FAILED",
@@ -119,11 +112,35 @@ async function validateListBuyablesHandler(value, modelMap, res) {
     });
   }
 
-  const buyables = store.buyables.map(({ item, price, _id }) => ({
-    id: _id,
-    item,
-    price
-  }));
+  const buyables = await Promise.all(
+    store.buyables.map(async oldBuyable => {
+      const {
+        id: newItemID,
+        type: newItemType
+      } = await modelMap.itemModel.findById(oldBuyable.item);
+
+      const {
+        name,
+        _id: id,
+        propertyData,
+        properties
+      } = await modelMap.itemTypeModel.findById(newItemType);
+
+      return {
+        id: oldBuyable.id,
+        item: {
+          id: newItemID,
+          type: {
+            name,
+            id,
+            propertyData,
+            propertyData
+          }
+        },
+        price: oldBuyable.price
+      };
+    })
+  );
 
   res.send({
     status: "SUCCESS",
