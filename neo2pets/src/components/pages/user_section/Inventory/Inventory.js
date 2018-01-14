@@ -56,7 +56,7 @@ class Inventory extends Component {
             <Panel.Title className = "titleinv" componentClass="h3" >Inventory</Panel.Title>
           </div>
           <Panel.Body>
-            <SearchBar className="jumbotron-style"
+            <SearchBar
               value={this.state.searchbarText}
               onTextChange={this.onSearchBarTextChange}
             />
