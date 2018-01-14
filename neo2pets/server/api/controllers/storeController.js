@@ -162,11 +162,23 @@ async function validatedBuyItemHandler(value, modelMap, res) {
 
   const { id } = jsonwebtoken.decode(userToken);
 
-  const store = await modelMap.storeModel.findOne({ _id: storeID });
+  const store = await modelMap.storeModel
+    .findOne({ _id: storeID })
+    .populate("owner");
+
   if (!store) {
     return res.send({
       status: "FAILED",
       messages: [{ message: "Store does not exist", field: "storeID" }]
+    });
+  }
+
+  if (store.owner == id) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        { message: "You can not buy your own items", field: "userToken" }
+      ]
     });
   }
 
@@ -188,11 +200,23 @@ async function validatedBuyItemHandler(value, modelMap, res) {
       ]
     });
   }
+
+  // substract the money from the sender
   user.money -= buyable.price;
   user.save();
 
+  // remove the buyable from the store
   store.buyables = store.buyables.filter(buyable => buyable.id !== buyableID);
   store.save();
+
+  // add the money to the store owner
+  store.owner.money += buyable.price;
+
+  // set the sender as owner
+  await modelMap.itemModel.findOneAndUpdate(
+    { id: buyable.item },
+    { owner: id }
+  );
 
   res.send({
     status: "SUCCESS"
