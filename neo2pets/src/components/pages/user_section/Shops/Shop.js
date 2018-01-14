@@ -53,7 +53,7 @@ class Shop extends Component {
 
     return (
       <Fragment>
-        <Panel>
+        <Panel  class="jumbotron-style">
           <Panel.Heading>
             <Panel.Title componentClass="h3">{store.ownerName}'s Store - DONT CLICK BUTTONS</Panel.Title>
           </Panel.Heading>
