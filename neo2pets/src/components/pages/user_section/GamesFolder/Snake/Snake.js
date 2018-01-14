@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 
+
 var BODY = 1, FOOD = 2;
 var KEYS = {left: 37, up: 38, right: 39, down: 40};
 var DIRS = {37: true, 38: true, 39: true, 40: true};
@@ -8,6 +9,12 @@ var DIRS = {37: true, 38: true, 39: true, 40: true};
 class Snake extends Component {
   constructor(props) {
     super(props);
+    this.setState=this.setState.bind(this);
+    this._reset=this._reset.bind(this);
+    this._pause=this._pause.bind(this);
+    this._resume=this._resume.bind(this);
+    this._tick=this._tick.bind(this);
+    this._handleKey=this._handleKey.bind(this);
   }
 
   getInitialState() {
