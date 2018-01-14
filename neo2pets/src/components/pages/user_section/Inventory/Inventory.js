@@ -36,7 +36,7 @@ class Inventory extends Component {
   }
 
   render() {
-    const {loading, items} = this.state;
+    const {loading, items, searchbarText} = this.state;
 
     if (loading && items.length === 0) {
       return (
@@ -60,7 +60,7 @@ class Inventory extends Component {
               value={this.state.searchbarText}
               onTextChange={this.onSearchBarTextChange}
             />
-            {items.map((item, index) => (
+            {items.filter(item => item.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((item, index) => (
               <Col key={index} xs={6} sm={4} md={3} lg={2}>
                 <Item onItemClick={this.onItemClick} name={item.type.name} itemIndex={index}/>
               </Col>

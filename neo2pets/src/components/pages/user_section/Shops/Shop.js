@@ -38,7 +38,7 @@ class Shop extends Component {
   }
 
   render() {
-    const {loading, store} = this.state;
+    const {loading, store, searchbarText} = this.state;
     if (loading && store === undefined) {
       return (
         <Panel className ="jumbotron-style">
@@ -61,7 +61,7 @@ class Shop extends Component {
               value={this.state.searchbarText}
               onTextChange={this.onSearchBarTextChange}
             />
-            {store.buyables.map((buyable, index) => (
+            {store.buyables.filter(buyable => buyable.item.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((buyable, index) => (
               <Col key={index} xs={6} sm={4} md={3} lg={2}>
                 <Item onItemClick={this.onItemClick} name={buyable.item.type.name + " - " + buyable.price + "$"} itemIndex={index}/>
               </Col>
