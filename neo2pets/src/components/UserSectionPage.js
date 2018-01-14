@@ -4,7 +4,7 @@ import PageContainer from "./layout/PageContainer";
 import ShopList from "./pages/user_section/Shops/ShopList";
 import Shop from "./pages/user_section/Shops/Shop";
 import Games from "./pages/user_section/Games";
-import Snake from "./pages/user_section/GamesFolder/Snake"
+import Snake from "./pages/user_section/GamesFolder/Snake/Snake"
 import CreateAvatar from "./pages/CreateAvatar";
 import Inventory from "./pages/user_section/Inventory/Inventory";
 import "../index.css";
