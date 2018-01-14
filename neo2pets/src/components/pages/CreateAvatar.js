@@ -13,7 +13,6 @@ import {
   Grid,
   Row,
   Col,
-  Thumbnail,
   FormGroup,
   InputGroup,
   FormControl,
@@ -43,40 +42,46 @@ class CreateAvatar extends React.Component {
     });
   };
 
-  onSubmit = () => {
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = () => {
-      if (request.readyState === XMLHttpRequest.DONE) {
-        if (request.status === 200) {
-          const response = JSON.parse(request.response);
+  onSubmit = (e) => {
+    if (!(!this.state.name || !this.state.selectedPetRace)) {
+      console.log("hi");
+      let request = new XMLHttpRequest();
+      request.onreadystatechange = () => {
+        if (request.readyState === XMLHttpRequest.DONE) {
+          if (request.status === 200) {
+            const response = JSON.parse(request.response);
 
-          if (response.status === "SUCCESS") {
-            return this.setState({
-              isSubmitted: true
-            });
-            return;
+            if (response.status === "SUCCESS") {
+              this.props.onPetChange();
+              return this.setState({
+                isSubmitted: true
+              });
+              return;
+            }
+            console.log(response);
           }
-        }
 
-        this.setState({
-          request: null,
-          loading: false
-        });
-      }
-    };
-    this.setState({
-      request,
-      loading: true
-    });
-    request.open("POST", `/api/pet/create`, true);
-    request.setRequestHeader("Content-type", "application/json");
-    request.send(
-      JSON.stringify({
-        raceName: this.state.selectedPetRace,
-        nickName: this.state.name,
-        userToken: this.props.token
-      })
-    );
+          this.setState({
+            request: null,
+            loading: false
+          });
+        }
+      };
+      this.setState({
+        request,
+        loading: true
+      });
+      request.open("POST", `/api/pet/create`, true);
+      request.setRequestHeader("Content-type", "application/json");
+      request.send(
+        JSON.stringify({
+          raceName: this.state.selectedPetRace,
+          nickName: this.state.name,
+          userToken: this.props.token
+        })
+      );
+    }
+    e.preventDefault();
   };
 
   render() {
@@ -84,7 +89,7 @@ class CreateAvatar extends React.Component {
       <PageContainer>
         {this.state.isSubmitted && <Redirect to="/" />}
         <div className="jumbotron jumbotron-style">
-          <form onSubmit={this.handleSubmit} style={{textAlign: "center"}}>
+          <form onSubmit={this.onSubmit} style={{textAlign: "center"}}>
             <label >
               <h1>Name your avatar:</h1>
               <FormGroup>
@@ -104,60 +109,60 @@ class CreateAvatar extends React.Component {
               </p>
               <Row>
                 <RacePanel
-                  raceName={"1"}
+                  raceName={"Tentaeot"}
                   image={Neopet1}
                   onPetRaceClick={this.onPetRaceClick}
-                  selected={this.state.selectedPetRace === "1"}
+                  selected={this.state.selectedPetRace === "Tentaeot"}
                 />
                 <RacePanel
-                  raceName={"2"}
+                  raceName={"Vaportwo"}
                   image={Neopet2}
                   onPetRaceClick={this.onPetRaceClick}
-                  selected={this.state.selectedPetRace === "2"}
+                  selected={this.state.selectedPetRace === "Vaportwo"}
                 />
                 <RacePanel
-                  raceName={"3"}
+                  raceName={"Pidvee"}
                   image={Neopet3}
                   onPetRaceClick={this.onPetRaceClick}
-                  selected={this.state.selectedPetRace === "3"}
+                  selected={this.state.selectedPetRace === "Pidvee"}
                 />
                 <RacePanel
-                  raceName={"4"}
+                  raceName={"Drowchu"}
                   image={Neopet4}
                   onPetRaceClick={this.onPetRaceClick}
-                  selected={this.state.selectedPetRace === "4"}
+                  selected={this.state.selectedPetRace === "Drowchu"}
                 />
                 <RacePanel
-                  raceName={"5"}
+                  raceName={"Parabat"}
                   image={Neopet5}
                   onPetRaceClick={this.onPetRaceClick}
-                  selected={this.state.selectedPetRace === "5"}
+                  selected={this.state.selectedPetRace === "Parabat"}
                 />
                 <RacePanel
-                  raceName={"6"}
+                  raceName={"Scybasaur"}
                   image={Neopet6}
                   onPetRaceClick={this.onPetRaceClick}
-                  selected={this.state.selectedPetRace === "6"}
+                  selected={this.state.selectedPetRace === "Scybasaur"}
                 />
                 <RacePanel
-                  raceName={"7"}
+                  raceName={"Goldzee"}
                   image={Neopet7}
                   onPetRaceClick={this.onPetRaceClick}
-                  selected={this.state.selectedPetRace === "7"}
+                  selected={this.state.selectedPetRace === "Goldzee"}
                 />
                 <RacePanel
-                  raceName={"8"}
+                  raceName={"Charsian"}
                   image={Neopet8}
                   onPetRaceClick={this.onPetRaceClick}
-                  selected={this.state.selectedPetRace === "8"}
+                  selected={this.state.selectedPetRace === "Charsian"}
                 />
               </Row>
             </div>
             <Grid />
             <Button
               disabled={!this.state.name || !this.state.selectedPetRace}
-              onClick={this.onSubmit}
               className="inputbox jumbotron-style"
+              type="submit"
             >
               Submit
             </Button>
@@ -177,7 +182,7 @@ class RacePanel extends Component {
         <div className="block" onClick={this.onPetRaceClick} style={selected ? {border: "5px solid white"} : {}}>
           <img className="avatarimage" src={image} />
           <div className="avatartext" style={{ textAlign: "center" }}>
-            {raceName + selected}
+            {raceName}
           </div>
         </div>
       </Col>

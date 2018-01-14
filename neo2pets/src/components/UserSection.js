@@ -39,7 +39,13 @@ class UserSection extends Component {
         <Switch>
           <Route
             path="/create-avatar"
-            render={props => <CreateAvatar {...props} token={this.props.token}/>}
+            render={props =>
+              this.state.loadedPet ?
+                this.state.pet !== undefined ? (
+                  <Redirect to="/inventory"/>
+                ) : (
+                  <CreateAvatar {...props} token={this.props.token} onPetChange={this.onPetChange}/>
+                ) : null}
           />
           <Route
             path="/"
