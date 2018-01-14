@@ -133,10 +133,15 @@ async function validatedRegisterHandler(value, modelMap, res) {
 
   // generate the password and store in the database
   const hashesPassword = await bcryptjs.hash(password, 12);
-  await modelMap.userModel.create({
+  const { id } = await modelMap.userModel.create({
     username: username,
     password: hashesPassword,
     email: email
+  });
+
+  await modelMap.storeModel.create({
+    buyables: [],
+    owner: id
   });
 
   res.send({

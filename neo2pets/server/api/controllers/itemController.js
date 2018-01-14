@@ -16,7 +16,7 @@ const consumeItemSchema = joi.object().keys({
     .string()
     .alphanum()
     .required(),
-  userToken: joi.string()
+  userToken: joi.string().required()
 });
 
 const createItemSchema = joi.object().keys({
@@ -27,9 +27,59 @@ const createItemSchema = joi.object().keys({
   userToken: joi.string().required()
 });
 
+const deleteItemSchema = joi.object().keys({
+  itemID: joi
+    .string()
+    .alphanum()
+    .required(),
+  userToken: joi.string().required()
+});
+
 const getOwnedItemsSchema = joi.object().keys({
   userToken: joi.string().required()
 });
+
+async function validatedDeleteItemHandler(value, modelMap, res) {
+  const { itemID, userToken } = value;
+
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
+
+  const item = await modelMap.itemModel.findById(itemID);
+
+  if (!item) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: `The item with the id "${itemID}" does not exist`,
+          field: "typeName"
+        }
+      ]
+    });
+  }
+
+  if (item.owner.toString() !== id) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: `You are not the owner of the item`,
+          field: "userToken"
+        }
+      ]
+    });
+  }
+
+  const removedItem = await modelMap.itemModel.remove({ _id: itemID });
+
+  res.send({
+    status: "SUCCESS"
+  });
+}
 
 async function validatedGetItemHandler(value, modelMap, res) {
   const { itemID, userToken } = value;
@@ -222,6 +272,17 @@ function getItemController(modelMap) {
       consumeItemSchema,
       modelMap,
       validateConsumeItemHandler
+    )
+  );
+
+  router.post(
+    "/delete",
+    bodyParser.json(),
+    createControllerHandler(
+      "POST",
+      deleteItemSchema,
+      modelMap,
+      validatedDeleteItemHandler
     )
   );
 

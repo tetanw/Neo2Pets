@@ -12,14 +12,38 @@ const addItemToStoreSchema = joi.object().keys({
     .string()
     .alphanum()
     .required(),
-  price: joi.number().required()
+  price: joi.number().required(),
+  storeID: joi
+    .string()
+    .alphanum()
+    .required()
 });
 
 const listBuyablesSchema = joi.object().keys({
+  storeID: joi
+    .string()
+    .alphanum()
+    .required(),
   userToken: joi.string().required()
 });
 
-async function validateListBuyablesHandler(value, modelMap, res) {
+const buyItemSchema = joi.object().keys({
+  userToken: joi.string().required(),
+  buyableID: joi
+    .string()
+    .alphanum()
+    .required(),
+  storeID: joi
+    .string()
+    .alphanum()
+    .required()
+});
+
+const getStoreIDFromUserSchema = joi.object().keys({
+  userToken: joi.string().required()
+});
+
+async function validatedGetStoreIDFromUserHandler(value, modelMap, res) {
   const { userToken } = value;
 
   if (!checkAuth(res, userToken, "userToken")) {
@@ -28,8 +52,33 @@ async function validateListBuyablesHandler(value, modelMap, res) {
 
   const { id } = jsonwebtoken.decode(userToken);
 
+  const store = await modelMap.storeModel.findOne({ owner: id });
+  if (!store) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        { message: "Store does not exist for user", field: "userToken" }
+      ]
+    });
+  }
+
+  res.send({
+    status: "SUCCESS",
+    storeID: store.id
+  });
+}
+
+async function validateListBuyablesHandler(value, modelMap, res) {
+  const { userToken, storeID } = value;
+
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
+
   const store = await modelMap.storeModel
-    .findOne({ owner: id })
+    .findOne({ _id: storeID })
     .populate("owner")
     .populate({
       path: "buyables",
@@ -50,7 +99,8 @@ async function validateListBuyablesHandler(value, modelMap, res) {
     });
   }
 
-  const buyables = store.buyables.map(({ item, price }) => ({
+  const buyables = store.buyables.map(({ item, price, _id }) => ({
+    id: _id,
     item,
     price
   }));
@@ -61,8 +111,8 @@ async function validateListBuyablesHandler(value, modelMap, res) {
   });
 }
 
-async function validatedAddItemToStoreHandler(value, modelMap, res) {
-  const { itemID, userToken, price } = value;
+async function validatedBuyItemHandler(value, modelMap, res) {
+  const { buyableID, userToken, storeID } = value;
 
   // check whether authenticated
   if (!checkAuth(res, userToken, "userToken")) {
@@ -71,11 +121,31 @@ async function validatedAddItemToStoreHandler(value, modelMap, res) {
 
   const { id } = jsonwebtoken.decode(userToken);
 
-  let store = await modelMap.storeModel.findOne({ owner: id });
+  const store = await modelMap.storeModel.findOne({ _id: storeID });
+  store.buyables = store.buyables.filter(buybale => buyable.id !== buyableID);
+  store.save();
+}
+
+async function validatedAddItemToStoreHandler(value, modelMap, res) {
+  const { itemID, userToken, price, storeID } = value;
+
+  // check whether authenticated
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
+
+  let store = await modelMap.storeModel.findOne({ _id: storeID });
   if (!store) {
-    store = await modelMap.storeModel.create({
-      buyables: [],
-      owner: id
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "Store does not exist",
+          field: "storeID"
+        }
+      ]
     });
   }
 
@@ -124,6 +194,17 @@ function getStoreController(modelMap) {
     )
   );
 
+  router.post(
+    "/buyitem",
+    bodyParser.json(),
+    createControllerHandler(
+      "POST",
+      buyItemSchema,
+      modelMap,
+      validatedBuyItemHandler
+    )
+  );
+
   router.get(
     "/listbuyables",
     bodyParser.json(),
@@ -132,6 +213,16 @@ function getStoreController(modelMap) {
       listBuyablesSchema,
       modelMap,
       validateListBuyablesHandler
+    )
+  );
+
+  router.get(
+    "/getstoreidfromuser",
+    createControllerHandler(
+      "GET",
+      getStoreIDFromUserSchema,
+      modelMap,
+      validatedGetStoreIDFromUserHandler
     )
   );
 
