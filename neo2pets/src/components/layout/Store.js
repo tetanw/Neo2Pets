@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Panel, Col, Button } from "react-bootstrap";
 import icon from "../../assets/images/neopets/Neopet1.png";
 
-class Market extends Component {
+class Store extends Component {
   render() {
     return (
       <a onClick={this.onMarketClick}>
@@ -17,7 +17,7 @@ class Market extends Component {
           </Panel.Body>
           <Panel.Footer className="bgc">
             <div style={{ textAlign: "center" }}>
-              <b>{this.props.name}'s Store</b>
+              <b>{this.props.ownerName}'s Store</b>
             </div>
           </Panel.Footer>
         </Panel>
@@ -26,10 +26,10 @@ class Market extends Component {
   }
 
   onMarketClick = () => {
-    const { onMarketClick, MarketIndex } = this.props;
+    const { onStoreClick, storeIndex } = this.props;
 
-    onMarketClick(MarketIndex);
+    onStoreClick(storeIndex);
   };
 }
 
-export default Market;
+export default Store;
