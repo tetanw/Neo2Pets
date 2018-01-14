@@ -41,8 +41,8 @@ class Inventory extends Component {
     if (loading && items.length === 0) {
       return (
         <Panel className ="jumbotron-style inventory">
-          <div className = "Jumbotron">
-            <Panel.Title componentClass="h3">Inventory</Panel.Title>
+          <div className = "padding bgc">
+            <Panel.Title className = "titleinv" componentClass="h3">Inventory</Panel.Title>
           </div>
           <Panel.Body/>
         </Panel>

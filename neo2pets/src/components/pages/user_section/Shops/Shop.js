@@ -42,10 +42,10 @@ class Shop extends Component {
     const {loading, store} = this.state;
     if (loading && store === undefined) {
       return (
-        <Panel>
-          <Panel.Heading>
-            <Panel.Title componentClass="h3">Someone's Store</Panel.Title>
-          </Panel.Heading>
+        <Panel className ="jumbotron-style inventory">
+          <div className = "padding bgc">
+            <Panel.Title className = "titleinv" componentClass="h3">Someone's Store</Panel.Title>
+          </div>
           <Panel.Body/>
         </Panel>
       );
@@ -53,10 +53,10 @@ class Shop extends Component {
 
     return (
       <Fragment>
-        <Panel  class="jumbotron-style">
-          <Panel.Heading>
-            <Panel.Title componentClass="h3">{store.ownerName}'s Store - DONT CLICK BUTTONS</Panel.Title>
-          </Panel.Heading>
+        <Panel className ="jumbotron-style inventory">
+          <div className = "padding bgc">
+            <Panel.Title className = "titleinv" componentClass="h3">{store.ownerName}'s Store - DONT CLICK BUTTONS</Panel.Title>
+          </div>
           <Panel.Body>
             <SearchBar
               value={this.state.searchbarText}
