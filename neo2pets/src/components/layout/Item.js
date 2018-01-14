@@ -6,11 +6,11 @@ class Item extends Component {
   render() {
     return (
       <a onClick={this.onItemClick}>
-        <Panel>
+        <Panel className= "bgc">
           <Panel.Body>
-            <Image className=" img-responsive center-block" src={icon} />
+            <Image className="img-responsive center-block" src={icon} />
           </Panel.Body>
-          <Panel.Footer>
+          <Panel.Footer className="bgc">
             <div style={{ textAlign: "center" }}>
               <b> {this.props.name} </b>
             </div>
