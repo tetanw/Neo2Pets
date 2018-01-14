@@ -18,6 +18,7 @@ const createItemTypeSchema = joi.object().keys({
     .string()
     .alphanum()
     .required(),
+  imgPath: joi.string().required(),
   properties: joi
     .array()
     .items(joi.string())
@@ -51,13 +52,14 @@ async function validatedGetItemTypeByNameHandler(value, modelMap, res) {
     itemType: {
       name: itemType.name,
       properties: itemType.properties,
+      imgPath: itemType.imgPath,
       propertyData: itemType.propertyData
     }
   });
 }
 
 async function validatedCreateItemTypeHandler(value, modelMap, res) {
-  const { name, properties, propertyData: { TOY } } = value;
+  const { name, properties, propertyData: { TOY }, imgPath } = value;
 
   const itemType = await modelMap.itemTypeModel.findOne({ name: name });
 
@@ -73,9 +75,10 @@ async function validatedCreateItemTypeHandler(value, modelMap, res) {
     });
   }
 
-  const item = await modelMap.itemTypeModel.create({
+  const databaseItemType = await modelMap.itemTypeModel.create({
     name,
     properties,
+    imgPath,
     propertyData: {
       TOY
     }
@@ -84,8 +87,9 @@ async function validatedCreateItemTypeHandler(value, modelMap, res) {
   res.send({
     status: "SUCCESS",
     itemType: {
-      id: item._id,
-      type: item.name,
+      id: databaseItemType._id,
+      imgPath: databaseItemType.imgPath,
+      type: databaseItemType.name,
       properties: properties,
       propertyData: {
         TOY

@@ -71,7 +71,8 @@ async function validatedGetPetHandler(value, modelMap, res) {
     pet: {
       race: {
         id: pet.race.id,
-        name: pet.race.name
+        name: pet.race.name,
+        imgPath: pet.race.imgPath
       },
       owner: pet.owner,
       nickName: pet.nickName

@@ -8,12 +8,16 @@ const { registerRoutes } = require("./api/controllers/mainController");
 
 // imports
 const express = require("express");
+const path = require("path");
 
 const app = express();
 
 database.createDatabase().then(modelMap => {
   // register all of the api routes
   registerRoutes(app, modelMap);
+
+  // host all of the images
+  app.use("/images", express.static(path.resolve("public/images")));
 
   // port defaults to 3000 if wno PORT set in env
   const port = 3001 | process.env.PORT;

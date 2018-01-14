@@ -17,7 +17,8 @@ const createPetRaceSchema = joi.object().keys({
   name: joi
     .string()
     .alphanum()
-    .required()
+    .required(),
+  imgPath: joi.string().required()
 });
 
 async function validatedGetPetRaceHandler(value, modelMap, res) {
@@ -40,13 +41,14 @@ async function validatedGetPetRaceHandler(value, modelMap, res) {
   res.send({
     status: "SUCCESS",
     petRace: {
-      name: petRace.name
+      name: petRace.name,
+      imgPath: petRace.imgPath
     }
   });
 }
 
 async function validatedCreatePetRaceHandler(value, modelMap, res) {
-  const { name } = value;
+  const { name, imgPath } = value;
 
   const petRace = await modelMap.petRaceModel.findOne({ name: name });
 
@@ -63,14 +65,16 @@ async function validatedCreatePetRaceHandler(value, modelMap, res) {
   }
 
   const databasePetRace = await modelMap.petRaceModel.create({
-    name
+    name,
+    imgPath
   });
 
   res.send({
     status: "SUCCESS",
     petRace: {
       id: databasePetRace._id,
-      name: databasePetRace.name
+      name: databasePetRace.name,
+      imgPath: databasePetRace.imgPath
     }
   });
 }

@@ -110,6 +110,7 @@ async function validatedGetItemHandler(value, modelMap, res) {
     status: "SUCCESS",
     item: {
       type: item.type.name,
+      imgPath: item.type.imgPath,
       properties: item.type.properties,
       propertyData: item.type.propertyData
     }
