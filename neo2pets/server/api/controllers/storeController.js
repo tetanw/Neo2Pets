@@ -97,7 +97,7 @@ async function validateListBuyablesHandler(value, modelMap, res) {
   const { id } = jsonwebtoken.decode(userToken);
 
   const store = await modelMap.storeModel
-    .findOne({ owner: id })
+    .findOne({ _id: storeID })
     .populate("owner")
     .populate({
       path: "buyables",
