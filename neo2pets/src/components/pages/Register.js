@@ -12,6 +12,7 @@ import {
   Grid
 } from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
+import PageContainer from "../layout/PageContainer";
 
 class App extends Component {
   constructor(props) {
@@ -35,58 +36,62 @@ class App extends Component {
   }
 
   onSubmit(e) {
-    fetch('/api/auth/register', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: this.state.username,
-          password: this.state.password,
-          email: this.state.email,
-        })
-      }
-    )
-      .then(res => {
-        return res.json();
-      })
-      .then(res => {
-        console.log(res);
-        if (res.status !== "SUCCESS") {
-          fetch('/api/auth/login', {
-              method: "POST",
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password,
-              })
-            }
-          )
-            .then(res => {
-              return res.json();
-            })
-            .then(res => {
-              console.log(res);
-              if (res.token !== undefined) {
-                this.props.onLogin(res.token, this.state.remember);
-                this.props.history.push("/");
-              } else {
-                this.setState({messages: res.messages});
-              }
-            });
-        } else {
-          this.setState({messages: res.messages});
+    console.log("test");
+    if (this.state.password === this.state.password2) {
+      fetch('/api/auth/register', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email,
+          })
         }
-      })
-
+      )
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          console.log(res);
+          if (res.status !== "SUCCESS") {
+            fetch('/api/auth/login', {
+                method: "POST",
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  username: this.state.username,
+                  password: this.state.password,
+                })
+              }
+            )
+              .then(res => {
+                return res.json();
+              })
+              .then(res => {
+                console.log(res);
+                if (res.token !== undefined) {
+                  this.props.onLogin(res.token, this.state.remember);
+                  this.props.history.push("/");
+                } else {
+                  this.setState({messages: res.messages});
+                }
+              });
+          } else {
+            this.setState({messages: res.messages});
+          }
+        })
+    } else {
+      this.setState({messages: [{message: "Passwords are not equal"}]});
+    }
     e.preventDefault();
   }
 
   render() {
     return (
-      <div className="main" name="">
+      <PageContainer className="main" name="">
         <Jumbotron className=" jumbotron-style">
           <Grid>
             <Row>
@@ -162,13 +167,15 @@ class App extends Component {
                       value={this.state.password2}
                       placeholder="Password"
                       onChange={this.handleChange}
-                      validate={(val, context) => val === context.password}
+                      validate='required,isLength:6:60'
                         />
                   </Col>
                 </FormGroup>
 
-                {this.state.message !== undefined ? this.state.messages.map((m, i) => <p
-                  key={i}>{m.message}</p>) : null}
+                <Col smOffset={3} sm={5}>
+                {this.state.messages !== undefined ? this.state.messages.map((m, i) => <p
+                  key={i} style={{textAlign: "center"}}>{m.message}</p>) : null}
+                </Col>
 
                 <FormGroup>
                   <Col smOffset={3} sm={5}>
@@ -180,7 +187,7 @@ class App extends Component {
             </Row>
           </Grid>
         </Jumbotron>
-      </div>
+      </PageContainer>
     )
   }
 }

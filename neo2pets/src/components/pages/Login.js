@@ -13,6 +13,7 @@ import {
   Grid
 } from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
+import PageContainer from "../layout/PageContainer";
 
 
 class Login extends Component {
@@ -66,7 +67,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="main" name="">
+      <PageContainer className="main" name="">
         <Jumbotron className=" jumbotron-style">
           <Grid>
             <Row>
@@ -109,7 +110,7 @@ class Login extends Component {
                   </Col>
                 </FormGroup>
 
-                {this.state.message !== undefined ? this.state.messages.map((m, i) => <p
+                {this.state.messages !== undefined ? this.state.messages.map((m, i) => <p
                   key={i}>{m.message}</p>) : null}
 
                 <FormGroup>
@@ -128,7 +129,7 @@ class Login extends Component {
                   <Col smOffset={3} sm={1}>
                     <Button type="submit">Sign In</Button>
                   </Col>
-                  <Col>
+                  <Col sm={1}>
                     <LinkContainer to="/register">
                       <Button type="button">Register</Button>
                     </LinkContainer>
@@ -139,7 +140,7 @@ class Login extends Component {
             </Row>
           </Grid>
         </Jumbotron>
-      </div>
+      </PageContainer>
     )
   }
 
