@@ -9,7 +9,6 @@ var DIRS = {37: true, 38: true, 39: true, 40: true};
 class Snake extends Component {
   constructor(props) {
     super(props);
-    this.setState=this.setState.bind(this);
     this._reset=this._reset.bind(this);
     this._pause=this._pause.bind(this);
     this._resume=this._resume.bind(this);
@@ -120,19 +119,17 @@ class Snake extends Component {
       for (var col = 0; col < numCols; col++) {
         var code = this.state.board[numCols * row + col];
         var type = code == BODY ? 'body' : code == FOOD ? 'food' : 'null';
-        cells.push(<div class={type + '-cell'} />);
+        cells.push(<div key={row + "," + col} className={type + '-cell'} />);
       }
     }
 
     return (
       <div className="jumbotron jumbotron-style">
-        <h2>Snake</h2>
-
-        <div class="snake-game">
-        <h1 class="snake-score">Length: {this.state.snake.length}</h1>
+        <div className="snake-game">
+        <h1 className="snake-score">Length: {this.state.snake.length}</h1>
         <div
           ref="board"
-          class={'snake-board' + (this.state.gameOver ? ' game-over' : '')}
+          className={'snake-board' + (this.state.gameOver ? ' game-over' : '')}
           tabIndex={0}
           onBlur={this._pause}
           onFocus={this._resume}
@@ -140,7 +137,7 @@ class Snake extends Component {
           style={{width: numCols * cellSize, height: numRows * cellSize}}>
           {cells}
         </div>
-        <div class="snake-controls">
+        <div className="snake-controls">
           {this.state.paused ? <button onClick={this._resume}>Resume</button> : null}
           {this.state.gameOver ? <button onClick={this._reset}>New Game</button> : null}
         </div>
