@@ -62,7 +62,7 @@ class ShopList extends Component {
                 value={this.state.searchbarText}
                 onTextChange={this.onSearchBarTextChange}
               />
-              {store.buyables.filter(market => market.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((buyable, index) => (
+              {marketplace.markets.filter(market => market.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((buyable, index) => (
                 <Col key={index} xs={6} sm={4} md={3} lg={2}>
                   <Market onMarketClick={this.onMarketClick} name={store.ownerName + "'s Store"} MarketIndex={index}/>
                 </Col>
@@ -80,71 +80,12 @@ class ShopList extends Component {
       event.preventDefault();
     };
   
-    onMarketClick = (itemIndex) => {
+    onMarketClick = (MarketIndex) => {
     
-    };
-
-  
-    onBuyClick = () => {
-      let storeID = this.props.match.params.shopID;
-      fetch('/api/store/buyitem', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userToken: this.props.token,
-          storeID: storeID,
-          buyableID: this.state.modalBuyable._id
-        })
-      })
-        .then(res => {
-          return res.json();
-        })
-        .then(res => {
-          if (res.status === "SUCCESS") {
-            this.updateStore();
-            this.props.onMoneyChange();
-          }
-          console.log(res);
-        });
-  
-      this.setState({
-        currentModal: "NONE",
-        modalItem: null
-      });
     };
   
     updateMarketplace = () => {
-      let storeID = this.props.match.params.shopID;
-      let request = new XMLHttpRequest();
-      this.setState({
-        request,
-        loading: true
-      });
-      request.onreadystatechange = () => {
-        if (
-          request.readyState === XMLHttpRequest.DONE &&
-          request.status !== 0
-        ) {
-          const response = JSON.parse(request.response);
-  
-          if (response.status === "SUCCESS") {
-            this.setState({
-              store: response.store,
-              loading: false,
-              request: null
-            });
-          }
-          console.log(response);
-        }
-      };
-      request.open(
-        "GET",
-        `/api/store/listbuyables?userToken=${this.props.token}&storeID=${storeID}`,
-        true
-      );
-      request.send();
+
     }
   
   }
