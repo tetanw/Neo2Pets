@@ -15,6 +15,8 @@ class Snake extends Component {
     this._resume=this._resume.bind(this);
     this._tick=this._tick.bind(this);
     this._handleKey=this._handleKey.bind(this);
+
+    this.state = this.getInitialState();
   }
 
   getInitialState() {
@@ -47,7 +49,7 @@ class Snake extends Component {
   _resume() {
     if (this.state.gameOver || !this.state.paused) { return; }
     this.setState({paused: false});
-    this.refs.board.getDOMNode().focus();
+    this.refs.board.focus();
     this._tick();
   };
 
@@ -172,9 +174,5 @@ class Snake extends Component {
  
 
 }
-
-
-
-
 
 export default Snake
