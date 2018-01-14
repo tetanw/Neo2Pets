@@ -54,10 +54,10 @@ class UserSection extends Component {
                 ) : (
                   <div className="content">
                     <div className="sidebar">
-                      <Pet token={this.props.token} pet={this.state.pet}/>
+                      <Pet token={this.props.token} pet={this.state.pet} money={this.state.money}/>
                     </div>
                     <div className="inline">
-                      <Page token={this.props.token} onPetChange={this.onPetChange}/>
+                      <Page token={this.props.token} onPetChange={this.onPetChange} onMoneyChange={this.onMoneyChange}/>
                     </div>
                   </div>
                 ) : null

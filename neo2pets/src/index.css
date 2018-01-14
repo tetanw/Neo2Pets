@@ -92,6 +92,13 @@ body {
   border-width: 0px;
 }
 
+.panel-footer{
+  background-color: rgba(0, 0, 0, 0.404) !important;
+  color: white !important;
+  border-width: 0px;
+  text-align: center;
+}
+
 .bgc{
     background-color: rgba(0, 0, 0, 0.404);
 }

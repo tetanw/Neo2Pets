@@ -17,42 +17,44 @@ import "../index.css";
 
 class Page extends Component {
   render() {
+    const {token, onPetChange, onMoneyChange} = this.props;
+
     return (
       <PageContainer>
         <Switch>
           <Route
             exact path="/"
-            render={withLoginToken(Inventory, this.props.token)}
+            render={withProps(Inventory, token, onPetChange, onMoneyChange)}
           />
 
           <Route
             path="/inventory"
-            render={withLoginToken(Inventory, this.props.token)}
+            render={withProps(Inventory, token, onPetChange, onMoneyChange)}
           />
 
           <Route
             exact path="/marketplace"
-            render={withLoginToken(ShopList, this.props.token)}
+            render={withProps(ShopList, token, onPetChange, onMoneyChange)}
           />
 
           <Route
             path="/marketplace/:shopID"
-            render={withLoginToken(Shop, this.props.token)}
+            render={withProps(Shop, token, onPetChange, onMoneyChange)}
           />
 
           <Route
             exact path="/games"
-            render={withLoginToken(Games, this.props.token)}
+            render={withProps(Games, token, onPetChange, onMoneyChange)}
           />
 
           <Route
             path="/games/snake"
-            render={withLoginToken(Snake, this.props.token)}
+            render={withProps(Snake, token, onPetChange, onMoneyChange)}
           />
 
           <Route
             path="/create-avatar"
-            render={withLoginToken(CreateAvatar, this.props.token)}
+            render={withProps(CreateAvatar, token, onPetChange, onMoneyChange)}
           />
 
         </Switch>
@@ -61,9 +63,9 @@ class Page extends Component {
   }
 }
 
-function withLoginToken(Component, token) {
+function withProps(Component, token, onPetChange, onMoneyChange) {
   return props => {
-    return <Component {...props} token={token} />;
+    return <Component {...props} token={token} onPetChange={onPetChange} onMoneyChange={onMoneyChange} />;
   };
 }
 

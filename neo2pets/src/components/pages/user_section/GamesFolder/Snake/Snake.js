@@ -136,6 +136,7 @@ class Snake extends Component {
       })
       .then(res => {
         console.log(res);
+        this.props.onMoneyChange();
       });
 
   }

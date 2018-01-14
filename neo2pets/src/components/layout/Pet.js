@@ -8,11 +8,11 @@ import Neopet2 from "../../assets/images/neopets/Neopet2.png";
 
 class Pet extends Component {
   render() {
-    const {pet} = this.props;
+    const {pet, money} = this.props;
 
     return (
       <Panel className="jumbotron-style">
-        <Panel.Heading className="padding bgc">
+        <Panel.Heading>
           <Panel.Title className="titleinv">
             {pet !== undefined ? pet.nickName : ""}
           </Panel.Title>
@@ -33,6 +33,9 @@ class Pet extends Component {
         ) : (
           ""
         )}
+        <Panel.Footer>
+            {money !== undefined ? money + "$" : "0$"}
+        </Panel.Footer>
       </Panel>
     );
   }
