@@ -5,14 +5,8 @@ body {
   font-family: sans-serif;
   width: 100%;
   /* overflow-x: hidden; */
-  background-image: url("./assets/backgrounds/MainBackground.png");
-  background-attachment: fixed;
+  background: url("./assets/backgrounds/MainBackground.png") fixed;
   background-size: cover;
-}
-
-
-.maincontent {
-  margin-top: 60px;
 }
 
 .navbar {
@@ -21,6 +15,18 @@ body {
   font-family: Impact, Charcoal, sans-serif;
   letter-spacing: 2px;
   text-transform: uppercase;
+  border-bottom: 0px;
+}
+
+.navbar-nav a {
+  color: white !important;
+}
+
+.navbar-nav a:hover {
+  color: lightgray !important;
+}
+.navbar-nav.active,.navbar-nav.active a{
+  background-color: #1b6d85;
 }
 
 .jumbotron-style {
@@ -33,9 +39,9 @@ body {
   border: none;
 }
 
-
 .jumbotron-style a:hover {
-  color: black;
+  color: lightgray;
+  text-decoration: none;
 }
 
 .jumbotron-style a {
@@ -66,66 +72,24 @@ body {
   overflow: hidden;
 }
 
-.progressbar {
-  width: 80%;
+.content {
+  margin-top: 70px;
+  margin-left: 20px;
+  display: flex;
 }
-
-.padding {
-  padding: 1em;
-}
-
-.margin {
-  margin-left: 30px;
-  margin-top: 10px;
-}
-
-.pet {
-  margin: 15px;
-}
-
-#sidebar-wrapper {
-  position: absolute;
-  left: 250px;
-  width: 16%;
-  height: 90%;
-  margin-left: -200px;
-  margin-top: 60px;
-  background-color: rgba(0, 0, 0, 0.404);
-  font-family: Impact, Charcoal, sans-serif;
-  letter-spacing: 2px;
-  color: white;
-  border-radius: 10px;
-}
-
-#page-content-wrapper {
-  width: 100%;
-  position: absolute;
-}
-
-.inventory {
-  height: 600px;
-  overflow-y: auto;
-  width: 100%;
-}
-
-.sidebar {
-  display: inline-block;
-  float: left;
-  margin-top: 55px;
-  margin-left: 40px;
-  margin-bottom: -50px;
-}
-
 .inline {
-  display: inline-block;
-  float: left;
-  margin-right: 30px;
-  padding-left: 30px;
+  flex-grow: 100;
+}
+
+.inline .container {
+  width: 100%;
 }
 
 .panel-heading{
-  background-color: rgba(0, 0, 0, 0.404);
-  color: white;
+  background-color: rgba(0, 0, 0, 0.404) !important;
+  color: white !important;
+  border-radius: 10px 10px 0px 0px;
+  border-width: 0px;
 }
 
 .bgc{

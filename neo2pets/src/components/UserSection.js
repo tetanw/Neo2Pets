@@ -33,9 +33,7 @@ class UserSection extends Component {
   render() {
     return (
       <div>
-        <div>
-          <CustomNavbar/>
-        </div>
+        <CustomNavbar/>
         <Switch>
           <Route
             path="/create-avatar"
@@ -54,14 +52,14 @@ class UserSection extends Component {
                 this.state.pet === undefined ? (
                   <Redirect to="/create-avatar"/>
                 ) : (
-                  <Fragment>
+                  <div className="content">
                     <div className="sidebar">
                       <Pet token={this.props.token} pet={this.state.pet}/>
                     </div>
                     <div className="inline">
                       <Page token={this.props.token} onPetChange={this.onPetChange}/>
                     </div>
-                  </Fragment>
+                  </div>
                 ) : null
             }/>
         </Switch>

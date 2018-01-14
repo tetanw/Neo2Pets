@@ -1,37 +1,39 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
-  Button,
-  Grid,
-  Row,
-  Col,
+  Panel,
   Image,
-  Thumbnail,
   ProgressBar
 } from "react-bootstrap";
 import Neopet2 from "../../assets/images/neopets/Neopet2.png";
 
 class Pet extends Component {
   render() {
+    const {pet} = this.props;
+
     return (
-      <div className="block jumbotron jumbotron-style">
+      <Panel className="jumbotron-style">
+        <Panel.Heading className="padding bgc">
+          <Panel.Title className="titleinv">
+            {pet !== undefined ? pet.nickName : ""}
+          </Panel.Title>
+        </Panel.Heading>
         {this.props.pet !== undefined ? (
-          <div>
-            <h3 style={{ marginLeft: "20px" }}>{this.props.pet.nickName}</h3>
-            <Image src={Neopet2} />
-            <h3 style={{ marginLeft: "20px" }}>{this.props.pet.race.name}</h3>
-            <h3 style={{ marginLeft: "20px" }}>{this.props.pet.name}</h3>
+          <Panel.Body>
+            <h3>the {pet.race.name}</h3>
+            <Image src={Neopet2}/>
+            <h3>{pet.name}</h3>
             <ProgressBar
-              style={{ marginLeft: "auto", marginRight: "auto" }}
+              style={{width: "80%", marginLeft: "auto", marginRight: "auto"}}
               bsStyle="success"
               className="progressbar"
               active
               now={50}
             />
-          </div>
+          </Panel.Body>
         ) : (
           ""
         )}
-      </div>
+      </Panel>
     );
   }
 }

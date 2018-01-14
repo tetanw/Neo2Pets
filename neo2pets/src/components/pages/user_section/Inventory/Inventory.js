@@ -40,10 +40,10 @@ class Inventory extends Component {
 
     if (loading && items.length === 0) {
       return (
-        <Panel className ="jumbotron-style inventory">
-          <div className = "padding bgc">
-            <Panel.Title className = "titleinv" componentClass="h3">Inventory</Panel.Title>
-          </div>
+        <Panel className ="jumbotron-style">
+          <Panel.Heading className = "padding bgc">
+            <Panel.Title className = "titleinv">Inventory</Panel.Title>
+          </Panel.Heading>
           <Panel.Body/>
         </Panel>
       );
@@ -51,10 +51,10 @@ class Inventory extends Component {
 
     return (
       <Fragment>
-        <Panel className ="jumbotron-style inventory">
-          <div className = "padding bgc">
-            <Panel.Title className = "titleinv" componentClass="h3" >Inventory</Panel.Title>
-          </div>
+        <Panel className ="jumbotron-style">
+          <Panel.Heading className = "padding bgc">
+            <Panel.Title className = "titleinv">Inventory</Panel.Title>
+          </Panel.Heading>
           <Panel.Body>
             <SearchBar
               value={this.state.searchbarText}

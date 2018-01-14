@@ -91,8 +91,8 @@ class App extends Component {
 
   render() {
     return (
-      <PageContainer className="main" name="">
-        <Jumbotron className=" jumbotron-style">
+      <PageContainer>
+        <Jumbotron className="jumbotron-style" style={{marginTop: "20px"}}>
           <Grid>
             <Row>
               <Col sm={1}>

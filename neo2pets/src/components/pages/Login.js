@@ -67,8 +67,8 @@ class Login extends Component {
 
   render() {
     return (
-      <PageContainer className="main" name="">
-        <Jumbotron className=" jumbotron-style">
+      <PageContainer>
+        <Jumbotron className="jumbotron-style" style={{marginTop: "20px"}}>
           <Grid>
             <Row>
               <Col sm={1}>
@@ -129,7 +129,7 @@ class Login extends Component {
                   <Col smOffset={3} sm={1}>
                     <Button type="submit">Sign In</Button>
                   </Col>
-                  <Col sm={1}>
+                  <Col >
                     <LinkContainer to="/register">
                       <Button type="button">Register</Button>
                     </LinkContainer>

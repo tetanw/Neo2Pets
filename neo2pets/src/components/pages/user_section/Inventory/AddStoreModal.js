@@ -38,7 +38,7 @@ class AddStoreModal extends Component {
                   <InputGroup.Addon>$</InputGroup.Addon>
                   <FormControl
                     label='Set item price'
-                    className="inputbox jumbotron-style"
+                    className="jumbotron-style"
                     type="number"
                     name="price"
                     value={this.state.price}
