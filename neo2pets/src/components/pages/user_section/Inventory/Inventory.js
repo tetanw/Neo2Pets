@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from "react";
-import {Panel, Col} from "react-bootstrap";
+import {Panel, Col, Row} from "react-bootstrap";
 import Item from "../../../layout/Item";
 import AddStoreModal from "./AddStoreModal";
 import ItemModal from "./ItemModal";
@@ -40,9 +40,9 @@ class Inventory extends Component {
 
     if (loading && items.length === 0) {
       return (
-        <Panel className ="jumbotron-style">
-          <Panel.Heading className = "padding bgc">
-            <Panel.Title className = "titleinv">Inventory</Panel.Title>
+        <Panel className="jumbotron-style">
+          <Panel.Heading className="padding bgc">
+            <Panel.Title className="titleinv">Inventory</Panel.Title>
           </Panel.Heading>
           <Panel.Body/>
         </Panel>
@@ -51,20 +51,22 @@ class Inventory extends Component {
 
     return (
       <Fragment>
-        <Panel className ="jumbotron-style">
+        <Panel className="jumbotron-style">
           <Panel.Heading>
-            <Panel.Title className = "titleinv">Inventory</Panel.Title>
+            <Panel.Title className="titleinv">Inventory</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
             <SearchBar
               value={this.state.searchbarText}
               onTextChange={this.onSearchBarTextChange}
             />
-            {items.filter(item => item.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((item, index) => (
-              <Col key={index} xs={6} sm={4} md={3} lg={2}>
-                <Item onItemClick={this.onItemClick} name={item.type.name} itemIndex={index}/>
-              </Col>
-            ))}
+            <Row>
+              {items.filter(item => item.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((item, index) => (
+                <Col key={index} xs={6} sm={4} md={3} lg={2}>
+                  <Item onItemClick={this.onItemClick} name={item.type.name} itemIndex={index}/>
+                </Col>
+              ))}
+            </Row>
           </Panel.Body>
         </Panel>
         <ItemModal

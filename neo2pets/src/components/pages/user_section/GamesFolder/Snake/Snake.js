@@ -183,9 +183,8 @@ class Snake extends Component {
             {this.state.paused ? <button onClick={this._resume}>Resume</button> : null}
             {this.state.gameOver ? <button onClick={this._reset}>New Game</button> : null}
           </div>
+          <h3 style={{textAlign: "center"}}><Link to='/games'>Back to games</Link></h3>
         </Panel.Body>
-
-        <h3 style={{paddingLeft: "20px", paddingBottom: "20px", textAlign: "center"}}><Link to='/games'>Back to games</Link></h3>
       </Panel>
     )
 

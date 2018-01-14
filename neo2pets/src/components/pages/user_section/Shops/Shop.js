@@ -1,7 +1,9 @@
 import React, {Fragment, Component} from "react";
+import {Link} from "react-router-dom";
 import {
   Panel,
   Col,
+  Row
 } from "react-bootstrap";
 import ShopItemModal from "./ShopItemModal";
 import Item from "../../../layout/Item";
@@ -41,9 +43,9 @@ class Shop extends Component {
     const {loading, store, searchbarText} = this.state;
     if (loading && store === undefined) {
       return (
-        <Panel className ="jumbotron-style">
+        <Panel className="jumbotron-style">
           <Panel.Heading>
-            <Panel.Title className = "titleinv">Someone's Store</Panel.Title>
+            <Panel.Title className="titleinv">Someone's Store</Panel.Title>
           </Panel.Heading>
           <Panel.Body/>
         </Panel>
@@ -52,20 +54,26 @@ class Shop extends Component {
 
     return (
       <Fragment>
-        <Panel className ="jumbotron-style">
-          <Panel.Heading className = "padding bgc">
-            <Panel.Title className = "titleinv">{store.ownerName}'s Store</Panel.Title>
+        <Panel className="jumbotron-style">
+          <Panel.Heading className="padding bgc">
+            <Panel.Title className="titleinv">{store.ownerName}'s Store</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            <SearchBar
-              value={this.state.searchbarText}
-              onTextChange={this.onSearchBarTextChange}
-            />
-            {store.buyables.filter(buyable => buyable.item.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((buyable, index) => (
-              <Col key={index} xs={6} sm={4} md={3} lg={2}>
-                <Item onItemClick={this.onItemClick} name={buyable.item.type.name + " - " + buyable.price + "$"} itemIndex={index}/>
-              </Col>
-            ))}
+              <SearchBar
+                value={this.state.searchbarText}
+                onTextChange={this.onSearchBarTextChange}
+              />
+            <Row>
+              {store.buyables.filter(buyable => buyable.item.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((buyable, index) => (
+                <Col key={index} xs={6} sm={4} md={3} lg={2}>
+                  <Item onItemClick={this.onItemClick} name={buyable.item.type.name + " - " + buyable.price + "$"}
+                        itemIndex={index}/>
+                </Col>
+              ))}
+            </Row>
+            <Row>
+              <h3 style={{textAlign: "center", width: "100%"}}><Link to='/marketplace'>Back to Marketplace</Link></h3>
+            </Row>
           </Panel.Body>
         </Panel>
         <ShopItemModal
