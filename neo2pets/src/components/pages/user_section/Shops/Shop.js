@@ -14,7 +14,7 @@ class Shop extends Component {
 
     this.state = {
       currentModal: "NONE",
-      modalItem: null,
+      modalBuyable: null,
       request: null,
       loading: true,
       searchbarText: ""
@@ -54,7 +54,7 @@ class Shop extends Component {
       <Fragment>
         <Panel className ="jumbotron-style">
           <Panel.Heading className = "padding bgc">
-            <Panel.Title className = "titleinv">{store.ownerName}'s Store - DONT CLICK BUTTONS</Panel.Title>
+            <Panel.Title className = "titleinv">{store.ownerName}'s Store</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
             <SearchBar
@@ -70,7 +70,7 @@ class Shop extends Component {
         </Panel>
         <ShopItemModal
           show={this.state.currentModal === "ITEM"}
-          item={this.state.modalItem}
+          buyable={this.state.modalBuyable}
           onClose={this.onItemClose}
           onBuyClick={this.onBuyClick}
         />
@@ -86,17 +86,17 @@ class Shop extends Component {
   };
 
   onItemClick = (itemIndex) => {
-    let item = this.state.buyables[itemIndex]
+    let buyable = this.state.store.buyables[itemIndex]
     this.setState({
       currentModal: "ITEM",
-      modalItem: item
+      modalBuyable: buyable
     });
   };
 
   onItemClose = () => {
     this.setState({
       currentModal: "NONE",
-      modalItem: null
+      modalBuyable: null
     });
   };
 
@@ -110,7 +110,7 @@ class Shop extends Component {
       body: JSON.stringify({
         userToken: this.props.token,
         storeID: storeID,
-        buyableID: this.state.modalBuyable._id
+        buyableID: this.state.modalBuyable.id
       })
     })
       .then(res => {
@@ -126,7 +126,7 @@ class Shop extends Component {
 
     this.setState({
       currentModal: "NONE",
-      modalItem: null
+      modalBuyable: null
     });
   };
 

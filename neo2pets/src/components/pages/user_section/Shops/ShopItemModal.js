@@ -6,27 +6,27 @@ class ShopItemModal extends Component {
   render() {
     const {
       show = false,
-      item,
+      buyable,
       onClose,
       onBuyClick,
     } = this.props;
 
-    if (item === null)
+    if (buyable === null)
       return null;
 
     return (
       <Modal show={show} onHide={onClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{item.type.name}</Modal.Title>
+          <Modal.Title>{buyable.item.type.name}</Modal.Title>
           </Modal.Header>
 
         <Modal.Body>
           <Image className=" img-responsive center-block" src={icon} />
-          1000$
+          {buyable.price}$
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={() => onBuyClick(item)}> Buy item </Button>
+          <Button onClick={onBuyClick}> Buy item </Button>
           <Button onClick={onClose}> Close </Button>
         </Modal.Footer>
       </Modal>
