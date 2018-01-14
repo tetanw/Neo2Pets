@@ -29,7 +29,7 @@ class Inventory extends Component {
     if (loading) {
       //request.abort();
       this.setState({
-        loading: false,
+        loading: true,
         request: null
       });
     }
@@ -38,12 +38,12 @@ class Inventory extends Component {
   render() {
     const {loading, items} = this.state;
 
-    if (loading) {
+    if (loading && items.length === 0) {
       return (
-        <Panel>
-          <Panel.Heading>
+        <Panel className ="jumbotron-style inventory">
+          <div className = "Jumbotron">
             <Panel.Title componentClass="h3">Inventory</Panel.Title>
-          </Panel.Heading>
+          </div>
           <Panel.Body/>
         </Panel>
       );
@@ -51,12 +51,12 @@ class Inventory extends Component {
 
     return (
       <Fragment>
-        <Panel>
-          <Panel.Heading>
-            <Panel.Title componentClass="h3">Inventory</Panel.Title>
-          </Panel.Heading>
+        <Panel className ="jumbotron-style inventory">
+          <div className = "padding bgc">
+            <Panel.Title className = "titleinv" componentClass="h3" >Inventory</Panel.Title>
+          </div>
           <Panel.Body>
-            <SearchBar
+            <SearchBar className="jumbotron-style"
               value={this.state.searchbarText}
               onTextChange={this.onSearchBarTextChange}
             />

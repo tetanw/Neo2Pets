@@ -99,23 +99,53 @@ class CreateAvatar extends React.Component {
             </label>
             <div>
               <p>
-                Choose your avatar and starting skill levels! choose wisely!
+                Choose your avatar, choose wisely!
               </p>
               <Row>
                 <RacePanel
-                  raceName={"SUPERPICKACHU"}
+                  raceName={"1"}
                   image={Neopet1}
                   onPetRaceClick={this.onPetRaceClick}
                 />
                 <RacePanel
-                  raceName={"SUPERPICKACHU2"}
-                  image={Neopet1}
+                  raceName={"2"}
+                  image={Neopet2}
+                  onPetRaceClick={this.onPetRaceClick}
+                />
+                <RacePanel
+                  raceName={"3"}
+                  image={Neopet3}
+                  onPetRaceClick={this.onPetRaceClick}
+                />
+                <RacePanel
+                  raceName={"4"}
+                  image={Neopet4}
+                  onPetRaceClick={this.onPetRaceClick}
+                />
+                <RacePanel
+                  raceName={"5"}
+                  image={Neopet5}
+                  onPetRaceClick={this.onPetRaceClick}
+                />
+                <RacePanel
+                  raceName={"6"}
+                  image={Neopet6}
+                  onPetRaceClick={this.onPetRaceClick}
+                />
+                <RacePanel
+                  raceName={"7"}
+                  image={Neopet7}
+                  onPetRaceClick={this.onPetRaceClick}
+                />
+                <RacePanel
+                  raceName={"8"}
+                  image={Neopet8}
                   onPetRaceClick={this.onPetRaceClick}
                 />
               </Row>
             </div>
             {this.state.selectedPetRace && (
-              <p> You selected an {this.state.selectedPetRace} </p>
+              <p> You selected pet number {this.state.selectedPetRace} </p>
             )}
             <Grid />
             <Button
