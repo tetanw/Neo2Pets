@@ -4,7 +4,7 @@ import {
   Col,
 } from "react-bootstrap";
 import ShopItemModal from "./ShopItemModal";
-import Item from "../../../layout/Item";
+import Market from "../../../layout/Market";
 import SearchBar from "../../../layout/SearchBar";
 
 class ShopList extends Component {
@@ -64,7 +64,7 @@ class ShopList extends Component {
               />
               {store.buyables.filter(buyable => buyable.item.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((buyable, index) => (
                 <Col key={index} xs={6} sm={4} md={3} lg={2}>
-                  <Item onItemClick={this.onItemClick} name={buyable.item.type.name + " - " + buyable.price + "$"} itemIndex={index}/>
+                  <Market onMarketClick={this.onItemClick} name={store.ownerName + "'s Store"} MarketIndex={index}/>
                 </Col>
               ))}
             </Panel.Body>
@@ -86,7 +86,7 @@ class ShopList extends Component {
       event.preventDefault();
     };
   
-    onItemClick = (itemIndex) => {
+    onMarketClick = (itemIndex) => {
       let item = this.state.buyables[itemIndex]
       this.setState({
         currentModal: "ITEM",
@@ -94,7 +94,7 @@ class ShopList extends Component {
       });
     };
   
-    onItemClose = () => {
+    onMarketClose = () => {
       this.setState({
         currentModal: "NONE",
         modalItem: null
