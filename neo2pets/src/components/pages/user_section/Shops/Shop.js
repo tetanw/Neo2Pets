@@ -42,7 +42,7 @@ class Shop extends Component {
     if (loading && store === undefined) {
       return (
         <Panel className ="jumbotron-style">
-          <Panel.Heading className = "padding bgc">
+          <Panel.Heading>
             <Panel.Title className = "titleinv">Someone's Store</Panel.Title>
           </Panel.Heading>
           <Panel.Body/>
