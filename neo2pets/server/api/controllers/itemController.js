@@ -68,7 +68,11 @@ async function validatedCreateRandomItemHandler(value, modelMap, res) {
     status: "SUCCESS",
     item: {
       id: databaseItem._id,
-      type: randomItemType.name,
+      type: {
+        name: randomItemType.name,
+        property: randomItemType.property,
+        value: randomItemType.value
+      },
       ownerID: id
     }
   });
@@ -141,13 +145,15 @@ async function validatedGetItemHandler(value, modelMap, res) {
     });
   }
 
+  console.log(item.type);
+
   res.send({
     status: "SUCCESS",
     item: {
       type: item.type.name,
       imgPath: item.type.imgPath,
-      properties: item.type.properties,
-      propertyData: item.type.propertyData
+      property: item.type.property,
+      value: item.type.value
     }
   });
 }
