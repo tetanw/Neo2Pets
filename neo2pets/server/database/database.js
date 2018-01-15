@@ -1,13 +1,19 @@
 var mongoose = require("mongoose");
 
+const config = {
+  keepAlive: 1,
+  connectTimeoutMS: 30000,
+  reconnectTries: 3600,
+  reconnectInterval: 2000,
+  useMongoClient: true,
+};
+
 function createDatabase() {
   return new Promise((resolve, reject) => {
     mongoose.Promise = global.Promise;
     mongoose.connect(
       "mongodb://webtech:123@ds133017.mlab.com:33017/dev-webtech",
-      {
-        useMongoClient: true
-      }
+      config
     );
 
     mongoose.connection.once("open", () => {
