@@ -20,10 +20,7 @@ const consumeItemSchema = joi.object().keys({
 });
 
 const createItemSchema = joi.object().keys({
-  typeName: joi
-    .string()
-    .alphanum()
-    .required(),
+  typeName: joi.string().required(),
   userToken: joi.string().required()
 });
 
