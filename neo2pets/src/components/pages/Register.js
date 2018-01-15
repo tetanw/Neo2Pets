@@ -55,7 +55,7 @@ class App extends Component {
         })
         .then(res => {
           console.log(res);
-          if (res.status !== "SUCCESS") {
+          if (res.status === "SUCCESS") {
             fetch('/api/auth/login', {
                 method: "POST",
                 headers: {
@@ -73,7 +73,7 @@ class App extends Component {
               .then(res => {
                 console.log(res);
                 if (res.token !== undefined) {
-                  this.props.onLogin(res.token, this.state.remember);
+                  this.props.onLogin(res.token, false);
                   this.props.history.push("/");
                 } else {
                   this.setState({messages: res.messages});

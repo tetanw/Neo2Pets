@@ -228,6 +228,7 @@ class Inventory extends Component {
             request: null
           });
         }
+        console.log(response);
       }
     };
     request.open(
