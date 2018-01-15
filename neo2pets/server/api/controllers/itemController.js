@@ -60,6 +60,18 @@ async function validatedCreateRandomItemHandler(value, modelMap, res) {
     .skip(randomTypeIndex);
 
   const user = await modelMap.userModel.findById(id);
+  if (user.money < 100) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "You do not have enough money for this",
+          field: "userToken"
+        }
+      ]
+    });
+  }
+
   user.money -= 100;
   await user.save();
 
