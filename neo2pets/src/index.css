@@ -61,6 +61,10 @@ body {
   margin: 5px;
 }
 
+.register-button.btn-default {
+  color: #333 !important;
+}
+
 .avatarimage {
   width: 100%;
   padding: 5px;

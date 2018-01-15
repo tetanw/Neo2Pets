@@ -70,19 +70,17 @@ class Login extends Component {
       <PageContainer>
         <Jumbotron className="jumbotron-style" style={{marginTop: "20px"}}>
           <Grid>
-            <Row>
-              <Col sm={1}>
-                <img src={logo} max-height="150px" max-width="30%"/>
-              </Col>
+            <Row style={{textAlign: "center"}}>
+              <img src={logo} style={{maxWidth: "90%"}}/>
             </Row>
-            <Row>
-              <Form onSubmit={this.onSubmit} horizontal>
+            <Form onSubmit={this.onSubmit} horizontal>
+              <Row>
 
                 <FormGroup controlId="formHorizontalUsername">
                   <Col componentClass={ControlLabel} sm={3}>
                     Username
                   </Col>
-                  <Col sm={5}>
+                  <Col sm={8}>
                     <FormControl
                       className="inputbox jumbotron-style"
                       name="username"
@@ -98,7 +96,7 @@ class Login extends Component {
                   <Col componentClass={ControlLabel} sm={3}>
                     Password
                   </Col>
-                  <Col sm={5}>
+                  <Col sm={8}>
                     <FormControl
                       className="inputbox jumbotron-style"
                       type="password"
@@ -124,20 +122,20 @@ class Login extends Component {
                     </Checkbox>
                   </Col>
                 </FormGroup>
-
+              </Row>
+              <Row>
                 <FormGroup>
                   <Col smOffset={3} sm={1}>
                     <Button type="submit">Sign In</Button>
                   </Col>
-                  <Col >
+                  <Col smOffset={1} sm={1}>
                     <LinkContainer to="/register">
-                      <Button type="button">Register</Button>
+                      <Button type="button" className="register-button">Register</Button>
                     </LinkContainer>
                   </Col>
-
                 </FormGroup>
-              </Form>
-            </Row>
+              </Row>
+            </Form>
           </Grid>
         </Jumbotron>
       </PageContainer>
