@@ -30,6 +30,9 @@ class CustomNavbar extends Component {
             <LinkContainer to="/games">
               <NavItem>Games</NavItem>
             </LinkContainer>
+            <LinkContainer to="/grab-bag">
+              <NavItem>Grab Bag</NavItem>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
