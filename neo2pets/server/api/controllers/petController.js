@@ -73,7 +73,14 @@ async function validatedGetPetHandler(value, modelMap, res) {
   hunger = Math.min(100, hunger);
   pet.lastHungerCheck = now;
   pet.hunger = hunger;
-  pet.save();
+
+  let fun = pet.fun + Math.abs(now - pet.lastFunCheck) / (1000 * 1 * 60) * 1;
+  fun = Math.max(0, fun);
+  fun = Math.min(100, fun);
+  pet.lastFunCheck = now;
+  pet.fun = fun;
+
+  await pet.save();
 
   res.send({
     status: "SUCCESS",
@@ -85,7 +92,8 @@ async function validatedGetPetHandler(value, modelMap, res) {
       },
       owner: pet.owner,
       nickName: pet.nickName,
-      hunger: pet.hunger
+      hunger: pet.hunger,
+      fun: pet.fun
     }
   });
 }

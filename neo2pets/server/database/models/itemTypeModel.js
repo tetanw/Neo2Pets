@@ -4,12 +4,8 @@ function createModel() {
   const schema = mongoose.Schema({
     name: String,
     imgPath: { type: String, default: "" },
-    properties: [String],
-    propertyData: {
-      TOY: {
-        funValue: Number
-      }
-    }
+    property: { type: String, default: "" },
+    value: { type: Number, default: "" }
   });
 
   return mongoose.model("ItemType", schema);
