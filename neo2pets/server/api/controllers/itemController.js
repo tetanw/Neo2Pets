@@ -52,7 +52,9 @@ async function validatedCreateRandomItemHandler(value, modelMap, res) {
 
   const { id } = jsonwebtoken.decode(userToken);
 
-  const randomTypeIndex = Math.floor(Math.random() * modelMap.itemTypeModel);
+  const randomTypeIndex = Math.floor(
+    Math.random() * (await modelMap.itemTypeModel.count())
+  );
   const randomItemType = await modelMap.itemTypeModel
     .findOne()
     .skip(randomTypeIndex);
