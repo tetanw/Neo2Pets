@@ -60,6 +60,7 @@ async function validatedListStoresHandler(value, modelMap, res) {
       return {
         id: oldStore.id,
         ownerName: oldStore.owner.username,
+        infinite: oldStore.infinite,
         nrItems,
         totalValue
       };
@@ -156,6 +157,7 @@ async function validateListBuyablesHandler(value, modelMap, res) {
     store: {
       id: store.id,
       ownerName: store.owner.username,
+      infinite: store.infinite,
       buyables
     }
   });
@@ -252,6 +254,30 @@ async function validatedAddItemToStoreHandler(value, modelMap, res) {
         {
           message: "Store does not exist",
           field: "storeID"
+        }
+      ]
+    });
+  }
+
+  if (store.owner.toString() !== id) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "You are not the owner of the store",
+          field: "userToken"
+        }
+      ]
+    });
+  }
+
+  if (store.infinite) {
+    return res.send({
+      status: "FAILED",
+      messages: [
+        {
+          message: "You can not add items to a store with infinite items",
+          field: "userToken"
         }
       ]
     });
