@@ -8,12 +8,12 @@ class SearchBar extends Component {
     return (
       <Fragment>
         <form onSubmit={(e) => e.preventDefault()}>
-          <FormGroup>
+          <FormGroup >
             <InputGroup>
-              <InputGroup.Addon>
+              <InputGroup.Addon className="jumbotron-style" style={{backgroundColor: "rgba(0,0,0,0.6)"}}>
                 Search
               </InputGroup.Addon>
-              <FormControl value={value} onChange={onTextChange} type="text"/>
+              <FormControl className="jumbotron-style" value={value} onChange={onTextChange} type="text"/>
             </InputGroup>
           </FormGroup>
         </form>
