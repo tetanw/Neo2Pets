@@ -86,7 +86,8 @@ async function validatedCreateRandomItemHandler(value, modelMap, res) {
       type: {
         name: randomItemType.name,
         property: randomItemType.property,
-        value: randomItemType.value
+        value: randomItemType.value,
+        imgPath: randomItemType.imgPath
       },
       ownerID: id
     }
@@ -213,8 +214,8 @@ async function validateConsumeItemHandler(value, modelMap, res) {
     pet.hunger = Math.max(pet.hunger, 0);
   } else if (item.type.property === "FUN") {
     pet.fun += item.type.value;
-    pet.fun = Math.min(pet.hunger, 100);
-    pet.fun = Math.max(pet.hunger, 0);
+    pet.fun = Math.min(pet.fun, 100);
+    pet.fun = Math.max(pet.fun, 0);
   }
   await pet.save();
 
