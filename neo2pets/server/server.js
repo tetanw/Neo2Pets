@@ -19,6 +19,9 @@ database.createDatabase().then(modelMap => {
   // host all of the images
   app.use("/images", express.static(path.resolve("public/images")));
 
+  // Serve static assets
+  app.use(express.static(path.resolve(__dirname, "..", "build")));
+
   // port defaults to 3000 if wno PORT set in env
   const port = 3001 | process.env.PORT;
   app.listen(port, () => {
