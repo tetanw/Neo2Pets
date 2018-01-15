@@ -286,6 +286,7 @@ async function validatedGetOwnedItemsHandler(value, modelMap, res, user) {
       type: {
         id: oldItem.type.id,
         name: oldItem.type.name,
+        imgPath: oldItem.type.imgPath,
         propertyData: oldItem.type.propertyData,
         properties: oldItem.type.properties
       }
