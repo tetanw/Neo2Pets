@@ -21,6 +21,10 @@ class UserSection extends Component {
   }
 
   componentDidMount() {
+    this.update();
+  }
+
+  update = () =>  {
     if (!this.state.loadingPet) {
       this.updatePet();
     }
@@ -28,6 +32,8 @@ class UserSection extends Component {
     if (!this.state.loadingMoney) {
       this.updateMoney();
     }
+
+    setTimeout(this.update, 5000);
   }
 
   render() {
