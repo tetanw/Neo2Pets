@@ -24,10 +24,18 @@ class Pet extends Component {
             <h4 style={{textAlign:"center"}}>Hunger:</h4>
             <ProgressBar
               style={{width: "80%", marginLeft: "auto", marginRight: "auto"}}
-              bsStyle={pet.hunger > 66 ? "success" : pet.hunger > 33 ? "warning" : "danger"}
+              bsStyle={pet.hunger < 33 ? "success" : pet.hunger < 66 ? "warning" : "danger"}
               className="progressbar"
               active
               now={100 - pet.hunger}
+            />
+            <h4 style={{textAlign:"center"}}>Fun:</h4>
+            <ProgressBar
+              style={{width: "80%", marginLeft: "auto", marginRight: "auto"}}
+              bsStyle={pet.fun > 66 ? "success" : pet.fun > 33 ? "warning" : "danger"}
+              className="progressbar"
+              active
+              now={pet.fun}
             />
           </Panel.Body>
         ) : (
