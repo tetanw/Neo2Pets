@@ -44,7 +44,6 @@ class Snake extends Component {
     if (this.state.gameOver || this.state.paused) {
       return;
     }
-    console.log("pause");
     this.setState({paused: true});
   };
 
@@ -52,7 +51,6 @@ class Snake extends Component {
     if (this.state.gameOver || !this.state.paused) {
       return;
     }
-    console.log("resume");
     this.setState({paused: false}, this._tick);
     this.refs.board.focus();
   };
@@ -119,7 +117,6 @@ class Snake extends Component {
 
   _gameover() {
     this.setState({gameOver: true});
-    console.log("Game Over, score: " + this._score());
 
     fetch('/api/money/increase', {
       method: "POST",
@@ -135,7 +132,6 @@ class Snake extends Component {
         return res.json();
       })
       .then(res => {
-        console.log(res);
         this.props.onMoneyChange();
       });
 
