@@ -74,7 +74,7 @@ async function validatedGetPetHandler(value, modelMap, res) {
   pet.lastHungerCheck = now;
   pet.hunger = hunger;
 
-  let fun = pet.fun + Math.abs(now - pet.lastFunCheck) / (1000 * 1 * 60) * 1;
+  let fun = pet.fun - Math.abs(now - pet.lastFunCheck) / (1000 * 1 * 60) * 1;
   fun = Math.max(0, fun);
   fun = Math.min(100, fun);
   pet.lastFunCheck = now;

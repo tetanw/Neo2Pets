@@ -5,7 +5,7 @@ function createModel() {
     name: String,
     imgPath: { type: String, default: "" },
     property: { type: String, default: "" },
-    value: { type: Number, default: "" }
+    value: { type: Number, default: 0 }
   });
 
   return mongoose.model("ItemType", schema);
