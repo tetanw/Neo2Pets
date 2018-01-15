@@ -163,8 +163,6 @@ async function validatedGetItemHandler(value, modelMap, res) {
     });
   }
 
-  console.log(item.type);
-
   res.send({
     status: "SUCCESS",
     item: {
