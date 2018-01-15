@@ -13,23 +13,6 @@ const getItemTypeByNameSchema = joi.object().keys({
     .required()
 });
 
-const createItemTypeSchema = joi.object().keys({
-  name: joi
-    .string()
-    .alphanum()
-    .required(),
-  imgPath: joi.string().required(),
-  properties: joi
-    .array()
-    .items(joi.string())
-    .required(),
-  propertyData: {
-    TOY: joi.object({
-      funValue: joi.number().required()
-    })
-  }
-});
-
 async function validatedGetItemTypeByNameHandler(value, modelMap, res) {
   const { name } = value;
 
@@ -47,53 +30,24 @@ async function validatedGetItemTypeByNameHandler(value, modelMap, res) {
     });
   }
 
-  res.send({
-    status: "SUCCESS",
-    itemType: {
-      name: itemType.name,
-      properties: itemType.properties,
-      imgPath: itemType.imgPath,
-      propertyData: itemType.propertyData
-    }
-  });
-}
-
-async function validatedCreateItemTypeHandler(value, modelMap, res) {
-  const { name, properties, propertyData: { TOY }, imgPath } = value;
-
-  const itemType = await modelMap.itemTypeModel.findOne({ name: name });
-
-  if (itemType) {
+  if (itemType.name !== "FOOD" && itemType.name !== "FUN") {
     return res.send({
       status: "FAILED",
       messages: [
         {
-          message: `The type with the name ${name} already exists`,
-          field: "typeName"
+          message: "Unkown item type"
         }
       ]
     });
   }
 
-  const databaseItemType = await modelMap.itemTypeModel.create({
-    name,
-    properties,
-    imgPath,
-    propertyData: {
-      TOY
-    }
-  });
-
   res.send({
     status: "SUCCESS",
     itemType: {
-      id: databaseItemType._id,
-      imgPath: databaseItemType.imgPath,
-      type: databaseItemType.name,
-      properties: properties,
-      propertyData: {
-        TOY
-      }
+      name: itemType.name,
+      property: itemType.property,
+      value: itemType.value,
+      imgPath: itemType.imgPath
     }
   });
 }
@@ -111,17 +65,6 @@ function getItemTypeController(modelMap) {
       getItemTypeByNameSchema,
       modelMap,
       validatedGetItemTypeByNameHandler
-    )
-  );
-
-  router.post(
-    "/create",
-    bodyParser.json(),
-    createControllerHandler(
-      "POST",
-      createItemTypeSchema,
-      modelMap,
-      validatedCreateItemTypeHandler
     )
   );
 

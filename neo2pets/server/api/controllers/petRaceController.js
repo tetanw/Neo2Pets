@@ -13,14 +13,6 @@ const getPetRaceSchema = joi.object().keys({
     .required()
 });
 
-const createPetRaceSchema = joi.object().keys({
-  name: joi
-    .string()
-    .alphanum()
-    .required(),
-  imgPath: joi.string().required()
-});
-
 async function validatedGetPetRaceHandler(value, modelMap, res) {
   const { name } = value;
 
@@ -47,38 +39,6 @@ async function validatedGetPetRaceHandler(value, modelMap, res) {
   });
 }
 
-async function validatedCreatePetRaceHandler(value, modelMap, res) {
-  const { name, imgPath } = value;
-
-  const petRace = await modelMap.petRaceModel.findOne({ name: name });
-
-  if (petRace) {
-    return res.send({
-      status: "FAILED",
-      messages: [
-        {
-          message: `The race with the name ${name} already exists`,
-          field: "name"
-        }
-      ]
-    });
-  }
-
-  const databasePetRace = await modelMap.petRaceModel.create({
-    name,
-    imgPath
-  });
-
-  res.send({
-    status: "SUCCESS",
-    petRace: {
-      id: databasePetRace._id,
-      name: databasePetRace.name,
-      imgPath: databasePetRace.imgPath
-    }
-  });
-}
-
 /**
  * Returns an express router filled with the item type routes
  */
@@ -92,17 +52,6 @@ function getPetRaceController(modelMap) {
       getPetRaceSchema,
       modelMap,
       validatedGetPetRaceHandler
-    )
-  );
-
-  router.post(
-    "/create",
-    bodyParser.json(),
-    createControllerHandler(
-      "POST",
-      createPetRaceSchema,
-      modelMap,
-      validatedCreatePetRaceHandler
     )
   );
 
