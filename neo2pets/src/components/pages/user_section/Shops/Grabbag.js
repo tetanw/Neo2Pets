@@ -33,7 +33,7 @@ class Grabbag extends Component {
                 </Panel.Body>
                 <Panel.Footer className="bgc">
                   <div style={{textAlign: "center"}}>
-                    <h1>Click to buy a random item for 20$!</h1>
+                    <h1>Click to buy a random item for 100$!</h1>
                   </div>
                 </Panel.Footer>
               </Panel>
