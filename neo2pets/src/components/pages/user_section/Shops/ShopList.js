@@ -60,9 +60,18 @@ class ShopList extends Component {
                 onTextChange={this.onSearchBarTextChange}
               />
               <Row>
-              {stores.filter(store => store.ownerName.toLowerCase().includes(searchbarText.toLowerCase())).map((store, index) => (
-                <Col key={index} xs={6} sm={6} md={4} lg={4}>
-                  <Store onStoreClick={this.onStoreClick} ownerName={store.ownerName} storeIndex={index}/>
+              {stores.filter(store =>
+                store.ownerName.toLowerCase().includes(searchbarText.toLowerCase()) &&
+                store.nrItems >= 0
+              ).map((store, index) => (
+                <Col key={index} xs={12} sm={6} md={4} lg={4}>
+                  <Store onStoreClick={this.onStoreClick}
+                         ownerName={store.ownerName}
+                         storeIndex={index}
+                         nrItems={store.nrItems}
+                         totalValue={store.totalValue}
+                         ownStore={store.ownStore}
+                  />
                 </Col>
               ))}
               </Row>

@@ -61,6 +61,10 @@ body {
   margin: 5px;
 }
 
+.register-button.btn-default {
+  color: #333 !important;
+}
+
 .avatarimage {
   width: 100%;
   padding: 5px;
@@ -91,6 +95,23 @@ body {
 
 .inline .container {
   width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    flex-direction: column-reverse;
+    margin-top: 65px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .sidebar {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .inline {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
 }
 
 .panel-heading {

@@ -55,7 +55,7 @@ class App extends Component {
         })
         .then(res => {
           console.log(res);
-          if (res.status !== "SUCCESS") {
+          if (res.status === "SUCCESS") {
             fetch('/api/auth/login', {
                 method: "POST",
                 headers: {
@@ -73,7 +73,7 @@ class App extends Component {
               .then(res => {
                 console.log(res);
                 if (res.token !== undefined) {
-                  this.props.onLogin(res.token, this.state.remember);
+                  this.props.onLogin(res.token, false);
                   this.props.history.push("/");
                 } else {
                   this.setState({messages: res.messages});
@@ -94,19 +94,17 @@ class App extends Component {
       <PageContainer>
         <Jumbotron className="jumbotron-style" style={{marginTop: "20px"}}>
           <Grid>
-            <Row>
-              <Col sm={1}>
-                <img src={logo} max-height="150px" max-width="30%"/>
-              </Col>
+            <Row style={{textAlign: "center"}}>
+              <img src={logo} style={{maxWidth: "90%"}}/>
             </Row>
             <Row>
               <Form horizontal onSubmit={this.onSubmit}>
 
                 <FormGroup controlId="formHorizontalUsername">
-                  <Col componentClass={ControlLabel} sm={3}>
+                  <Col componentClass={ControlLabel} sm={2}>
                     Username
                   </Col>
-                  <Col sm={5}>
+                  <Col sm={8}>
                     <FormControl
                       className="inputbox jumbotron-style"
                       name="username"
@@ -119,10 +117,10 @@ class App extends Component {
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalEmail">
-                  <Col componentClass={ControlLabel} sm={3}>
+                  <Col componentClass={ControlLabel} sm={2}>
                     E-mail
                   </Col>
-                  <Col sm={5}>
+                  <Col sm={8}>
                     <FormControl
                       className="inputbox jumbotron-style"
                       name="email"
@@ -135,11 +133,11 @@ class App extends Component {
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalPassword">
-                  <Col componentClass={ControlLabel} sm={3}>
+                  <Col componentClass={ControlLabel} sm={2}>
                     Password
                   </Col>
 
-                  <Col sm={5}>
+                  <Col sm={8}>
                     <FormControl
                       label='Password'
                       className="inputbox jumbotron-style"
@@ -154,11 +152,11 @@ class App extends Component {
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalPasswordValidation">
-                  <Col componentClass={ControlLabel} sm={3}>
+                  <Col componentClass={ControlLabel} sm={2}>
                     Type password again
                   </Col>
 
-                  <Col sm={5}>
+                  <Col sm={8}>
                     <FormControl
                       label='Confirm Password'
                       className="inputbox jumbotron-style"
@@ -172,13 +170,13 @@ class App extends Component {
                   </Col>
                 </FormGroup>
 
-                <Col smOffset={3} sm={5}>
+                <Col smOffset={2} sm={8}>
                 {this.state.messages !== undefined ? this.state.messages.map((m, i) => <p
                   key={i} style={{textAlign: "center"}}>{m.message}</p>) : null}
                 </Col>
 
                 <FormGroup>
-                  <Col smOffset={3} sm={5}>
+                  <Col smOffset={2} sm={5}>
                     <Button  type="submit">Register</Button>
                   </Col>
 

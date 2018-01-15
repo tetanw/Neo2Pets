@@ -9,6 +9,7 @@ class ShopItemModal extends Component {
       buyable,
       onClose,
       onBuyClick,
+      ownStore
     } = this.props;
 
     if (buyable === null)
@@ -26,7 +27,7 @@ class ShopItemModal extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={onBuyClick}> Buy item </Button>
+          <Button onClick={onBuyClick}> {ownStore ? "Remove from your store" : "Buy item"} </Button>
           <Button onClick={onClose}> Close </Button>
         </Modal.Footer>
       </Modal>
