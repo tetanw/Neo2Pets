@@ -187,7 +187,7 @@ async function validateConsumeItemHandler(value, modelMap, res) {
     });
   }
 
-  if (item.type.includes("FOOD")) {
+  if (item.type.properties.includes("FOOD")) {
     const pet = await modelMap.petModel.findOne({ owner: id });
 
     if (!item.type.propertyData.food_value) {

@@ -215,20 +215,20 @@ async function validatedBuyItemHandler(value, modelMap, res) {
 
   // subtract the money from the sender
   user.money -= buyable.price;
-  user.save();
+  await user.save();
 
   // remove the buyable from the store
   store.buyables = store.buyables.filter(buyable => buyable.id !== buyableID);
-  store.save();
+  await store.save();
 
   // add the money to the store owner
-  const owner = await modelMap.userModel.findById(owner);
+  const owner = await modelMap.userModel.findById(store.owner.id.toString());
   owner.money += buyable.price;
-  owner.save();
+  await owner.save();
 
   // set the sender as owner, aka adding it to his inventory
-  await modelMap.itemModel.findOneAndUpdate(
-    { id: buyable.item },
+  const found = await modelMap.itemModel.findOneAndUpdate(
+    { _id: buyable.item },
     { owner: id }
   );
 
