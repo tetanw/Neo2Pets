@@ -27,6 +27,10 @@ const createItemSchema = joi.object().keys({
   userToken: joi.string().required()
 });
 
+const createRandomItemSchema = joi.object().keys({
+  userToken: joi.string().required()
+});
+
 const deleteItemSchema = joi.object().keys({
   itemID: joi
     .string()
@@ -38,6 +42,37 @@ const deleteItemSchema = joi.object().keys({
 const getOwnedItemsSchema = joi.object().keys({
   userToken: joi.string().required()
 });
+
+async function validatedCreateRandomItemHandler(value, modelMap, res) {
+  const { userToken } = value;
+
+  if (!checkAuth(res, userToken, "userToken")) {
+    return;
+  }
+
+  const { id } = jsonwebtoken.decode(userToken);
+
+  const randomTypeIndex = Math.floor(Math.random() * modelMap.itemTypeModel);
+  const randomItemType = await modelMap.itemTypeModel
+    .findOne()
+    .skip(randomTypeIndex);
+
+  // create an item in the database with the user from the user token
+  // as owner
+  const databaseItem = await modelMap.itemModel.create({
+    type: randomItemType._id,
+    owner: id
+  });
+
+  res.send({
+    status: "SUCCESS",
+    item: {
+      id: databaseItem._id,
+      type: randomItemType.name,
+      ownerID: id
+    }
+  });
+}
 
 async function validatedDeleteItemHandler(value, modelMap, res) {
   const { itemID, userToken } = value;
@@ -306,6 +341,17 @@ function getItemController(modelMap) {
       deleteItemSchema,
       modelMap,
       validatedDeleteItemHandler
+    )
+  );
+
+  router.post(
+    "/createrandom",
+    bodyParser.json(),
+    createControllerHandler(
+      "POST",
+      createRandomItemSchema,
+      modelMap,
+      validatedCreateRandomItemHandler
     )
   );
 
