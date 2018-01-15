@@ -19,15 +19,15 @@ class Pet extends Component {
         </Panel.Heading>
         {this.props.pet !== undefined ? (
           <Panel.Body>
-            <h3>the {pet.race.name}</h3>
+            <h4>the {pet.race.name}</h4>
             <Image src={"/images/" + pet.race.imgPath}/>
-            <h3>{pet.name}</h3>
+            <h4 style={{textAlign:"center"}}>Hunger:</h4>
             <ProgressBar
               style={{width: "80%", marginLeft: "auto", marginRight: "auto"}}
-              bsStyle="success"
+              bsStyle={pet.hunger > 66 ? "success" : pet.hunger > 33 ? "warning" : "danger"}
               className="progressbar"
               active
-              now={50}
+              now={100 - pet.hunger}
             />
           </Panel.Body>
         ) : (
