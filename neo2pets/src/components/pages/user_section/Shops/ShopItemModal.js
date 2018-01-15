@@ -22,7 +22,7 @@ class ShopItemModal extends Component {
           </Modal.Header>
 
         <Modal.Body>
-          <Image className=" img-responsive center-block" src={icon} />
+          <Image className=" img-responsive center-block" src={"/images/" + buyable.item.type.imgPath} />
           {buyable.price}$
         </Modal.Body>
 

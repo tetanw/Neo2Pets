@@ -8,7 +8,7 @@ class Item extends Component {
       <a onClick={this.onItemClick}>
         <Panel className= "bgc">
           <Panel.Body>
-            <Image className="img-responsive center-block" src={icon} />
+            <Image className="img-responsive center-block" src={"/images/" + this.props.imgPath} />
           </Panel.Body>
           <Panel.Footer className="bgc">
             <div style={{ textAlign: "center" }}>

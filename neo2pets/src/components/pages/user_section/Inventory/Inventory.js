@@ -63,7 +63,7 @@ class Inventory extends Component {
             <Row>
               {items.filter(item => item.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((item, index) => (
                 <Col key={index} xs={6} sm={4} md={3} lg={2}>
-                  <Item onItemClick={this.onItemClick} name={item.type.name} itemIndex={index}/>
+                  <Item onItemClick={this.onItemClick} name={item.type.name} itemIndex={index} imgPath={item.type.imgPath}/>
                 </Col>
               ))}
             </Row>

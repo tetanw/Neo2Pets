@@ -67,7 +67,7 @@ class Shop extends Component {
               {store.buyables.filter(buyable => buyable.item.type.name.toLowerCase().includes(searchbarText.toLowerCase())).map((buyable, index) => (
                 <Col key={index} xs={6} sm={4} md={3} lg={2}>
                   <Item onItemClick={this.onItemClick} name={buyable.item.type.name + " - " + buyable.price + "$"}
-                        itemIndex={index}/>
+                        itemIndex={index} imgPath={buyable.item.type.imgPath}/>
                 </Col>
               ))}
             </Row>
