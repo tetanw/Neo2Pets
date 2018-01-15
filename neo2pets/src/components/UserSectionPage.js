@@ -7,6 +7,7 @@ import Games from "./pages/user_section/Games";
 import Snake from "./pages/user_section/GamesFolder/Snake/Snake"
 import CreateAvatar from "./pages/CreateAvatar";
 import Inventory from "./pages/user_section/Inventory/Inventory";
+import GrabBag from "./pages/user_section/Shops/Grabbag";
 import "../index.css";
 
 // The Main component renders one of the three provided
@@ -57,6 +58,10 @@ class Page extends Component {
             render={withProps(CreateAvatar, token, onPetChange, onMoneyChange)}
           />
 
+          <Route
+            path="/grab-bag"
+            render={withProps(GrabBag, token, onPetChange, onMoneyChange)}
+            />
         </Switch>
       </PageContainer>
     );
