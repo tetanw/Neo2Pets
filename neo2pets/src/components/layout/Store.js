@@ -9,8 +9,8 @@ class Store extends Component {
         <Panel className= "bgc">
           <Panel.Body>
           <div style={{ textAlign: "center" }}>
-            <h4>Items for sale:{this.props.nrItems}</h4>
-            <h4>Total value:{this.props.totalValue}</h4>
+            <h4>Items for sale: {this.props.nrItems}</h4>
+            <h4>Total value: {this.props.totalValue}</h4>
             </div>
           </Panel.Body>
           <Panel.Footer className="bgc">
