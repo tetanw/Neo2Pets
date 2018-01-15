@@ -156,6 +156,7 @@ async function validateListBuyablesHandler(value, modelMap, res) {
     status: "SUCCESS",
     store: {
       id: store.id,
+      ownStore: store.owner.id === id,
       ownerName: store.owner.username,
       infinite: store.infinite,
       buyables
@@ -184,14 +185,14 @@ async function validatedBuyItemHandler(value, modelMap, res) {
     });
   }
 
-  if (store.owner.id.toString() === id) {
-    return res.send({
-      status: "FAILED",
-      messages: [
-        { message: "You can not buy your own items", field: "userToken" }
-      ]
-    });
-  }
+  // if (store.owner.id.toString() === id) {
+  //   return res.send({
+  //     status: "FAILED",
+  //     messages: [
+  //       { message: "You can not buy your own items", field: "userToken" }
+  //     ]
+  //   });
+  // }
 
   const user = await modelMap.userModel.findOne({ _id: id });
   const buyables = store.buyables.filter(buyable => buyable.id === buyableID);
