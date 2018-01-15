@@ -5,7 +5,7 @@ const config = {
   connectTimeoutMS: 30000,
   reconnectTries: 3600,
   reconnectInterval: 2000,
-  useMongoClient: true,
+  useMongoClient: true
 };
 
 function createDatabase() {
