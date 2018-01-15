@@ -1,13 +1,4 @@
 import React, { Component, Fragment } from "react";
-import ImagePicker from "react-image-picker";
-import Neopet1 from "../../assets/images/neopets/Neopet1.png";
-import Neopet2 from "../../assets/images/neopets/Neopet2.png";
-import Neopet3 from "../../assets/images/neopets/Neopet3.png";
-import Neopet4 from "../../assets/images/neopets/Neopet4.png";
-import Neopet5 from "../../assets/images/neopets/Neopet5.png";
-import Neopet6 from "../../assets/images/neopets/Neopet6.png";
-import Neopet7 from "../../assets/images/neopets/Neopet7.png";
-import Neopet8 from "../../assets/images/neopets/Neopet8.png";
 import { Redirect } from "react-router";
 import {
   Grid,
@@ -110,49 +101,49 @@ class CreateAvatar extends React.Component {
               <Row>
                 <RacePanel
                   raceName={"Tentaeot"}
-                  image={Neopet1}
+                  image={"/images/neopets/Neopet1.png"}
                   onPetRaceClick={this.onPetRaceClick}
                   selected={this.state.selectedPetRace === "Tentaeot"}
                 />
                 <RacePanel
                   raceName={"Vaportwo"}
-                  image={Neopet2}
+                  image={"/images/neopets/Neopet2.png"}
                   onPetRaceClick={this.onPetRaceClick}
                   selected={this.state.selectedPetRace === "Vaportwo"}
                 />
                 <RacePanel
                   raceName={"Pidvee"}
-                  image={Neopet3}
+                  image={"/images/neopets/Neopet3.png"}
                   onPetRaceClick={this.onPetRaceClick}
                   selected={this.state.selectedPetRace === "Pidvee"}
                 />
                 <RacePanel
                   raceName={"Drowchu"}
-                  image={Neopet4}
+                  image={"/images/neopets/Neopet4.png"}
                   onPetRaceClick={this.onPetRaceClick}
                   selected={this.state.selectedPetRace === "Drowchu"}
                 />
                 <RacePanel
                   raceName={"Parabat"}
-                  image={Neopet5}
+                  image={"/images/neopets/Neopet5.png"}
                   onPetRaceClick={this.onPetRaceClick}
                   selected={this.state.selectedPetRace === "Parabat"}
                 />
                 <RacePanel
                   raceName={"Scybasaur"}
-                  image={Neopet6}
+                  image={"/images/neopets/Neopet6.png"}
                   onPetRaceClick={this.onPetRaceClick}
                   selected={this.state.selectedPetRace === "Scybasaur"}
                 />
                 <RacePanel
                   raceName={"Goldzee"}
-                  image={Neopet7}
+                  image={"/images/neopets/Neopet7.png"}
                   onPetRaceClick={this.onPetRaceClick}
                   selected={this.state.selectedPetRace === "Goldzee"}
                 />
                 <RacePanel
                   raceName={"Charsian"}
-                  image={Neopet8}
+                  image={"/images/neopets/Neopet8.png"}
                   onPetRaceClick={this.onPetRaceClick}
                   selected={this.state.selectedPetRace === "Charsian"}
                 />

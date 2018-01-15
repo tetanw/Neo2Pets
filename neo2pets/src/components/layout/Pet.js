@@ -20,7 +20,7 @@ class Pet extends Component {
         {this.props.pet !== undefined ? (
           <Panel.Body>
             <h3>the {pet.race.name}</h3>
-            <Image src={Neopet2}/>
+            <Image src={"/images/" + pet.race.imgPath}/>
             <h3>{pet.name}</h3>
             <ProgressBar
               style={{width: "80%", marginLeft: "auto", marginRight: "auto"}}
