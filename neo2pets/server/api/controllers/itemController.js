@@ -152,7 +152,26 @@ async function validateConsumeItemHandler(value, modelMap, res) {
     });
   }
 
-  if (item.type) {
+  if (item.type.includes("FOOD")) {
+    const pet = await modelMap.petModel.findOne({ owner: id });
+
+    if (!item.type.propertyData.food_value) {
+      return res.send({
+        status: "FAILED",
+        messages: [
+          {
+            message:
+              "Item includes property FOOD but does not have field food_value",
+            field: "propertyData"
+          }
+        ]
+      });
+    }
+
+    pet.hunger -= item.type.propertyData.food_value;
+    pet.hunger = Math.min(pet.hunger, 100);
+    pet.hunger = Math.max(pet.hunger, 0);
+    pet.save();
   }
 
   const removedItem = await modelMap.itemModel.remove({ _id: itemID });
