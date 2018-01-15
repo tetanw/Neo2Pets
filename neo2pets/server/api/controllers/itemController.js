@@ -86,7 +86,8 @@ async function validatedCreateRandomItemHandler(value, modelMap, res) {
       type: {
         name: randomItemType.name,
         property: randomItemType.property,
-        value: randomItemType.value
+        value: randomItemType.value,
+        imgPath: randomItemType.imgPath
       },
       ownerID: id
     }
