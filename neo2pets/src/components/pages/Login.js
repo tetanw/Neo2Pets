@@ -26,7 +26,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      remember: false,
+      remember: true,
 
       messages: []
     };
@@ -77,7 +77,7 @@ class Login extends Component {
               <Row>
 
                 <FormGroup controlId="formHorizontalUsername">
-                  <Col componentClass={ControlLabel} sm={3}>
+                  <Col componentClass={ControlLabel} sm={2}>
                     Username
                   </Col>
                   <Col sm={8}>
@@ -93,7 +93,7 @@ class Login extends Component {
                 </FormGroup>
 
                 <FormGroup controlId="formHorizontalPassword">
-                  <Col componentClass={ControlLabel} sm={3}>
+                  <Col componentClass={ControlLabel} sm={2}>
                     Password
                   </Col>
                   <Col sm={8}>
