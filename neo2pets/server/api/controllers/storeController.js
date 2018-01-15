@@ -132,8 +132,9 @@ async function validateListBuyablesHandler(value, modelMap, res) {
       const {
         name,
         _id: id,
-        propertyData,
-        properties
+        value,
+        property,
+        imgPath
       } = await modelMap.itemTypeModel.findById(newItemType);
 
       return {
@@ -143,8 +144,9 @@ async function validateListBuyablesHandler(value, modelMap, res) {
           type: {
             name,
             id,
-            propertyData,
-            propertyData
+            value,
+            property,
+            imgPath
           }
         },
         price: oldBuyable.price
