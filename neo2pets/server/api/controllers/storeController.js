@@ -51,10 +51,19 @@ async function validatedListStoresHandler(value, modelMap, res) {
   }
 
   const stores = (await modelMap.storeModel.find({}).populate("owner")).map(
-    oldStore => ({
-      id: oldStore.id,
-      ownerName: oldStore.owner.username
-    })
+    oldStore => {
+      const nrItems = oldStore.buyables.length;
+      const totalValue = oldStore.buyables.reduce((total, item) => {
+        return total + item.price;
+      }, 0);
+
+      return {
+        id: oldStore.id,
+        ownerName: oldStore.owner.username,
+        nrItems,
+        totalValue
+      };
+    }
   );
 
   res.send({
@@ -173,7 +182,7 @@ async function validatedBuyItemHandler(value, modelMap, res) {
     });
   }
 
-  if (store.owner == id) {
+  if (store.owner.id.toString() === id) {
     return res.send({
       status: "FAILED",
       messages: [
@@ -184,7 +193,7 @@ async function validatedBuyItemHandler(value, modelMap, res) {
 
   const user = await modelMap.userModel.findOne({ _id: id });
   const buyables = store.buyables.filter(buyable => buyable.id === buyableID);
-  if (buyables.length !== 1) {
+  if (buyables.length === 0) {
     return res.send({
       status: "FAILED",
       messages: [{ message: "Buyable does not exist", field: "buyableID" }]
@@ -201,7 +210,7 @@ async function validatedBuyItemHandler(value, modelMap, res) {
     });
   }
 
-  // substract the money from the sender
+  // subtract the money from the sender
   user.money -= buyable.price;
   user.save();
 
@@ -210,9 +219,11 @@ async function validatedBuyItemHandler(value, modelMap, res) {
   store.save();
 
   // add the money to the store owner
-  store.owner.money += buyable.price;
+  const owner = await modelMap.userModel.findById(owner);
+  owner.money += buyable.price;
+  owner.save();
 
-  // set the sender as owner
+  // set the sender as owner, aka adding it to his inventory
   await modelMap.itemModel.findOneAndUpdate(
     { id: buyable.item },
     { owner: id }

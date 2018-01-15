@@ -126,7 +126,7 @@ async function validateConsumeItemHandler(value, modelMap, res) {
 
   const { id } = jsonwebtoken.decode(userToken);
 
-  const item = await modelMap.itemModel.findById(itemID);
+  const item = await modelMap.itemModel.findById(itemID).populate("type");
 
   if (!item) {
     return res.send({
@@ -150,6 +150,9 @@ async function validateConsumeItemHandler(value, modelMap, res) {
         }
       ]
     });
+  }
+
+  if (item.type) {
   }
 
   const removedItem = await modelMap.itemModel.remove({ _id: itemID });

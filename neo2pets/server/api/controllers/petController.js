@@ -66,6 +66,15 @@ async function validatedGetPetHandler(value, modelMap, res) {
     });
   }
 
+  const now = Date.now();
+  let hunger =
+    pet.hunger + Math.abs(now - pet.lastHungerCheck) / (1000 * 1 * 60) * 1;
+  hunger = Math.max(0, hunger);
+  hunger = Math.min(100, hunger);
+  pet.lastHungerCheck = now;
+  pet.hunger = hunger;
+  pet.save();
+
   res.send({
     status: "SUCCESS",
     pet: {
@@ -75,7 +84,8 @@ async function validatedGetPetHandler(value, modelMap, res) {
         imgPath: pet.race.imgPath
       },
       owner: pet.owner,
-      nickName: pet.nickName
+      nickName: pet.nickName,
+      hunger: pet.hunger
     }
   });
 }
