@@ -127,8 +127,6 @@ class Inventory extends Component {
         if (res.status === "SUCCESS") {
           this.updateItems();
           this.props.onPetChange();
-        } else {
-          console.log(res);
         }
       });
 
@@ -162,8 +160,6 @@ class Inventory extends Component {
       .then(res => {
         if (res.status === "SUCCESS") {
           this.updateItems();
-        } else {
-          console.log(res);
         }
       });
 
@@ -197,8 +193,6 @@ class Inventory extends Component {
       .then(res => {
         if (res.status === "SUCCESS") {
           this.updateItems();
-        } else {
-          console.log(res);
         }
       });
 
@@ -228,7 +222,6 @@ class Inventory extends Component {
             request: null
           });
         }
-        console.log(response);
       }
     };
     request.open(

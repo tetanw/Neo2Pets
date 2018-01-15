@@ -52,7 +52,6 @@ class Login extends Component {
         return res.json();
       })
       .then(res => {
-        console.log(res);
         if (res.token !== undefined) {
           this.props.onLogin(res.token, this.state.remember);
           this.props.history.push("/");

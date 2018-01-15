@@ -50,7 +50,6 @@ class Grabbag extends Component {
   }
 
   onItemClick = () => {
-    console.log("open");
     fetch('/api/item/createrandom', {
       method: "POST",
       headers: {
@@ -70,12 +69,10 @@ class Grabbag extends Component {
             item: res.item,
           });
         }
-        console.log(res);
       });
   };
 
   onModalClose = () => {
-    console.log("close")
     this.setState({
       showModal: false,
     });

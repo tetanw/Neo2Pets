@@ -36,7 +36,6 @@ class App extends Component {
   }
 
   onSubmit(e) {
-    console.log("test");
     if (this.state.password === this.state.password2) {
       fetch('/api/auth/register', {
           method: "POST",
@@ -54,7 +53,6 @@ class App extends Component {
           return res.json();
         })
         .then(res => {
-          console.log(res);
           if (res.status === "SUCCESS") {
             fetch('/api/auth/login', {
                 method: "POST",
@@ -71,7 +69,6 @@ class App extends Component {
                 return res.json();
               })
               .then(res => {
-                console.log(res);
                 if (res.token !== undefined) {
                   this.props.onLogin(res.token, false);
                   this.props.history.push("/");

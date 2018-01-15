@@ -130,7 +130,6 @@ class Shop extends Component {
           this.updateStore();
           this.props.onMoneyChange();
         }
-        console.log(res);
       });
 
     this.setState({
@@ -160,7 +159,6 @@ class Shop extends Component {
             request: null
           });
         }
-        console.log(response);
       }
     };
     request.open(

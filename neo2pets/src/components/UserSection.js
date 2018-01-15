@@ -95,7 +95,6 @@ class UserSection extends Component {
         return res.json();
       })
       .then(res => {
-        console.log(res);
         if (res.status === "SUCCESS") {
           this.setState({
             pet: res.pet,
@@ -120,7 +119,6 @@ class UserSection extends Component {
         return res.json();
       })
       .then(res => {
-        console.log(res);
         if (res.status === "SUCCESS") {
           this.setState({
             money: res.money,

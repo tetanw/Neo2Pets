@@ -110,7 +110,6 @@ class ShopList extends Component {
               request: null
             });
           }
-          console.log(response);
         }
       };
       request.open(

@@ -11,7 +11,6 @@ class App extends Component {
     this.onLogin = this.onLogin.bind(this);
     this.checkAuth = this.checkAuth.bind(this);
 
-    console.log("Initiating the application");
     this.state = {
       checking: false,
       checked: false
@@ -46,7 +45,6 @@ class App extends Component {
             return res.json();
           })
           .then(res => {
-            console.log("Checking the authentication");
             if (res.status === "SUCCESS") {
               this.setState({
                 auth_key: auth_key
@@ -64,7 +62,6 @@ class App extends Component {
         });
       }
     }
-    console.log("Finished checking the authentication.");
   }
 
   onLogin(auth_key, remember) {
