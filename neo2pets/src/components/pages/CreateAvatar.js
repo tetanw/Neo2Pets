@@ -33,9 +33,8 @@ class CreateAvatar extends React.Component {
     });
   };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     if (!(!this.state.name || !this.state.selectedPetRace)) {
-      console.log("hi");
       let request = new XMLHttpRequest();
       request.onreadystatechange = () => {
         if (request.readyState === XMLHttpRequest.DONE) {
@@ -49,7 +48,6 @@ class CreateAvatar extends React.Component {
               });
               return;
             }
-            console.log(response);
           }
 
           this.setState({
@@ -80,8 +78,8 @@ class CreateAvatar extends React.Component {
       <PageContainer>
         {this.state.isSubmitted && <Redirect to="/" />}
         <div className="jumbotron jumbotron-style">
-          <form onSubmit={this.onSubmit} style={{textAlign: "center"}}>
-            <label >
+          <form onSubmit={this.onSubmit} style={{ textAlign: "center" }}>
+            <label>
               <h1>Name your avatar:</h1>
               <FormGroup>
                 <InputGroup>
@@ -95,9 +93,7 @@ class CreateAvatar extends React.Component {
               </FormGroup>
             </label>
             <div>
-              <p>
-                Choose your avatar, choose wisely!
-              </p>
+              <p>Choose your avatar, choose wisely!</p>
               <Row>
                 <RacePanel
                   raceName={"Tentaeot"}
@@ -166,11 +162,15 @@ class CreateAvatar extends React.Component {
 
 class RacePanel extends Component {
   render() {
-    const { raceName, image, selected} = this.props;
+    const { raceName, image, selected } = this.props;
 
     return (
       <Col xs={6} sm={4} md={3}>
-        <div className="block" onClick={this.onPetRaceClick} style={selected ? {border: "5px solid white"} : {}}>
+        <div
+          className="block"
+          onClick={this.onPetRaceClick}
+          style={selected ? { border: "5px solid white" } : {}}
+        >
           <img className="avatarimage" src={image} />
           <div className="avatartext" style={{ textAlign: "center" }}>
             {raceName}

@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {Panel} from 'react-bootstrap';
-import {Link} from "react-router-dom";
+import React, { Component } from "react";
+import { Panel } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-
-var BODY = 1, FOOD = 2;
-var KEYS = {left: 37, up: 38, right: 39, down: 40};
-var DIRS = {37: true, 38: true, 39: true, 40: true};
+var BODY = 1,
+  FOOD = 2;
+var KEYS = { left: 37, up: 38, right: 39, down: 40 };
+var DIRS = { 37: true, 38: true, 39: true, 40: true };
 
 class Snake extends Component {
   constructor(props) {
@@ -23,7 +23,8 @@ class Snake extends Component {
 
   getInitState() {
     let start = this.props.startIndex || 21;
-    let snake = [start], board = [];
+    let snake = [start],
+      board = [];
     board[start] = BODY;
     return {
       snake: snake,
@@ -38,24 +39,22 @@ class Snake extends Component {
   _reset() {
     this.setState(this.getInitState());
     this._resume();
-  };
+  }
 
   _pause() {
     if (this.state.gameOver || this.state.paused) {
       return;
     }
-    console.log("pause");
-    this.setState({paused: true});
-  };
+    this.setState({ paused: true });
+  }
 
   _resume() {
     if (this.state.gameOver || !this.state.paused) {
       return;
     }
-    console.log("resume");
-    this.setState({paused: false}, this._tick);
+    this.setState({ paused: false }, this._tick);
     this.refs.board.focus();
-  };
+  }
 
   _tick() {
     if (this.state.paused) {
@@ -77,7 +76,8 @@ class Snake extends Component {
 
     var needsFood = board[head] == FOOD || snake.length == 1;
     if (needsFood) {
-      var ii, numCells = numRows * numCols;
+      var ii,
+        numCells = numRows * numCols;
       do {
         ii = Math.floor(Math.random() * numCells);
       } while (board[ii]);
@@ -105,7 +105,7 @@ class Snake extends Component {
     });
 
     setTimeout(this._tick, 100);
-  };
+  }
 
   _handleKey(event) {
     var direction = event.nativeEvent.keyCode;
@@ -115,36 +115,32 @@ class Snake extends Component {
     if (DIRS[direction] && difference !== 0 && difference !== 2) {
       this._nextDirection = direction;
     }
-  };
+  }
 
   _gameover() {
-    this.setState({gameOver: true});
-    console.log("Game Over, score: " + this._score());
+    this.setState({ gameOver: true });
 
-    fetch('/api/money/increase', {
+    fetch("/api/money/increase", {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         userToken: this.props.token,
-        amount: this._score(),
+        amount: this._score()
       })
     })
       .then(res => {
         return res.json();
       })
       .then(res => {
-        console.log(res);
         this.props.onMoneyChange();
       });
-
   }
 
   _score() {
     return Math.round(Math.max(0, (this.state.snake.length - 4) / 3 * 10));
   }
-
 
   render() {
     var cells = [];
@@ -155,8 +151,8 @@ class Snake extends Component {
     for (var row = 0; row < numRows; row++) {
       for (var col = 0; col < numCols; col++) {
         var code = this.state.board[numCols * row + col];
-        var type = code == BODY ? 'body' : code == FOOD ? 'food' : 'null';
-        cells.push(<div key={row + "," + col} className={type + '-cell'}/>);
+        var type = code == BODY ? "body" : code == FOOD ? "food" : "null";
+        cells.push(<div key={row + "," + col} className={type + "-cell"} />);
       }
     }
 
@@ -166,30 +162,39 @@ class Snake extends Component {
           <Panel.Title className="titleinv">Snake</Panel.Title>
         </Panel.Heading>
         <Panel.Body className="snake-game">
-          <h4 className="snake-score">
-            Score: {this._score()}
-          </h4>
+          <h4 className="snake-score">Score: {this._score()}</h4>
           <div
             ref="board"
-            className={'snake-board' + (this.state.gameOver ? ' game-over' : '')}
+            className={
+              "snake-board" + (this.state.gameOver ? " game-over" : "")
+            }
             tabIndex={0}
             onBlur={this._pause}
             //onFocus={this._resume}
             onKeyDown={this._handleKey}
-            style={{width: numCols * cellSize, height: numRows * cellSize, borderRadius: "5px"}}>
+            style={{
+              width: numCols * cellSize,
+              height: numRows * cellSize,
+              borderRadius: "5px"
+            }}
+          >
             {cells}
           </div>
           <div className="snake-controls">
-            {this.state.paused ? <button onClick={this._resume}>Resume</button> : null}
-            {this.state.gameOver ? <button onClick={this._reset}>New Game</button> : null}
+            {this.state.paused ? (
+              <button onClick={this._resume}>Resume</button>
+            ) : null}
+            {this.state.gameOver ? (
+              <button onClick={this._reset}>New Game</button>
+            ) : null}
           </div>
-          <h3 style={{textAlign: "center"}}><Link to='/games'>Back to games</Link></h3>
+          <h3 style={{ textAlign: "center" }}>
+            <Link to="/games">Back to games</Link>
+          </h3>
         </Panel.Body>
       </Panel>
-    )
-
-
-  };
+    );
+  }
 
   getNextIndex(head, direction, numRows, numCols) {
     // translate index into x/y coords to make math easier
@@ -215,10 +220,8 @@ class Snake extends Component {
     }
 
     // translate new x/y coords back into array index
-    return (numCols * y) + x;
-  };
-
-
+    return numCols * y + x;
+  }
 }
 
-export default Snake
+export default Snake;
