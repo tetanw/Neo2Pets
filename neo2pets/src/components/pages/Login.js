@@ -112,7 +112,7 @@ class Login extends Component {
                   key={i}>{m.message}</p>) : null}
 
                 <FormGroup>
-                  <Col smOffset={3} sm={10}>
+                  <Col smOffset={2} sm={10}>
                     <Checkbox
                       name="remember"
                       checked={this.state.remember}
@@ -125,11 +125,11 @@ class Login extends Component {
               </Row>
               <Row>
                 <FormGroup>
-                  <Col smOffset={3} sm={1}>
+                  <Col smOffset={2} sm={2} xs={6}>
                     <Button type="submit">Sign In</Button>
                   </Col>
-                  <Col smOffset={1} sm={1}>
-                    <LinkContainer to="/register">
+                  <Col smOffset={4} sm={2} xs={6}>
+                    <LinkContainer to="/register" style={{float: "right"}}>
                       <Button type="button" className="register-button">Register</Button>
                     </LinkContainer>
                   </Col>
