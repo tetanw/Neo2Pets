@@ -70,7 +70,6 @@ class ShopList extends Component {
                          storeIndex={index}
                          nrItems={store.nrItems}
                          totalValue={store.totalValue}
-                         ownStore={store.ownStore}
                   />
                 </Col>
               ))}

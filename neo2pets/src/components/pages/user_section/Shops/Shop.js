@@ -81,6 +81,7 @@ class Shop extends Component {
           buyable={this.state.modalBuyable}
           onClose={this.onItemClose}
           onBuyClick={this.onBuyClick}
+          ownStore={store.ownStore}
         />
       </Fragment>
     );
