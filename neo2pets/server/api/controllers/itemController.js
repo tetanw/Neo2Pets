@@ -57,6 +57,10 @@ async function validatedCreateRandomItemHandler(value, modelMap, res) {
     .findOne()
     .skip(randomTypeIndex);
 
+  const user = await modelMap.userModel.findById(id);
+  user.money -= 100;
+  await user.save();
+
   // create an item in the database with the user from the user token
   // as owner
   const databaseItem = await modelMap.itemModel.create({
